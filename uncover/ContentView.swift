@@ -8,14 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var currentTab: Tabs = .home
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        ZStack{
+            switch currentTab {
+            case .home:
+                HomeView()
+            case .search:
+                Text("Search")
+            case .plus:
+                Text("Plus")
+            case .notification:
+                Text("Notif")
+            case .profile:
+                Text("Profile")
+            }
         }
-        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay(
+            NavigationView(currentTab: $currentTab)
+                .padding(.bottom)
+            ,alignment: .bottom)
     }
 }
 
