@@ -87,7 +87,7 @@ struct BookDeckView: View {
             Image("background-img")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .background(Color.green)
+                .background(Color.white)
         )
         .cornerRadius(16)
         .padding(.horizontal, 21)
