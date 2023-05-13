@@ -2,7 +2,7 @@
 //  NavigationView.swift
 //  uncover
 //
-//  Created by Shohjahon Rakhmatov on 12/05/23.
+//  Created by Bekzod Rakhmatov on 12/05/23.
 //
 
 import SwiftUI
@@ -15,7 +15,7 @@ enum Tabs {
     case profile
 }
 
-struct NavigationView: View {
+struct TabBarView: View {
     
     @Binding var currentTab: Tabs
     
@@ -72,8 +72,8 @@ struct NavigationView: View {
     }
 }
 
-struct NavigationView_Previews: PreviewProvider {
+struct TabBarView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView(currentTab: .constant(.home))
+        TabBarView(currentTab: .constant(.home))
     }
 }
