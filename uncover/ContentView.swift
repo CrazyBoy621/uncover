@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @State var currentTab: Tabs = .home
+    
     var body: some View {
         NavigationView {
             ZStack{
@@ -28,7 +30,7 @@ struct ContentView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .overlay(
                 TabBarView(currentTab: $currentTab)
-//                    .padding(.bottom)
+                    .padding(.bottom)
             ,alignment: .bottom)
         }
     }

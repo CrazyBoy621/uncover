@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BookDetailView: View {
+    
     var body: some View {
         ZStack {
             VStack {
@@ -27,7 +28,6 @@ struct BookDetailView: View {
                                     ]),
                                     startPoint: .top,
                                     endPoint: .bottom)
-                                
                             )
                             .frame(height: 200)
                         ,alignment: .bottom
@@ -35,7 +35,7 @@ struct BookDetailView: View {
                     .edgesIgnoringSafeArea(.top)
                 Spacer()
             }
-            ScrollView{
+            ScrollView {
                 DetailContent()
                     .padding(.top, 150)
                     .edgesIgnoringSafeArea(.all)
@@ -53,33 +53,33 @@ struct BookDetailView: View {
                     Circle()
                         .fill(Color.gray)
                         .frame(width: 24, height: 24)
+                        .overlay(
+                            Image("user-avatar")
+                        )
                     Text("paulwalker")
                         .font(.system(size: 14, weight: .semibold))
                 }
                 Spacer()
-                HStack(spacing: 6){
+                HStack(spacing: 6) {
                     Image(systemName: "checkmark.circle.fill")
                         .renderingMode(.template)
                         .foregroundColor(Color.checkMarkColor)
                     Text("2 of 8 read")
                 }
             }
-            
             Text("Stories that would make you feel the speed of light")
                 .foregroundColor(.bookDetailTiextColor)
                 .font(.system(size: 20, weight: .bold))
                 .lineSpacing(5)
-            
             Text("My favourite books when the ground frozes. Best with cup of hot coco! My favourite books when the ground frozes. Best with cup of hot coco! M My favourite books when the ground frozes. Best with cup of hot coco! y favourite books when the ground frozes. Best with cup of hot coco! My favourite books when the ground frozes. Best with cup of hot coco! My favourite books when the ground frozes. Best with cup of hot coco! Bilbo bagins ikjhmm,poyy")
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(.bookDetailTiextColor)
             
-            HStack(spacing: 10){
+            HStack(spacing: 10) {
                 BookDetailInfo(title: "5786", subTitle: "Comments")
                 BookDetailInfo(title: "89", subTitle: "Likes")
                 BookDetailInfo(title: "57,7K", subTitle: "Followers")
             }
-            
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 32)

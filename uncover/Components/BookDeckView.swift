@@ -15,8 +15,6 @@ struct BookDeckView: View {
     
     var body: some View {
         ZStack {
-            Image(systemName: "placeholder")
-            
             VStack {
                 Text(title)
                     .font(.system(size: 28, weight: .bold))
@@ -28,14 +26,15 @@ struct BookDeckView: View {
                         radius: /*@START_MENU_TOKEN@*/4/*@END_MENU_TOKEN@*/,
                         x:0, y: 4
                     )
-                
                 Spacer()
-                
-                HStack(spacing: 10){
+                HStack(spacing: 10) {
                     Image(systemName: "person.circle")
                         .resizable()
                         .frame(width: 32, height: 32)
                         .aspectRatio(contentMode: .fit)
+                        .overlay(
+                            Image("user-avatar")
+                        )
                     Text(username)
                         .font(.system(size: 16, weight: .bold))
                     Spacer()
@@ -82,9 +81,13 @@ struct BookDeckView: View {
                 , alignment: .bottom
             )
         }
-        .frame(maxWidth: .infinity, minHeight: 420, maxHeight: 420)
+        .frame(maxWidth: .infinity)
+        .frame(height: 420)
         .background(
-            Color.green
+            Image("background-img")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .background(Color.green)
         )
         .cornerRadius(16)
         .padding(.horizontal, 21)
