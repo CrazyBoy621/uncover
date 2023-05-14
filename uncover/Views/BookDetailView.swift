@@ -9,37 +9,31 @@ import SwiftUI
 
 struct BookDetailView: View {
     
+    @State var authorName = "paulwalker"
+    @State var authorPhoto = "user-avatar"
+    @State var readCount = 2
+    @State var totalReadCount = 8
+    @State var bookTitle = "Stories that would make you feel the speed of light"
+    @State var bookDescription = "My favourite books when the ground frozes. Best with cup of hot coco! My favourite books when the ground frozes. Best with cup of hot coco! M My favourite books when the ground frozes. Best with cup of hot coco! y favourite books when the ground frozes. Best with cup of hot coco! My favourite books when the ground frozes. Best with cup of hot coco! My favourite books when the ground frozes. Best with cup of hot coco! Bilbo bagins ikjhmm,poyy"
+    @State var commentCount = "5786"
+    @State var likeCount = "89"
+    @State var followerCount = "57,7K"
+    
     var body: some View {
         ZStack {
-            VStack {
-                Image("background-img")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(maxWidth: .infinity, maxHeight: 400)
-                    .background(Color.blue)
-                    .clipped()
-                    .overlay(
-                        Rectangle()
-                            .fill(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [
-                                        Color.white.opacity(0),
-                                        Color.white
-                                    ]),
-                                    startPoint: .top,
-                                    endPoint: .bottom)
-                            )
-                            .frame(height: 200)
-                        ,alignment: .bottom
-                    )
-                    .edgesIgnoringSafeArea(.top)
-                Spacer()
-            }
+            TopPhotoView()
+            
             ScrollView {
-                DetailContent()
-                    .padding(.top, 150)
-                    .edgesIgnoringSafeArea(.all)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                Spacer()
+                    .frame(height: 150)
+                VStack{
+                    DetailContentView()
+                    
+                    BooksCollection()
+                        .background(Color.white.cornerRadius(50))
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.silver.cornerRadius(50))
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -86,7 +80,34 @@ struct BookDetailView: View {
         }
     }
     
-    @ViewBuilder func DetailContent() -> some View{
+    @ViewBuilder func TopPhotoView() -> some View{
+        VStack {
+            Image("background-img")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: .infinity, maxHeight: 400)
+                .background(Color.blue)
+                .clipped()
+                .overlay(
+                    Rectangle()
+                        .fill(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color.white.opacity(0),
+                                    Color.white
+                                ]),
+                                startPoint: .top,
+                                endPoint: .bottom)
+                        )
+                        .frame(height: 200)
+                    ,alignment: .bottom
+                )
+                .edgesIgnoringSafeArea(.top)
+            Spacer()
+        }
+    }
+    
+    @ViewBuilder func DetailContentView() -> some View{
         VStack(spacing: 16){
             HStack{
                 HStack(spacing: 16) {
@@ -94,9 +115,10 @@ struct BookDetailView: View {
                         .fill(Color.gray)
                         .frame(width: 24, height: 24)
                         .overlay(
-                            Image("user-avatar")
+                            Image(authorPhoto)
+                                .resizable()
                         )
-                    Text("paulwalker")
+                    Text(authorName)
                         .font(.system(size: 14, weight: .semibold))
                 }
                 Spacer()
@@ -104,16 +126,18 @@ struct BookDetailView: View {
                     Image(systemName: "checkmark.circle.fill")
                         .renderingMode(.template)
                         .foregroundColor(Color.checkMarkColor)
-                    Text("2 of 8 read")
+                    Text("\(readCount) of \(totalReadCount) read")
                 }
             }
-            Text("Stories that would make you feel the speed of light")
-                .foregroundColor(.bookDetailTiextColor)
-                .font(.system(size: 20, weight: .bold))
+            
+            Text(bookTitle)
+                .foregroundColor(.bookDetailTextColor)
+                .font(.system(size: 24, weight: .bold))
                 .lineSpacing(5)
-            Text("My favourite books when the ground frozes. Best with cup of hot coco! My favourite books when the ground frozes. Best with cup of hot coco! M My favourite books when the ground frozes. Best with cup of hot coco! y favourite books when the ground frozes. Best with cup of hot coco! My favourite books when the ground frozes. Best with cup of hot coco! My favourite books when the ground frozes. Best with cup of hot coco! Bilbo bagins ikjhmm,poyy")
+            
+            Text(bookDescription)
                 .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.bookDetailTiextColor)
+                .foregroundColor(.bookDetailTextColor)
             
             HStack(spacing: 16) {
                 BookDetailInfo(title: "5786", subTitle: "Comments")
@@ -132,14 +156,11 @@ struct BookDetailView: View {
                             .fill(Color.accentColor)
                             .frame(width: 120, height: 32)
                     )
-                    .padding(8)
+                    .padding(.top, 8)
             }
-            
-            BooksCollection()
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 32)
-        .background(Color.white.cornerRadius(50))
     }
     
     @ViewBuilder func BooksCollection() -> some View{
@@ -152,7 +173,8 @@ struct BookDetailView: View {
                     BookViewCard(title: "milk and honey", author: "Rupi Kaur", isRead: true)
                 }
             }
-            .padding(.top, 8)
+            .padding(.horizontal, 24)
+            .padding(.vertical, 32)
     }
 }
 

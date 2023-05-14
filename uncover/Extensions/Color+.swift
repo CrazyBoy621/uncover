@@ -11,5 +11,6 @@ import SwiftUI
 extension Color {
     static var navigationShadow = Color("navigationShadow")
     static var checkMarkColor = Color("checkMarkColor")
-    static var bookDetailTiextColor = Color("bookDetailTiextColor")
+    static var bookDetailTextColor = Color("bookDetailTextColor")
+    static var silver = Color("silver")
 }
