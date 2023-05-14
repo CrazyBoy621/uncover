@@ -19,7 +19,7 @@ struct BookDetailInfo: View {
             Text(subTitle)
                 .font(.system(size: 14, weight: .medium))
         }
-        .foregroundColor(.bookDetailTextColor)
+        .foregroundColor(.customBlack)
     }
 }
 

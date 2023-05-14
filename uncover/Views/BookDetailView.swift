@@ -18,6 +18,7 @@ struct BookDetailView: View {
     @State var commentCount = "5786"
     @State var likeCount = "89"
     @State var followerCount = "57,7K"
+    @State var isFollowed = false
     
     var body: some View {
         ZStack {
@@ -131,13 +132,13 @@ struct BookDetailView: View {
             }
             
             Text(bookTitle)
-                .foregroundColor(.bookDetailTextColor)
+                .foregroundColor(.customBlack)
                 .font(.system(size: 24, weight: .bold))
                 .lineSpacing(5)
             
             Text(bookDescription)
                 .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.bookDetailTextColor)
+                .foregroundColor(.customBlack)
             
             HStack(spacing: 16) {
                 BookDetailInfo(title: "5786", subTitle: "Comments")
@@ -147,7 +148,7 @@ struct BookDetailView: View {
             .padding(8)
             
             Button {
-                
+                isFollowed.toggle()
             } label: {
                 Text("Follow")
                     .foregroundColor(.white)
