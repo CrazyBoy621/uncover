@@ -8,27 +8,50 @@
 import SwiftUI
 
 struct NotificationView: View {
-
+    
     var body: some View {
         NavigationView {
             ScrollView {
-                ZStack {
-                    VStack {
+                VStack {
+                    ZStack {
                         Image("empty-background")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .edgesIgnoringSafeArea(.all)
-                        Spacer()
+                        Image("empty-notification")
+                    }
+                    
+                    VStack(spacing: 11) {
+                        Text("It's lonely here")
+                            .font(.poppinsRegular(size: 28))
+                        
+                        VStack {
+                            Text("There is nothing here, yet :(")
+                            Text("Let’s find you some interesting collections to follow!")
+                        }
+                        .foregroundColor(.darkGrey)
+                        .multilineTextAlignment(.center)
+                        .font(.poppinsRegular(size: 16))
+                    }
+                    .padding(.horizontal, 16)
+                    
+                    Button {
+                        
+                    } label: {
+                        CustomLargeButton(title: "Explore", background: .accentColor)
+                            .padding(24)
                     }
                 }
+                .padding(.bottom, 106)
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Notification")
-                            .font(.system(size: 20, weight: .bold))
-                    }
+            .offset(y: -100)
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Notification")
+                        .font(.system(size: 20, weight: .bold))
                 }
             }
         }
