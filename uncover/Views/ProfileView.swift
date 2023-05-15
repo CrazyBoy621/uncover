@@ -2,7 +2,7 @@
 //  ProfileView.swift
 //  uncover
 //
-//  Created by Shohjahon Rakhmatov on 14/05/23.
+//  Created by Bekzod Rakhmatov on 14/05/23.
 //
 
 import SwiftUI

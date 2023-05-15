@@ -2,7 +2,7 @@
 //  CustomLargeButton.swift
 //  uncover
 //
-//  Created by Shohjahon Rakhmatov on 15/05/23.
+//  Created by Bekzod Rakhmatov on 15/05/23.
 //
 
 import SwiftUI
@@ -20,6 +20,7 @@ struct CustomLargeButton: View {
             .background(
                 background.cornerRadius(10)
             )
+            .shadow(color: .black.opacity(0.1), radius: 20, y:10)
     }
 }
 

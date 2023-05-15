@@ -2,7 +2,7 @@
 //  WebImageView.swift
 //  uncover
 //
-//  Created by Shohjahon Rakhmatov on 14/05/23.
+//  Created by Bekzod Rakhmatov on 14/05/23.
 //
 
 import SwiftUI
@@ -30,6 +30,7 @@ struct WebImageView: View {
                 Image(systemName: defaultImage ?? "")
                     .resizable()
                     .renderingMode(.original)
+                    .aspectRatio(contentMode: .fit)
             }
         }
         .onAppear { imageManager.load(url: url, options: .scaleDownLargeImages) }

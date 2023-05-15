@@ -158,6 +158,16 @@ struct BookDetailView: View {
         .padding(.vertical, 32)
     }
     
+    @ViewBuilder func BookDetailInfo(title: String, subTitle: String) -> some View{
+        VStack(spacing: 6) {
+            Text(title)
+                .font(.system(size: 16, weight: .bold))
+            Text(subTitle)
+                .font(.system(size: 14, weight: .medium))
+        }
+        .foregroundColor(.customBlack)
+    }
+    
     @ViewBuilder func BooksCollection() -> some View{
         LazyVGrid(
             columns: [
@@ -170,6 +180,33 @@ struct BookDetailView: View {
             }
             .padding(.horizontal, 24)
             .padding(.vertical, 32)
+    }
+    
+    @ViewBuilder func BookViewCard(title: String, author: String, isRead: Bool) -> some View{
+        ZStack(alignment: .topTrailing ){
+            VStack(spacing: 16) {
+                Image("background-img")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .cornerRadius(16)
+                VStack(spacing: 4) {
+                    Text(title)
+                        .bold()
+                    Text(author)
+                }
+            }
+            if isRead{
+                Image(systemName: "checkmark.circle.fill")
+                    .resizable()
+                    .foregroundColor(.checkMarkColor)
+                    .background(
+                        Circle()
+                            .fill(Color.white)
+                    )
+                    .frame(width: 24, height: 24)
+                    .padding(10)
+            }
+        }
     }
 }
 
