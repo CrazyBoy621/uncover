@@ -22,16 +22,16 @@ struct ContentView: View {
                 case .plus:
                     Text("Plus")
                 case .notification:
-                    Text("Notif")
+                    NotificationView()
                 case .profile:
-                    Text("Profile")
+                    ProfileView()
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .overlay(
                 TabBarView(currentTab: $currentTab)
                     .padding(.bottom)
-            ,alignment: .bottom)
+                ,alignment: .bottom)
         }
     }
 }

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CustomButton: View {
     
-    @State var title: String
-    @State var background: Color
+    let title: String
+    let background: Color
     
     var body: some View {
         Text(title)

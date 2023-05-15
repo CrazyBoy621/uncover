@@ -17,6 +17,7 @@ struct HomeView: View {
                     BookDeckView(title: "Learn Today!", username: "Shohjahon", rating: 2005)
                 }                
                 BookDeckView(title: "Children’s literature", username: "Bekzod", rating: 1996)
+                BookDeckView(title: "Children’s literature", username: "Bekzod", rating: 1996)
             }
             .padding(.bottom, 106)
         }

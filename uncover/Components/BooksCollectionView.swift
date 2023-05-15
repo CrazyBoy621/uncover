@@ -15,7 +15,7 @@ struct BooksCollectionView: View {
             } label: {
                 CollectionTitle(title: "Books")
             }
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack{
                     ForEach(0..<20) { Index in
                         Image("background-img")

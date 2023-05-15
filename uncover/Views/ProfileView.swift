@@ -11,18 +11,38 @@ struct ProfileView: View {
     
     @State var userImage = "user-avatar"
     @State var userName = "Susan Sarandon eleven"
+    @State var booksCount = 238
+    @State var followersCount = 89
+    @State var followingCount = 15181
+    @State var infoText = "Books are my way of exploring the world. I love to travel  and cooking. Collecting recepies and books about healthy lifestyle 🍎🍀 Books are my way of exploring the world. I love to travel  and cooking. Collecting recepies and books about healthy lifestyle 🍎🍀"
+    @State var isTextExpanded = false
     
     var body: some View {
         ScrollView{
             TopProfileView()
-            
-            Rectangle()
-                .fill(Color.dividerGrey)
-                .frame(height: 1)
-            
+            Divider()
             BottomProfileView()
+                .padding(.bottom, 106)
         }
-        .padding(.bottom, 106)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem{
+                Button {
+                    
+                } label: {
+                    Image(systemName: "gearshape")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.black)
+                }
+            }
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("My Profile")
+                        .font(.system(size: 20, weight: .bold))
+                }
+            }
+        }
     }
     
     @ViewBuilder func TopProfileView() -> some View{
@@ -57,36 +77,42 @@ struct ProfileView: View {
     }
     
     @ViewBuilder func BottomProfileView() -> some View{
-        VStack{
+        VStack(spacing: 24){
             InfoTextView()
+            BooksCollectionView()
+            CollectionView()
         }
         .padding(12)
         .frame(maxWidth: .infinity)
-        .border(.red)
     }
     
-    @ViewBuilder func InfoTextView() -> some View{
-        VStack(alignment: .leading, spacing: 11){
+    @ViewBuilder func InfoTextView() -> some View {
+        @State var expanded = false
+        
+        VStack(alignment: .leading, spacing: 11) {
             Text("Info")
                 .foregroundColor(.customBlack)
                 .font(.system(size: 20, weight: .heavy))
+                .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text("Books are my way of exploring the world. I love to travel  and cooking. Collecting recepies and books about healthy lifestyle 🍎🍀")
+            Text(infoText)
                 .font(.system(size: 14))
                 .foregroundColor(.customBlack)
+                .lineLimit(isTextExpanded ? nil : 3)
                 .padding(.top, 5)
             
             Button {
-                
+                withAnimation() {
+                    isTextExpanded.toggle()
+                }
             } label: {
-                Text("Read more...")
+                Text(isTextExpanded ? "Read less..." : "Read more...")
                     .foregroundColor(.lightGrey)
                     .font(.system(size: 14, weight: .heavy))
             }
-            
-            BooksCollectionView()
         }
     }
+    
     
     func InfoView(count: Int, title: String) -> some View{
         VStack(spacing: 4){

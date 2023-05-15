@@ -55,7 +55,7 @@ struct BookDetailView: View {
                                         radius: 4, y: 4
                                     )
                             )
-                            .padding(.horizontal, 8)
+                            .padding(8)
                     }
                     
                     Button {
@@ -72,7 +72,7 @@ struct BookDetailView: View {
                                         radius: 4, y: 4
                                     )
                             )
-                            .padding(.horizontal, 8)
+                            .padding(8)
                     }
                 }
                 .font(.system(size: 12))
@@ -150,13 +150,7 @@ struct BookDetailView: View {
             Button {
                 isFollowed.toggle()
             } label: {
-                Text("Follow")
-                    .foregroundColor(.white)
-                    .background(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.accentColor)
-                            .frame(width: 120, height: 32)
-                    )
+                CustomButton(title: "Follow", background: .accentColor)
                     .padding(.top, 8)
             }
         }
