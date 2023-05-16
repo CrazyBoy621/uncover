@@ -24,4 +24,5 @@ extension Color {
     static var dividerGrey = Color("dividerGrey")
     static var lightGrey = Color("lightGrey")
     static var lightPink = Color("lightPink")
+    static var backgroundGrey = Color("backgroundGrey")
 }

@@ -55,7 +55,7 @@ struct CollectionView: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 18)
         }
-        .shadow(color: .black.opacity(0.15), radius: 18, y: 14)
+        .shadow(color: .black.opacity(0.3), radius: 4, y: 4)
     }
 }
 
