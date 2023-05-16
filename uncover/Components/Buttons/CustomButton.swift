@@ -10,23 +10,23 @@ import SwiftUI
 struct CustomButton: View {
     
     let title: String
+    let foreground: Color
     let background: Color
     
     var body: some View {
-        Text(title)
-            .font(.system(size: 16, weight: .semibold))
-            .foregroundColor(.white)
-            .background(
-                Rectangle()
-                    .fill(background)
-                    .cornerRadius(16)
-                    .frame(width: 120, height: 32)
+        RoundedRectangle(cornerRadius: 16)
+            .fill(background)
+            .frame(width: 120, height: 32)
+            .overlay(
+                Text(title)
+                    .font(.poppinsSemiBold(size: 16))
+                    .foregroundColor(foreground)
             )
     }
 }
 
 struct CustomButton_Previews: PreviewProvider {
     static var previews: some View {
-        CustomButton(title: "Edit", background: .customPink)
+        CustomButton(title: "Edit", foreground: .white, background: .customPink)
     }
 }

@@ -59,7 +59,7 @@ struct ProfileView: View {
             Button {
                 
             } label: {
-                CustomButton(title: "Edit", background: .customPink)
+                CustomButton(title: "Edit", foreground: .white, background: .customPink)
             }
             .frame(width: 120, height: 32)
             .padding(4)

@@ -15,7 +15,6 @@ enum OnboardingPages {
 }
 
 struct OnBoardingView: View {
-    
     @State var currentOnBoard: OnboardingPages
     
     var body: some View {
@@ -23,13 +22,19 @@ struct OnBoardingView: View {
             ScrollView {
                 switch currentOnBoard {
                 case .onboarding1:
-                    OnBoarding1()
+                    OnboardingPage(imageName: "onboarding-1", title: "Discover", description: "Search by favourite subject, author, title, or maybe plot elements – mix and match! Tags will make it easy for you. Just dive in other’s ideas and discover new titles.", buttonText: "Continue", nextPage: .onboarding2) {
+                        currentOnBoard = $0
+                    }
                 case .onboarding2:
-                    OnBoarding2()
+                    OnboardingPage(imageName: "onboarding-2", title: "Create", description: "Create your own book collections on any subject, writer, or character’s key features. Show others your extraordinary taste in books and become a bookfluencer!", buttonText: "Continue", nextPage: .onboarding3) {
+                        currentOnBoard = $0
+                    }
                 case .onboarding3:
-                    OnBoarding3()
+                    OnboardingPage(imageName: "onboarding-3", title: "Get inspired", description: "You can follow inspiring accounts or just individual collections. Save them, share them, get back to them. Discuss your reads with other members.", buttonText: "Continue", nextPage: .welcome) {
+                        currentOnBoard = $0
+                    }
                 case .welcome:
-                    Welcome()
+                    WelcomePage(currentOnBoard: $currentOnBoard)
                 }
             }
             .edgesIgnoringSafeArea(.all)
@@ -43,154 +48,55 @@ struct OnBoardingView: View {
             }
         }
     }
+}
+
+struct OnboardingPage: View {
+    let imageName: String
+    let title: String
+    let description: String
+    let buttonText: String
+    let nextPage: OnboardingPages
+    let action: (OnboardingPages) -> Void
     
-    @ViewBuilder func OnBoarding1() -> some View{
+    var body: some View {
         VStack {
-            Image("onboarding-1")
+            Image(imageName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .overlay (
-                    HStack{
-                        Circle()
-                            .fill(Color.darkGrey)
-                            .frame(width: 6, height: 6)
-                        Circle()
-                            .fill(Color.lightGrey)
-                            .frame(width: 6, height: 6)
-                        Circle()
-                            .fill(Color.lightGrey)
-                            .frame(width: 6, height: 6)
-                    }
-                        .padding(.bottom, 36)
-                    ,alignment: .bottom
-                )
-            VStack(spacing: 20) {
-                Text("Discover")
-                    .font(.poppinsRegular(size: 28))
-                Text("Search by favourite subject, author, title, or maybe plot elements – mix and match!Tags will make it easy for you. Just dive in other’s ideas and discover new titles.")
-                    .foregroundColor(.darkGrey)
-                    .font(.poppinsRegular(size: 16))
-                    .multilineTextAlignment(.center)
-                Button {
-                    currentOnBoard = .onboarding2
-                } label: {
-                    CustomLargeButton(title: "Continue", background: .accentColor)
-                }
-                .padding(.top, 12)
-                
-                Button {
-                    currentOnBoard = .welcome
-                } label: {
-                    Text("Skip")
-                        .foregroundColor(.darkGrey)
-                        .font(.system(size: 16, weight: .semibold))
-                }
-                
-                
-            }
-            .padding(.horizontal)
-        }
-    }
-    
-    @ViewBuilder func OnBoarding2() -> some View{
-        VStack {
-            Image("onboarding-2")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .overlay (
-                    HStack{
-                        Circle()
-                            .fill(Color.lightGrey)
-                            .frame(width: 6, height: 6)
-                        Circle()
-                            .fill(Color.darkGrey)
-                            .frame(width: 6, height: 6)
-                        Circle()
-                            .fill(Color.lightGrey)
-                            .frame(width: 6, height: 6)
-                    }
-                        .padding(.bottom, 36)
-                    ,alignment: .bottom
-                )
                 .padding(.top, 15)
             VStack(spacing: 20) {
-                Text("Create")
+                Text(title)
                     .font(.poppinsRegular(size: 28))
-                Text("Create your own books ollections on any subject, writer or character’s key features. Show others your extraordinary taste in books and become a bookfluencer!")
+                Text(description)
                     .foregroundColor(.darkGrey)
                     .font(.poppinsRegular(size: 16))
                     .multilineTextAlignment(.center)
                 Button {
-                    currentOnBoard = .onboarding3
-                } label: {
-                    CustomLargeButton(title: "Continue", background: .accentColor)
-                }
-                .padding(.top, 12)
-                
-                Button {
-                    currentOnBoard = .welcome
-                } label: {
-                    Text("Skip")
-                        .foregroundColor(.darkGrey)
-                        .font(.system(size: 16, weight: .semibold))
-                }
-                
-                
-            }
-            .padding(.horizontal)
-        }
-        .padding(.top, 10)
-    }
-    
-    @ViewBuilder func OnBoarding3() -> some View{
-        VStack {
-            Image("onboarding-3")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .overlay (
-                    HStack{
-                        Circle()
-                            .fill(Color.lightGrey)
-                            .frame(width: 6, height: 6)
-                        Circle()
-                            .fill(Color.lightGrey)
-                            .frame(width: 6, height: 6)
-                        Circle()
-                            .fill(Color.darkGrey)
-                            .frame(width: 6, height: 6)
+                    withAnimation {
+                        action(nextPage)
                     }
-                        .padding(.bottom, 36)
-                    ,alignment: .bottom
-                )
-            VStack(spacing: 20) {
-                Text("Get inspired")
-                    .font(.poppinsRegular(size: 28))
-                Text("You can follow inspiring accounts or just individual collections. Save them, share them, get back to them. Discuss your reads with other members")
-                    .foregroundColor(.darkGrey)
-                    .font(.poppinsRegular(size: 16))
-                    .multilineTextAlignment(.center)
-                Button {
-                    currentOnBoard = .welcome
                 } label: {
-                    CustomLargeButton(title: "Continue", background: .accentColor)
+                    CustomLargeButton(title: buttonText, foreground: .white, background: .accentColor)
                 }
                 .padding(.top, 12)
                 
                 Button {
-                    currentOnBoard = .welcome
+                    action(.welcome)
                 } label: {
                     Text("Skip")
                         .foregroundColor(.darkGrey)
                         .font(.system(size: 16, weight: .semibold))
                 }
-                
-                
             }
             .padding(.horizontal)
         }
     }
+}
+
+struct WelcomePage: View {
+    @Binding var currentOnBoard: OnboardingPages
     
-    @ViewBuilder func Welcome() -> some View{
+    var body: some View {
         VStack {
             Image("welcome")
                 .resizable()
@@ -210,24 +116,16 @@ struct OnBoardingView: View {
                 }
                 
                 VStack(spacing: 16) {
-                    Button {
-                        
-                    } label: {
+                    Button { } label: {
                         ContinueWith(imgName: "google", continueWith: "Google")
                     }
-                    Button {
-                        
-                    } label: {
+                    Button { } label: {
                         ContinueWith(imgName: "facebook", continueWith: "Facebook")
                     }
-                    Button {
-                        
-                    } label: {
-                        CustomLargeButton(title: "Continue with e-mail", background: .accentColor)
+                    Button { } label: {
+                        CustomLargeButton(title: "Continue with e-mail", foreground: .white, background: .accentColor)
                     }
-                    Button {
-                        
-                    } label: {
+                    Button { } label: {
                         Text("Explore as a guest")
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.accentColor.opacity(0.8))
@@ -247,6 +145,6 @@ struct OnBoardingView: View {
 
 struct OnBoardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnBoardingView(currentOnBoard: .welcome)
+        OnBoardingView(currentOnBoard: .onboarding1)
     }
 }

@@ -18,7 +18,7 @@ struct CollectionTitle: View {
             Image(systemName: "chevron.right")
         }
         .foregroundColor(.customBlack)
-        .font(.system(size: 20, weight: .heavy))
+        .font(.poppinsBold(size: 20))
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  BookDetailView.swift
+//  CollectionWithDescriptionView.swift
 //  uncover
 //
 //  Created by Bekzod Rakhmatov on 13/05/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BookDetailView: View {
+struct CollectionWithDescriptionView: View {
     
     @State var authorName = "paulwalker"
     @State var authorPhoto = "user-avatar"
@@ -150,7 +150,7 @@ struct BookDetailView: View {
             Button {
                 isFollowed.toggle()
             } label: {
-                CustomButton(title: "Follow", background: .accentColor)
+                CustomButton(title: "Follow", foreground: .white, background: .accentColor)
                     .padding(.top, 8)
             }
         }
@@ -210,8 +210,8 @@ struct BookDetailView: View {
     }
 }
 
-struct BookDetailView_Previews: PreviewProvider {
+struct CollectionWithDescriptionView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView()
+        CollectionWithDescriptionView()
     }
 }

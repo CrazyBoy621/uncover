@@ -14,11 +14,14 @@ struct CustomSmallButton: View {
     let background: Color
     
     var body: some View {
-        Text(title)
-            .foregroundColor(foreground)
-            .font(.system(size: 14, weight: .semibold))
+        RoundedRectangle(cornerRadius: 16)
+            .fill(background)
             .frame(width: 80, height: 24)
-            .background(background.cornerRadius(16))
+            .overlay(
+                Text(title)
+                    .font(.poppinsSemiBold(size: 14))
+                    .foregroundColor(foreground)
+            )
     }
 }
 

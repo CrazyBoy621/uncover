@@ -9,11 +9,12 @@ import SwiftUI
 
 struct CustomLargeButton: View {
     let title: String
+    let foreground: Color
     let background: Color
     
     var body: some View {
         Text(title)
-            .foregroundColor(.white)
+            .foregroundColor(foreground)
             .font(.poppinsSemiBold(size: 16))
             .frame(maxWidth: .infinity)
             .frame(height: 55)
@@ -26,6 +27,6 @@ struct CustomLargeButton: View {
 
 struct CustomLargeButton_Previews: PreviewProvider {
     static var previews: some View {
-        CustomLargeButton(title: "Explore", background: .accentColor)
+        CustomLargeButton(title: "Explore", foreground: .white, background: .accentColor)
     }
 }

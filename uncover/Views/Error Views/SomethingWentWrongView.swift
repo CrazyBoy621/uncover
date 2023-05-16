@@ -30,7 +30,7 @@ struct SomethingWentWrongView: View {
                 Button {
                     
                 } label: {
-                    CustomLargeButton(title: "Back to Home", background: .accentColor)
+                    CustomLargeButton(title: "Back to Home", foreground: .white, background: .accentColor)
                 }
                 .padding(.bottom, 36)
             }

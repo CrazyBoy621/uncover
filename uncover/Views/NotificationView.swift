@@ -87,7 +87,7 @@ struct NotificationView: View {
                 Button {
                     
                 } label: {
-                    CustomLargeButton(title: "Explore", background: .accentColor)
+                    CustomLargeButton(title: "Explore", foreground: .white, background: .accentColor)
                         .padding(24)
                 }
             }
