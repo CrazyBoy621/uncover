@@ -21,7 +21,11 @@ struct HomeView: View {
                 } label: {
                     BookDeckView(title: "Children’s literature", username: "Bekzod", rating: 1996)
                 }
-                BookDeckView(title: "Children’s literature", username: "Bekzod", rating: 1996)
+                NavigationLink {
+                    BookDetailsView()
+                } label: {
+                    BookDeckView(title: "Children’s literature", username: "Bekzod", rating: 1996)
+                }
             }
             .padding(.bottom, 106)
         }

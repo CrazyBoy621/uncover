@@ -68,6 +68,8 @@
 		1E2FEF752A0EC5F8004D9E9D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E2FEF742A0EC5F8004D9E9D /* Colors.xcassets */; };
 		1E2FEF7A2A0EC71B004D9E9D /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2FEF792A0EC71B004D9E9D /* Color+.swift */; };
 		1E2FEF7C2A0ECF24004D9E9D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2FEF7B2A0ECF24004D9E9D /* HomeView.swift */; };
+		1E4ED36B2A14A32E007A7DB8 /* CustomOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4ED36A2A14A32E007A7DB8 /* CustomOutlineButton.swift */; };
+		1E6EC0BC2A15EE0B00DE6BFF /* ServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6EC0BB2A15EE0B00DE6BFF /* ServiceAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,6 +136,8 @@
 		1E2FEF742A0EC5F8004D9E9D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		1E2FEF792A0EC71B004D9E9D /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		1E2FEF7B2A0ECF24004D9E9D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		1E4ED36A2A14A32E007A7DB8 /* CustomOutlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOutlineButton.swift; sourceTree = "<group>"; };
+		1E6EC0BB2A15EE0B00DE6BFF /* ServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +227,7 @@
 				1E25EE042A12AE5D006E44A5 /* CustomSmallButton.swift */,
 				1E25EDE72A12991E006E44A5 /* CustomLargeButton.swift */,
 				1E2EA1052A137F9E00BF21E3 /* ContinueWith.swift */,
+				1E4ED36A2A14A32E007A7DB8 /* CustomOutlineButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -263,6 +268,8 @@
 				1E23EB722A0F57A5004FADBF /* Components */,
 				1E2FEF762A0EC6E2004D9E9D /* Extensions */,
 				1E2FEF732A0EC28B004D9E9D /* Views */,
+				1E6EC0BD2A15EE1100DE6BFF /* Models */,
+				1E6EC0BE2A15EE4400DE6BFF /* Utils */,
 				1E2FEF662A0EBB42004D9E9D /* Assets.xcassets */,
 				1E2FEF742A0EC5F8004D9E9D /* Colors.xcassets */,
 				1E2FEF682A0EBB42004D9E9D /* uncover.entitlements */,
@@ -290,8 +297,8 @@
 				1E25EE062A12B938006E44A5 /* NotificationView.swift */,
 				1E2EA1022A1346FC00BF21E3 /* OnBoardingView.swift */,
 				1E2EA1072A13870200BF21E3 /* RegistrationView.swift */,
-				1E2EA10B2A138BCD00BF21E3 /* Error Views */,
 				1E2EA1102A140EE000BF21E3 /* BookDetailsView.swift */,
+				1E2EA10B2A138BCD00BF21E3 /* Error Views */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -303,6 +310,21 @@
 				1E25EDE52A129634006E44A5 /* Font+.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1E6EC0BD2A15EE1100DE6BFF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1E6EC0BE2A15EE4400DE6BFF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1E6EC0BB2A15EE0B00DE6BFF /* ServiceAPI.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -430,6 +452,7 @@
 				1E2EA1062A137F9E00BF21E3 /* ContinueWith.swift in Sources */,
 				1E2EA1032A1346FC00BF21E3 /* OnBoardingView.swift in Sources */,
 				1E2EA10D2A138C1600BF21E3 /* UnderConstructionView.swift in Sources */,
+				1E6EC0BC2A15EE0B00DE6BFF /* ServiceAPI.swift in Sources */,
 				1E23EB6F2A0F528B004FADBF /* SearchView.swift in Sources */,
 				1E25EDE62A129634006E44A5 /* Font+.swift in Sources */,
 				1E25EE052A12AE5D006E44A5 /* CustomSmallButton.swift in Sources */,
@@ -437,6 +460,7 @@
 				1E25EDA72A1108F9006E44A5 /* CustomButton.swift in Sources */,
 				1E2FEF632A0EBB3F004D9E9D /* uncoverApp.swift in Sources */,
 				1E25EDA52A1103F0006E44A5 /* ProfileView.swift in Sources */,
+				1E4ED36B2A14A32E007A7DB8 /* CustomOutlineButton.swift in Sources */,
 				1E25EDB22A1118F1006E44A5 /* WebImageView.swift in Sources */,
 				1E25EE072A12B938006E44A5 /* NotificationView.swift in Sources */,
 			);

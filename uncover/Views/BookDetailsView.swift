@@ -2,7 +2,7 @@
 //  BookDetailsView.swift
 //  uncover
 //
-//  Created by Shohjahon Rakhmatov on 17/05/23.
+//  Created by Bekzod Rakhmatov on 17/05/23.
 //
 
 import SwiftUI
@@ -12,90 +12,86 @@ struct BookDetailsView: View {
     @State var isDescriptionExpanded = false
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(spacing: 24) {
-                    VStack(spacing: 16) {
-                        WebImageView(url: URL(string: "https://shorturl.at/qsz08"), defaultImage: "photo")
-                            .frame(width: 160, height: 248)
-                            .cornerRadius(12)
-                            .overlay (
-                                Circle()
-                                    .fill(Color.white)
-                                    .frame(width: 32, height: 32)
-                                    .padding(12)
-                                    .shadow(color: .black.opacity(0.1), radius: 4, y: 4)
-                                    .overlay(
-                                        Image(systemName: "heart.fill")
-                                            .foregroundColor(.lightGrey)
-                                    )
-                                ,alignment: .bottomTrailing
-                            )
-                        
-                        HStack(spacing: 8){
+        ScrollView {
+            VStack(spacing: 24) {
+                VStack(spacing: 16) {
+                    WebImageView(url: URL(string: "https://shorturl.at/qsz08"), defaultImage: "photo")
+                        .frame(width: 160, height: 248)
+                        .cornerRadius(12)
+                        .overlay (
                             Circle()
-                                .fill(Color.darkGrey)
-                                .frame(width: 8, height: 8)
-                            Circle()
-                                .fill(Color.lightGrey)
-                                .frame(width: 8, height: 8)
-                        }
-                        
-                        VStack(spacing: 8) {
-                            Text("I'm fine neither are you")
-                                .font(.poppinsBold(size: 20))
-                                .foregroundColor(.customBlack)
-                            Text("Camille Pagan")
-                                .font(.system(size: 16))
-                                .foregroundColor(.darkGrey)
-                        }
-                    }
+                                .fill(Color.white)
+                                .frame(width: 32, height: 32)
+                                .padding(12)
+                                .shadow(color: .black.opacity(0.1), radius: 4, y: 4)
+                                .overlay(
+                                    Image(systemName: "heart.fill")
+                                        .foregroundColor(.lightGrey)
+                                )
+                            ,alignment: .bottomTrailing
+                        )
                     
                     HStack(spacing: 8){
-                        Button {
-                            
-                        } label: {
-                            CustomButton(title: "Status", foreground: .customPink, background: .white)
-                                .padding(1)
-                                .background(Color.customPink)
-                                .cornerRadius(16)
-                        }
-                        Button {
-                            
-                        } label: {
-                            CustomButton(title: "Add", foreground: .white, background: .customPink)
-                        }
+                        Circle()
+                            .fill(Color.darkGrey)
+                            .frame(width: 8, height: 8)
+                        Circle()
+                            .fill(Color.lightGrey)
+                            .frame(width: 8, height: 8)
                     }
                     
-                    HStack(spacing: 16){
-                        InfoView(count: 145, title: "Collections")
-                        InfoView(count: 58, title: "Likes")
-                        InfoView(count: 5786, title: "Comments")
+                    VStack(spacing: 8) {
+                        Text("I'm fine neither are you")
+                            .font(.poppinsBold(size: 20))
+                            .foregroundColor(.customBlack)
+                        Text("Camille Pagan")
+                            .font(.system(size: 16))
+                            .foregroundColor(.darkGrey)
                     }
-                    
-                    DescriptionView()
-                    
-                    BookTags()
-                    
-                    Comments()
                 }
-                .padding()
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("I'm fine neither are you")
-                        .font(.poppinsBold(size: 20))
-                        .foregroundColor(.customBlack)
-                }
-                ToolbarItem {
+                
+                HStack(spacing: 8){
                     Button {
                         
                     } label: {
-                        Image(systemName: "ellipsis")
-                            .rotationEffect(Angle(degrees: 90))
-                            .foregroundColor(.customBlack)
+                        CustomOutlineButton(title: "Status", foregroundTextColor: .customPink, outlineColor: .customPink)
                     }
+                    Button {
+                        
+                    } label: {
+                        CustomButton(title: "Add", foreground: .white, background: .customPink)
+                    }
+                }
+                
+                HStack(spacing: 16){
+                    InfoView(count: 145, title: "Collections")
+                    InfoView(count: 58, title: "Likes")
+                    InfoView(count: 5786, title: "Comments")
+                }
+                
+                DescriptionView()
+                
+                BookTags()
+                
+                Comments()
+            }
+            .padding()
+        }
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("I'm fine neither are you")
+                    .font(.poppinsBold(size: 20))
+                    .foregroundColor(.customBlack)
+            }
+            ToolbarItem {
+                Button {
+                    
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .rotationEffect(Angle(degrees: 90))
+                        .foregroundColor(.customBlack)
                 }
             }
         }
@@ -192,7 +188,7 @@ struct BookDetailsView: View {
                 VStack {
                     WebImageView(url: URL(string: "https://shorturl.at/bfvFK"))
                         .frame(width: 40, height: 40)
-                    .cornerRadius(20)
+                        .cornerRadius(20)
                     Spacer()
                 }
                 
@@ -210,13 +206,13 @@ struct BookDetailsView: View {
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.leading)
                     
-//                    Button{
-//
-//                    } label: {
-//                        Text("more")
-//                            .font(.robotoMedium(size: 16))
-//                            .foregroundColor(.accentColor)
-//                    }
+                    //                    Button{
+                    //
+                    //                    } label: {
+                    //                        Text("more")
+                    //                            .font(.robotoMedium(size: 16))
+                    //                            .foregroundColor(.accentColor)
+                    //                    }
                     HStack{
                         Button {
                             
@@ -247,6 +243,184 @@ struct BookDetailsView: View {
                             .foregroundColor(.lightGrey)
                         
                         Spacer()
+                    }
+                }
+            }
+            
+            HStack(spacing: 12){
+                VStack {
+                    WebImageView(url: URL(string: "https://shorturl.at/bfvFK"))
+                        .frame(width: 40, height: 40)
+                        .cornerRadius(20)
+                    Spacer()
+                }
+                
+                VStack(spacing: 4){
+                    HStack{
+                        Text("booklover")
+                            .font(.robotoBold(size: 16))
+                        Spacer()
+                        Text("3 hours ago")
+                            .font(.robotoRegular(size: 16))
+                            .foregroundColor(.darkGrey)
+                    }
+                    
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color.lightGrey)
+                        .frame(height: 150)
+                    
+                    HStack{
+                        Button {
+                            
+                        } label: {
+                            Text("Reply")
+                                .font(.robotoMedium(size: 14))
+                                .foregroundColor(.darkGrey)
+                        }
+                        
+                        Circle()
+                            .fill(Color.lightGrey)
+                            .frame(width: 2, height: 2)
+                        
+                        Button {
+                            
+                        } label: {
+                            Text("Like")
+                                .font(.robotoMedium(size: 14))
+                                .foregroundColor(.darkGrey)
+                        }
+                        
+                        Circle()
+                            .fill(Color.lightGrey)
+                            .frame(width: 2, height: 2)
+                        
+                        Text("169 likes")
+                            .font(.robotoRegular(size: 14))
+                            .foregroundColor(.lightGrey)
+                        
+                        Spacer()
+                    }
+                }
+            }
+            
+            HStack(spacing: 12){
+                VStack {
+                    WebImageView(url: URL(string: "https://shorturl.at/bfvFK"))
+                        .frame(width: 40, height: 40)
+                        .cornerRadius(20)
+                    Spacer()
+                }
+                
+                VStack(spacing: 4){
+                    HStack{
+                        Text("msvitton")
+                            .font(.robotoBold(size: 16))
+                        Spacer()
+                        Text("6 hours ago")
+                            .font(.robotoRegular(size: 16))
+                            .foregroundColor(.darkGrey)
+                    }
+                    
+                    Text("Do you agree that in this book was a little to much of an obscene conversations?")
+                        .font(.robotoRegular(size: 16))
+                    
+                    HStack{
+                        Button {
+                            
+                        } label: {
+                            Text("Reply")
+                                .font(.robotoMedium(size: 14))
+                                .foregroundColor(.darkGrey)
+                        }
+                        
+                        Circle()
+                            .fill(Color.lightGrey)
+                            .frame(width: 2, height: 2)
+                        
+                        Button {
+                            
+                        } label: {
+                            Text("Like")
+                                .font(.robotoMedium(size: 14))
+                                .foregroundColor(.darkGrey)
+                        }
+                        
+                        Circle()
+                            .fill(Color.lightGrey)
+                            .frame(width: 2, height: 2)
+                        
+                        Text("100k likes")
+                            .font(.robotoRegular(size: 14))
+                            .foregroundColor(.lightGrey)
+                        
+                        Spacer()
+                    }
+                    
+                    Button {
+                        
+                    } label: {
+                        HStack{
+                            Image(systemName: "chevron.up")
+                            Text("Hide replies")
+                            Spacer()
+                        }
+                        .font(.robotoRegular(size: 16))
+                    }
+                    .padding(.vertical, 8)
+                    
+                    HStack(spacing: 12){
+                        VStack {
+                            WebImageView(url: URL(string: "https://shorturl.at/bfvFK"))
+                                .frame(width: 40, height: 40)
+                                .cornerRadius(20)
+                            Spacer()
+                        }
+                        
+                        VStack(spacing: 4){
+                            HStack{
+                                Text("susethunter")
+                                    .font(.robotoBold(size: 16))
+                                Spacer()
+                                Text("6 hours ago")
+                                    .font(.robotoRegular(size: 16))
+                                    .foregroundColor(.darkGrey)
+                            }
+                            
+                            Text("Maybe... for me it was fun do 🐸")
+                                .font(.robotoRegular(size: 16))
+                            
+                            HStack{
+                                Button {
+                                    
+                                } label: {
+                                    Text("Reply")
+                                        .font(.robotoMedium(size: 14))
+                                        .foregroundColor(.darkGrey)
+                                }
+                                
+                                Circle()
+                                    .fill(Color.lightGrey)
+                                    .frame(width: 2, height: 2)
+                                
+                                Button {
+                                    
+                                } label: {
+                                    Text("Like")
+                                        .font(.robotoMedium(size: 14))
+                                        .foregroundColor(.darkGrey)
+                                }
+                                
+                                Circle()
+                                    .fill(Color.lightGrey)
+                                    .frame(width: 2, height: 2)
+                                
+                                Text("10 likes")
+                                    .font(.robotoRegular(size: 14))
+                                    .foregroundColor(.lightGrey)
+                                
+                                Spacer()
+                            }
+                        }
                     }
                 }
             }

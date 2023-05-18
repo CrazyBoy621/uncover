@@ -58,9 +58,9 @@ struct RegistrationView: View {
                     
                     if currentPage == .signup {
                         VStack(spacing: 20) {
-                            customTextField("Username", text: $username, isValidated: isUsernameValidated)
-                            customTextField("Email", text: $email, isValidated: isEmailValidated)
-                            customTextField("Password", text: $password, isValidated: false)
+                            CustomTextField("Username", text: $username, isValidated: isUsernameValidated)
+                            CustomTextField("Email", text: $email, isValidated: isEmailValidated)
+                            CustomTextField("Password", text: $password, isValidated: false)
                             
                             Button {
                                 
@@ -72,8 +72,8 @@ struct RegistrationView: View {
                     }
                     else{
                         VStack(spacing: 20) {
-                            customTextField("Email", text: $email, isValidated: false)
-                            customTextField("Password", text: $password, isValidated: false)
+                            CustomTextField("Email", text: $email, isValidated: false)
+                            CustomTextField("Password", text: $password, isValidated: false)
                             
                             Button {
                                 
@@ -107,7 +107,7 @@ struct RegistrationView: View {
         .edgesIgnoringSafeArea(.top)
     }
     
-    func customTextField(_ placeholder: String, text: Binding<String>, isValidated: Bool) -> some View {
+    func CustomTextField(_ placeholder: String, text: Binding<String>, isValidated: Bool) -> some View {
         TextField(placeholder, text: text)
             .frame(height: 55)
             .padding(.horizontal, 13)
