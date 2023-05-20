@@ -10,34 +10,28 @@ import SwiftUI
 struct ContentView: View {
     
     @State var currentTab: Tabs = .home
-    @State var showOnboarding = false
     
     var body: some View {
-        if showOnboarding{
-            OnBoardingView(currentOnBoard: .onboarding1)
-        }
-        else{
-            NavigationView {
-                ZStack{
-                    switch currentTab {
-                    case .home:
-                        HomeView()
-                    case .search:
-                        SearchView()
-                    case .plus:
-                        Text("Plus")
-                    case .notification:
-                        NotificationView()
-                    case .profile:
-                        ProfileView()
-                    }
+        NavigationView {
+            ZStack{
+                switch currentTab {
+                case .home:
+                    HomeView()
+                case .search:
+                    SearchView()
+                case .plus:
+                    Text("Plus")
+                case .notification:
+                    NotificationView()
+                case .profile:
+                    ProfileView()
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .overlay(
-                    TabBarView(currentTab: $currentTab)
-                        .padding(.bottom)
-                    ,alignment: .bottom)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .overlay(
+                TabBarView(currentTab: $currentTab)
+                    .padding(.bottom)
+                ,alignment: .bottom)
         }
     }
 }

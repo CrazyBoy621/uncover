@@ -22,31 +22,38 @@ struct NotificationView: View {
                     .padding(.bottom)
                     
                     NotificationTitle(title: "Recent")
-                    VStack{
+                    VStack {
                         RepliedCommentInCollection(userImgURL: "https://shorturl.at/egvCO", userName: "Bekzod", collectionImgURL: "https://shorturl.at/tBDV4")
                         
                         RepliedYourComment(userImgURL: "https://shorturl.at/egvCO", userName: "Bekzod", collectionImgURL: "https://shorturl.at/tBDV4")
                         
                         YourFacebookFriendNotification(userImgURL: "https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg", userName: "Anna")
+                        YourFacebookFriendNotification(userImgURL: "https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg", userName: "Anna")
+                        YourFacebookFriendNotification(userImgURL: "https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg", userName: "Anna")
+                        YourFacebookFriendNotification(userImgURL: "https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg", userName: "Anna")
+                        YourFacebookFriendNotification(userImgURL: "https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg", userName: "Anna")
+                        YourFacebookFriendNotification(userImgURL: "https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg", userName: "Anna")
+                        YourFacebookFriendNotification(userImgURL: "https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg", userName: "Anna")
                     }
                 }
                 .padding()
+                .padding(.bottom, 106)
             }
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                HStack(spacing: 8) {
-                    Text("Notification")
-                        .font(.poppinsExtraBold(size: 20))
-                    Text("20+")
-                        .font(.robotoMedium(size: 14))
-                        .padding(.horizontal, 4)
-                        .padding(.vertical, 3)
-                        .background {
-                            Color.customPink.cornerRadius(11)
-                        }
-                        .foregroundColor(.white)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 8) {
+                        Text("Notification")
+                            .font(.poppinsExtraBold(size: 20))
+                        Text("20+")
+                            .font(.robotoMedium(size: 14))
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 3)
+                            .background {
+                                Color.customPink.cornerRadius(11)
+                            }
+                            .foregroundColor(.white)
+                    }
                 }
             }
         }
@@ -320,7 +327,7 @@ struct NotificationView: View {
                                     .frame(width: 16, height: 16)
                             )
                             .overlay(
-                                Image(systemName: "checkmark")
+                                Image(systemName: "person.fill")
                                     .font(.system(size: 6, weight: .heavy))
                                     .foregroundColor(.white)
                                 , alignment: .center

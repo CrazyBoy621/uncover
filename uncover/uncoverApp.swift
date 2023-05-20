@@ -9,9 +9,25 @@ import SwiftUI
 
 @main
 struct uncoverApp: App {
+    
+    @AppStorage("onboarding") var onboarding: Bool = true
+    @AppStorage("login") var login: Bool = true
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if onboarding {
+                NavigationView {
+                    OnboardingView()
+                }
+            }
+            else if login {
+                NavigationView {
+                    WelcomeView()
+                }
+            }
+            else{
+                ContentView()
+            }
         }
     }
 }

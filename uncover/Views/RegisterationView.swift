@@ -12,7 +12,7 @@ enum Registeration{
     case signin
 }
 
-struct RegistrationView: View {
+struct RegisterationView: View {
     
     @State var currentPage: Registeration = .signup
     
@@ -22,6 +22,9 @@ struct RegistrationView: View {
     
     @State var isUsernameValidated = false
     @State var isEmailValidated = false
+    @State var isAlertTextVisible = false
+    @State var isPasswordSecure = true
+    
     
     var body: some View {
         ZStack {
@@ -40,6 +43,8 @@ struct RegistrationView: View {
                         Spacer()
                         Button {
                             currentPage = .signup
+                            isPasswordSecure = true
+                            password = ""
                         } label: {
                             Text("Sign Up")
                                 .font(.poppinsBold(size: 16))
@@ -48,6 +53,8 @@ struct RegistrationView: View {
                         Spacer()
                         Button {
                             currentPage = .signin
+                            isPasswordSecure = true
+                            password = ""
                         } label: {
                             Text("Log In")
                                 .font(.poppinsBold(size: 16))
@@ -60,7 +67,7 @@ struct RegistrationView: View {
                         VStack(spacing: 20) {
                             CustomTextField("Username", text: $username, isValidated: isUsernameValidated)
                             CustomTextField("Email", text: $email, isValidated: isEmailValidated)
-                            CustomTextField("Password", text: $password, isValidated: false)
+                            CustomSecureField("Password", text: $password)
                             
                             Button {
                                 
@@ -72,11 +79,30 @@ struct RegistrationView: View {
                     }
                     else{
                         VStack(spacing: 20) {
-                            CustomTextField("Email", text: $email, isValidated: false)
-                            CustomTextField("Password", text: $password, isValidated: false)
-                            
-                            Button {
+                            VStack(alignment: .leading, spacing: 8) {
+                                CustomTextField("Email", text: $email, isValidated: false)
+                                    .onChange(of: email, perform: { newValue in
+                                        withAnimation {
+                                            isAlertTextVisible = newValue.isEmpty
+                                        }
+                                    })
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(isAlertTextVisible ? Color.customRed : Color.clear, lineWidth: 1)
+                                    )
                                 
+                                if isAlertTextVisible {
+                                    Text("email adress is required")
+                                        .font(.poppinsRegular(size: 12))
+                                        .foregroundColor(.customRed)
+                                        .padding(.horizontal, 13)
+                                }
+                            }
+                            CustomSecureField("Password", text: $password)
+                            Button {
+                                withAnimation {
+                                    isAlertTextVisible = email.isEmpty
+                                }
                             } label: {
                                 CustomLargeButton(title: "Sign in", foreground: .white, background: .accentColor)
                             }
@@ -96,6 +122,7 @@ struct RegistrationView: View {
                 .padding(.top, 260)
             }
         }
+        .edgesIgnoringSafeArea(.top)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -104,7 +131,6 @@ struct RegistrationView: View {
                     .aspectRatio(contentMode: .fit)
             }
         }
-        .edgesIgnoringSafeArea(.top)
     }
     
     func CustomTextField(_ placeholder: String, text: Binding<String>, isValidated: Bool) -> some View {
@@ -127,6 +153,31 @@ struct RegistrationView: View {
                 }
             }
             .textInputAutocapitalization(.never)
+    }
+    
+    func CustomSecureField(_ placeholder: String, text: Binding<String>) -> some View {
+        ZStack {
+            if isPasswordSecure {
+                SecureField(placeholder, text: $password)
+            } else {
+                TextField(placeholder, text: $password)
+            }
+        }
+        .frame(height: 55)
+        .padding(.horizontal, 13)
+        .padding(.trailing, 27)
+        .background(Color.containerGrey.cornerRadius(15))
+        .overlay(
+            Button{
+                isPasswordSecure.toggle()
+            } label: {
+                Image(isPasswordSecure ? "eye-close" : "eye-open")
+                    .foregroundColor(.checkMarkColor)
+                    .padding(.trailing, 14)
+            }
+            , alignment: .trailing
+        )
+        .textInputAutocapitalization(.never)
     }
     
     func validateUsername() {
@@ -152,8 +203,8 @@ struct RegistrationView: View {
     }
 }
 
-struct RegistrationView_Previews: PreviewProvider {
+struct RegisterationView_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrationView()
+        RegisterationView()
     }
 }

@@ -7,144 +7,106 @@
 
 import SwiftUI
 
-enum OnboardingPages {
-    case onboarding1
-    case onboarding2
-    case onboarding3
-    case welcome
-}
-
-struct OnBoardingView: View {
-    @State var currentOnBoard: OnboardingPages
-    
-    var body: some View {
-        NavigationView {
-            ScrollView {
-                switch currentOnBoard {
-                case .onboarding1:
-                    OnboardingPage(imageName: "onboarding-1", title: "Discover", description: "Search by favourite subject, author, title, or maybe plot elements – mix and match! Tags will make it easy for you. Just dive in other’s ideas and discover new titles.", buttonText: "Continue", nextPage: .onboarding2) {
-                        currentOnBoard = $0
-                    }
-                case .onboarding2:
-                    OnboardingPage(imageName: "onboarding-2", title: "Create", description: "Create your own book collections on any subject, writer, or character’s key features. Show others your extraordinary taste in books and become a bookfluencer!", buttonText: "Continue", nextPage: .onboarding3) {
-                        currentOnBoard = $0
-                    }
-                case .onboarding3:
-                    OnboardingPage(imageName: "onboarding-3", title: "Get inspired", description: "You can follow inspiring accounts or just individual collections. Save them, share them, get back to them. Discuss your reads with other members.", buttonText: "Continue", nextPage: .welcome) {
-                        currentOnBoard = $0
-                    }
-                case .welcome:
-                    WelcomePage(currentOnBoard: $currentOnBoard)
-                }
-            }
-            .edgesIgnoringSafeArea(.all)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Image("uncover-logo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                }
-            }
-        }
-    }
-}
-
-struct OnboardingPage: View {
-    let imageName: String
+struct Onboarding: Identifiable {
+    var id = UUID()
+    let image: String
     let title: String
-    let description: String
-    let buttonText: String
-    let nextPage: OnboardingPages
-    let action: (OnboardingPages) -> Void
+    let subtitle: String
+}
+
+struct OnboardingView: View {
+    
+    private var onboardings = [
+        Onboarding(
+            image: "onboarding-1",
+            title: "Discover",
+            subtitle: "Search by favourite subject, author, title, or maybe plot elements – mix and match! Tags will make it easy for you. Just dive in other’s ideas and discover new titles."
+        ),
+        Onboarding(
+            image: "onboarding-2",
+            title: "Book Collections",
+            subtitle: "Organize your reads. Save all your books on your bookish profile divided into your own categories. Be creative without any limits!"
+        ),
+        Onboarding(
+            image: "onboarding-3",
+            title: "Recommendations",
+            subtitle: "Join a bookish community to stay up to date with book trends. Discuss your reads with other members and discover new books on a social feed!"
+        )
+    ]
+    
+    @State var reloadAnimation = true
+    @State var index = 0
+    @AppStorage("onboarding") var onboarding: Bool = true
     
     var body: some View {
         VStack {
-            Image(imageName)
+            TabView(selection: $index) {
+                ForEach(Array(onboardings.enumerated()), id: \.offset) { index, onboarding in
+                    CardView(image: onboarding.image, title: onboarding.title, subtitle: onboarding.subtitle)
+                }
+            }
+            .tabViewStyle(.page)
+            
+            Spacer()
+            
+            Button {
+                withAnimation {
+                    if index == onboardings.count - 1 {
+                        onboarding = false
+                    } else {
+                        index += 1
+                    }
+                }
+            } label: {
+                CustomLargeButton(title: "Continue", foreground: .white, background: .accentColor)
+            }
+            .padding(.horizontal)
+            .padding(.bottom)
+            
+            Button {
+                onboarding = false
+            } label: {
+                Text("Skip")
+                    .foregroundColor(.darkGrey)
+                    .font(.system(size: 16, weight: .semibold))
+            }
+        }
+        .navigationTitle("uncover")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Image("uncover-logo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
+        }
+    }
+    
+    @ViewBuilder func CardView(image: String, title: String, subtitle: String) -> some View {
+        VStack(spacing: 16) {
+            Image(image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .padding(.top, 15)
-            VStack(spacing: 20) {
+                .clipped()
+            VStack(spacing: 16) {
                 Text(title)
                     .font(.poppinsRegular(size: 28))
-                Text(description)
+                
+                Text(subtitle)
                     .foregroundColor(.darkGrey)
                     .font(.poppinsRegular(size: 16))
                     .multilineTextAlignment(.center)
-                Button {
-                    withAnimation {
-                        action(nextPage)
-                    }
-                } label: {
-                    CustomLargeButton(title: buttonText, foreground: .white, background: .accentColor)
-                }
-                .padding(.top, 12)
-                
-                Button {
-                    action(.welcome)
-                } label: {
-                    Text("Skip")
-                        .foregroundColor(.darkGrey)
-                        .font(.system(size: 16, weight: .semibold))
-                }
             }
             .padding(.horizontal)
         }
-    }
-}
-
-struct WelcomePage: View {
-    @Binding var currentOnBoard: OnboardingPages
-    
-    var body: some View {
-        VStack {
-            Image("welcome")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding(.top, 36)
-            
-            VStack(spacing: 20) {
-                VStack(spacing: 6) {
-                    Text("Welcome")
-                        .font(.poppinsSemiBold(size: 28))
-                        .foregroundColor(.customBlack)
-                    
-                    Text("Enjoy sharing the books with others")
-                        .foregroundColor(.darkGrey)
-                        .font(.poppinsRegular(size: 16))
-                        .multilineTextAlignment(.center)
-                }
-                
-                VStack(spacing: 16) {
-                    Button { } label: {
-                        ContinueWith(imgName: "google", continueWith: "Google")
-                    }
-                    Button { } label: {
-                        ContinueWith(imgName: "facebook", continueWith: "Facebook")
-                    }
-                    Button { } label: {
-                        CustomLargeButton(title: "Continue with e-mail", foreground: .white, background: .accentColor)
-                    }
-                    Button { } label: {
-                        Text("Explore as a guest")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.accentColor.opacity(0.8))
-                    }
-                }
-                
-                Text("Continuing to use Moodreaders means you accept our Terms of Service and Privacy Policy.")
-                    .foregroundColor(.darkGrey)
-                    .font(.system(size: 12, weight: .semibold))
-                    .multilineTextAlignment(.center)
-            }
-            .padding(.horizontal)
-            .offset(y: -48)
-        }
+        .offset(y: -60)
     }
 }
 
 struct OnBoardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnBoardingView(currentOnBoard: .onboarding1)
+        NavigationView {
+            OnboardingView()
+        }
     }
 }

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @StateObject var ViewModel = HomeViewModel()
+    
     var body: some View {
         ScrollView{
             VStack(spacing: 24){
@@ -17,7 +20,7 @@ struct HomeView: View {
                     BookDeckView(title: "Learn Today!", username: "Bekzod", rating: 2005)
                 }
                 NavigationLink{
-                    RegistrationView()
+                    RegisterationView()
                 } label: {
                     BookDeckView(title: "Children’s literature", username: "Bekzod", rating: 1996)
                 }

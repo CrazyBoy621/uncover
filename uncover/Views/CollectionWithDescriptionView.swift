@@ -41,38 +41,36 @@ struct CollectionWithDescriptionView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem {
-                HStack {
+                HStack(spacing: 8) {
                     Button {
                         
                     } label: {
-                        Image(systemName: "heart.fill")
-                            .background(
-                                Circle()
-                                    .fill(.white)
-                                    .frame(width: 32, height: 32)
-                                    .shadow(
-                                        color: .black.opacity(0.1),
-                                        radius: 4, y: 4
-                                    )
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 32, height: 32)
+                            .shadow(
+                                color: .black.opacity(0.1),
+                                radius: 4, y: 4
                             )
-                            .padding(8)
+                            .overlay{
+                                Image(systemName: "heart.fill")
+                            }
                     }
                     
                     Button {
                         
                     } label: {
-                        Image(systemName: "ellipsis")
-                            .rotationEffect(Angle(degrees: 90))
-                            .background(
-                                Circle()
-                                    .fill(.white)
-                                    .frame(width: 32, height: 32)
-                                    .shadow(
-                                        color: .black.opacity(0.1),
-                                        radius: 4, y: 4
-                                    )
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 32, height: 32)
+                            .shadow(
+                                color: .black.opacity(0.1),
+                                radius: 4, y: 4
                             )
-                            .padding(8)
+                            .overlay{
+                                Image(systemName: "ellipsis")
+                                    .rotationEffect(Angle(degrees: 90))
+                            }
                     }
                 }
                 .font(.system(size: 12))
@@ -212,6 +210,8 @@ struct CollectionWithDescriptionView: View {
 
 struct CollectionWithDescriptionView_Previews: PreviewProvider {
     static var previews: some View {
-        CollectionWithDescriptionView()
+        NavigationView {
+            CollectionWithDescriptionView()
+        }
     }
 }
