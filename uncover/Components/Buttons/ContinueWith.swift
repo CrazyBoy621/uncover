@@ -2,7 +2,7 @@
 //  ContinueWith.swift
 //  uncover
 //
-//  Created by Shohjahon Rakhmatov on 16/05/23.
+//  Created by Bekzod Rakhmatov on 16/05/23.
 //
 
 import SwiftUI
@@ -11,7 +11,7 @@ struct ContinueWith: View {
     let imgName: String
     let continueWith: String
     var body: some View {
-        HStack(spacing: 24){
+        HStack(spacing: 24) {
             Image(imgName)
             Text("Continue with \(continueWith)")
                 .foregroundColor(.customBlack)
