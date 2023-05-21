@@ -6,53 +6,75 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct SearchView: View {
     
+    
+    @State var isSearching = false
     @State var searchValue = ""
+    @State var searchPlaceholder = "Search"
     
     var body: some View {
-            ScrollView(showsIndicators: false) {
-                VStack {
-                    SearchView()
+        ScrollView(showsIndicators: false) {
+            VStack {
+                VStack(spacing: 16) {
+                    if !isSearching {
+                        HStack {
+                            Text("Discover your new reads")
+                                .font(.poppinsBold(size: 28))
+                                .foregroundColor(.customBlack)
+                                .frame(maxWidth: 295, alignment: .leading)
+                            
+                            Spacer()
+                        }
+                    }
+                    
+                    HStack {
+                        if isSearching {
+                            Button {
+                                withAnimation {
+                                    searchPlaceholder = "Search..."
+                                    isSearching = false
+                                }
+                                hideKeyboard()
+                                searchValue = ""
+                            } label: {
+                                Image(systemName: "arrow.left")
+                                    .font(.title2)
+                                    .foregroundColor(.customBlack)
+                            }
+                        }
+                        
+                        SearchTextField(placeholder: searchPlaceholder, text: $searchValue)
+                            .onTapGesture {
+                                if isSearching == false {
+                                    withAnimation {
+                                        searchPlaceholder = "Search by title & author..."
+                                        isSearching = true
+                                    }
+                                }
+                            }
+                    }
                 }
-                .padding(.bottom, 106)
+                .padding(.horizontal, 16)
+                .frame(maxWidth: .infinity)
+                
+                VStack{
+                    if isSearching {
+                        SearchingView()
+                    } else {
+                        SearchView()
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+            .padding(.bottom, 106)
+        }
     }
     
     @ViewBuilder func SearchView() -> some View{
         VStack(spacing: 24) {
-            VStack(spacing: 16) {
-                HStack {
-                    Text("Discover your new reads")
-                        .font(.poppinsBold(size: 28))
-                        .foregroundColor(.customBlack)
-                        .frame(maxWidth: 295, alignment: .leading)
-                    
-                    Spacer()
-                }
-                
-                NavigationLink {
-                    SearchingView()
-                } label: {
-                    Text("Search...")
-                        .font(.poppinsRegular(size: 16))
-                        .foregroundColor(.lightGrey)
-                        .padding(.leading, 48)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .frame(height: 55).background(Color.containerGrey.cornerRadius(14))
-                        .overlay(
-                            Image("search")
-                                .padding(.horizontal, 12)
-                                .font(.title2)
-                                .foregroundColor(.darkGrey)
-                            , alignment: .leading
-                        )
-                }
-                
-            }
-            .padding(.horizontal, 16)
-            .frame(maxWidth: .infinity)
             
             BookTrends()
             
@@ -155,6 +177,137 @@ struct SearchView: View {
                 .padding(.vertical, 18)
         }
         .shadow(color: .black.opacity(0.3), radius: 4, y: 4)
+    }
+    
+    func hideKeyboard() {
+        guard let keyWindow = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .flatMap({ $0.windows })
+            .first(where: { $0.isKeyWindow }) else {
+            return
+        }
+        
+        keyWindow.endEditing(true)
+    }
+}
+
+struct SearchingView: View {
+    @State private var selectedTab: Tab = .books
+    
+    enum Tab {
+        case books
+        case collections
+        case tags
+        case users
+    }
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack {
+                Spacer()
+                Button {
+                    selectedTab = .books
+                } label: {
+                    Text("Books")
+                        .font(selectedTab == .books ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
+                        .frame(height: 36, alignment: .leading)
+                        .overlay(
+                            Rectangle()
+                                .fill(selectedTab == .books ? Color.customBlack : Color.clear)
+                                .frame(height: 2)
+                            , alignment: .bottom
+                        )
+                }
+                
+                Spacer()
+                Button {
+                    selectedTab = .collections
+                } label: {
+                    Text("Collections")
+                        .font(selectedTab == .collections ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
+                        .frame(height: 36, alignment: .leading)
+                        .overlay(
+                            Rectangle()
+                                .fill(selectedTab == .collections ? Color.customBlack : Color.clear)
+                                .frame(height: 2)
+                            , alignment: .bottom
+                        )
+                }
+                
+                Spacer()
+                Button {
+                    selectedTab = .tags
+                } label: {
+                    Text("Tags")
+                        .font(selectedTab == .tags ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
+                        .frame(height: 36, alignment: .leading)
+                        .overlay(
+                            Rectangle()
+                                .fill(selectedTab == .tags ? Color.customBlack : Color.clear)
+                                .frame(height: 2)
+                            , alignment: .bottom
+                        )
+                }
+                
+                Spacer()
+                Button {
+                    selectedTab = .users
+                } label: {
+                    Text("Users")
+                        .font(selectedTab == .users ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
+                        .frame(height: 36, alignment: .leading)
+                        .overlay(
+                            Rectangle()
+                                .fill(selectedTab == .users ? Color.customBlack : Color.clear)
+                                .frame(height: 2)
+                            , alignment: .bottom
+                        )
+                }
+                Spacer()
+            }
+            .font(.poppinsMedium(size: 16))
+            .foregroundColor(.customBlack)
+            .padding(.top, 16)
+            
+            Divider()
+            
+            TabView(selection: $selectedTab) {
+                Books()
+                    .tag(Tab.books)
+                Collections()
+                    .tag(Tab.collections)
+                Tags()
+                    .tag(Tab.tags)
+                Users()
+                    .tag(Tab.users)
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(height: .infinity)
+            .padding(.horizontal, 20)
+            .border(.red)
+        }
+    }
+    
+    @ViewBuilder func Books() -> some View {
+        ScrollView {
+            VStack(spacing: 24) {
+                Text("Popular new releases")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+    }
+    
+    @ViewBuilder func Collections() -> some View {
+        Text("Collections")
+    }
+    
+    @ViewBuilder func Tags() -> some View {
+        Text("Tags")
+    }
+    
+    @ViewBuilder func Users() -> some View {
+        Text("Users")
     }
 }
 
