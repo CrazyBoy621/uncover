@@ -9,23 +9,18 @@ import SwiftUI
 
 struct SearchView: View {
     
-    @State var isSearching = false
     @State var searchValue = ""
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack {
-                if isSearching {
-                    SearchingView()
-                } else {
-                    SearchDefaultView()
+            ScrollView(showsIndicators: false) {
+                VStack {
+                    SearchView()
                 }
+                .padding(.bottom, 106)
             }
-            .padding(.bottom, 106)
-        }
     }
     
-    @ViewBuilder func SearchDefaultView() -> some View{
+    @ViewBuilder func SearchView() -> some View{
         VStack(spacing: 24) {
             VStack(spacing: 16) {
                 HStack {
@@ -37,10 +32,23 @@ struct SearchView: View {
                     Spacer()
                 }
                 
-                SearchTextField(placeholder: "Search...", text: $searchValue)
-                    .onTapGesture {
-                        isSearching = true
-                    }
+                NavigationLink {
+                    SearchingView()
+                } label: {
+                    Text("Search...")
+                        .font(.poppinsRegular(size: 16))
+                        .foregroundColor(.lightGrey)
+                        .padding(.leading, 48)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 55).background(Color.containerGrey.cornerRadius(14))
+                        .overlay(
+                            Image("search")
+                                .padding(.horizontal, 12)
+                                .font(.title2)
+                                .foregroundColor(.darkGrey)
+                            , alignment: .leading
+                        )
+                }
                 
             }
             .padding(.horizontal, 16)
@@ -61,7 +69,7 @@ struct SearchView: View {
             } label: {
                 CollectionTitle(title: "Book trends")
             }
-            .padding(.trailing, 16)
+            .padding(.horizontal, 16)
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack{
                     ForEach(0..<20) { Index in
@@ -72,10 +80,10 @@ struct SearchView: View {
                             .cornerRadius(8)
                     }
                 }
+                .padding(.leading, 16)
                 .frame(height: 166)
             }
         }
-        .padding(.leading, 16)
     }
     
     @ViewBuilder func FantasyCollections() -> some View {
@@ -147,40 +155,6 @@ struct SearchView: View {
                 .padding(.vertical, 18)
         }
         .shadow(color: .black.opacity(0.3), radius: 4, y: 4)
-    }
-    
-    @ViewBuilder func SearchingView() -> some View{
-        VStack(spacing: 16) {
-            HStack(spacing: 16) {
-                Button {
-                    withAnimation {
-                        isSearching = false
-                    }
-                } label: {
-                    Image(systemName: "arrow.left")
-                        .foregroundColor(.lightGrey)
-                        .font(.title)
-                }
-                
-                SearchTextField(placeholder: "Search by title & author...", text: $searchValue)
-            }
-        }
-        .padding(16)
-    }
-    
-    @ViewBuilder func SearchTextField(placeholder: String, text: Binding<String>) -> some View{
-        TextField(placeholder, text: text)
-            .frame(maxWidth: .infinity)
-            .padding(.leading, 50)
-            .frame(height: 55)
-            .background(Color.containerGrey.cornerRadius(14))
-            .overlay(
-                Image(systemName: "magnifyingglass")
-                    .padding(.horizontal, 12)
-                    .font(.title2)
-                    .foregroundColor(.darkGrey)
-                , alignment: .leading
-            )
     }
 }
 

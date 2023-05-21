@@ -9,8 +9,6 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @StateObject var ViewModel = HomeViewModel()
-    
     var body: some View {
         ScrollView{
             VStack(spacing: 24){

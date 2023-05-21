@@ -16,7 +16,7 @@ struct WelcomeView: View {
             Image("welcome")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .offset(y: -40)
+                .padding(.vertical, 32)
             
             VStack(spacing: 20) {
                 VStack(spacing: 6) {
@@ -58,7 +58,6 @@ struct WelcomeView: View {
                     .multilineTextAlignment(.center)
             }
             .padding(.horizontal)
-            .offset(y: -88)
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

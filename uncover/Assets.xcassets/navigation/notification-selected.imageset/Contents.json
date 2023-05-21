@@ -6,10 +6,12 @@
       "scale" : "1x"
     },
     {
+      "filename" : "Activity@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Activity@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
