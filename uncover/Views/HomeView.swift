@@ -15,19 +15,20 @@ struct HomeView: View {
                 NavigationLink {
                     CollectionWithDescriptionView()
                 } label: {
-                    BookDeckView(title: "Learn Today!", username: "Bekzod", rating: 2005)
+                    CollectionDeckView(title: "Re-read someday", username: "martinpalmer", collectionUrl: "https://shorturl.at/bBN78", userAvatarUrl: "https://shorturl.at/fmA05", rating: 99)
                 }
                 NavigationLink{
                     RegisterationView()
                 } label: {
-                    BookDeckView(title: "Children’s literature", username: "Bekzod", rating: 1996)
+                    CollectionDeckView(title: "Children's literature", username: "Bekzod", collectionUrl: "https://shorturl.at/ABHMW", userAvatarUrl: "https://shorturl.at/bBN78", rating: 99)
                 }
                 NavigationLink {
                     BookDetailsView()
                 } label: {
-                    BookDeckView(title: "Children’s literature", username: "Bekzod", rating: 1996)
+                    CollectionDeckView(title: "Children's literature", username: "Bekzod", collectionUrl: "https://shorturl.at/ABHMW", userAvatarUrl: "https://shorturl.at/bBN78", rating: 99)
                 }
             }
+            .padding(.horizontal, 20)
             .padding(.bottom, 106)
         }
         .navigationTitle("")

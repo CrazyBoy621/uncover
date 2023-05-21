@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-struct BookDeckView: View {
+struct CollectionDeckView: View {
     
-    @State var title: String
-    @State var username: String
-    @State var rating: Int
+    let title: String
+    let username: String
+    let collectionUrl: String
+    let userAvatarUrl: String
+    let rating: Int
     
     var body: some View {
         ZStack {
@@ -33,7 +35,9 @@ struct BookDeckView: View {
                         .frame(width: 32, height: 32)
                         .aspectRatio(contentMode: .fit)
                         .overlay(
-                            Image("user-avatar")
+                            WebImageView(url: URL(string: userAvatarUrl))
+                                .frame(width: 32, height: 32)
+                                .cornerRadius(16)
                         )
                     Text(username)
                         .font(.system(size: 16, weight: .bold))
@@ -84,18 +88,16 @@ struct BookDeckView: View {
         .frame(maxWidth: .infinity)
         .frame(height: 420)
         .background(
-            Image("background-img")
-                .resizable()
+            WebImageView(url: URL(string: collectionUrl))
                 .aspectRatio(contentMode: .fill)
-                .background(Color.white)
         )
         .cornerRadius(16)
-        .padding(.horizontal, 21)
+        .shadow(color: Color.black.opacity(0.3), radius: 8, y: 4)
     }
 }
 
-struct BookDeckView_Previews: PreviewProvider {
+struct CollectionDeckView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDeckView(title: "Re-read someday", username: "martinpalmer", rating: 99)
+        CollectionDeckView(title: "Re-read someday", username: "martinpalmer", collectionUrl: "https://shorturl.at/iMVZ7", userAvatarUrl: "https://shorturl.at/fwzAP", rating: 99)
     }
 }

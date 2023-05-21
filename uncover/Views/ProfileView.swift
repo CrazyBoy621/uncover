@@ -80,7 +80,7 @@ struct ProfileView: View {
         VStack(spacing: 24){
             InfoTextView()
             BooksCollectionView()
-            CollectionView()
+            CollectionsView()
         }
         .padding(12)
         .frame(maxWidth: .infinity)

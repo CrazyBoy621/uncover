@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CollectionView: View {
+struct CollectionsView: View {
     var body: some View {
         VStack(spacing: 16){
             Button {
@@ -59,8 +59,8 @@ struct CollectionView: View {
     }
 }
 
-struct CollectionView_Previews: PreviewProvider {
+struct CollectionsView_Previews: PreviewProvider {
     static var previews: some View {
-        CollectionView()
+        CollectionsView()
     }
 }
