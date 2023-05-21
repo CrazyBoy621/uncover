@@ -16,7 +16,7 @@ struct SearchView: View {
     @State var searchPlaceholder = "Search"
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
+//        ScrollView(showsIndicators: false) {
             VStack {
                 VStack(spacing: 16) {
                     if !isSearching {
@@ -64,12 +64,14 @@ struct SearchView: View {
                     if isSearching {
                         SearchingView()
                     } else {
-                        SearchView()
+                        ScrollView {
+                            SearchView()
+                                .padding(.bottom, 106)
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            .padding(.bottom, 106)
+//            }
         }
     }
     
@@ -272,21 +274,23 @@ struct SearchingView: View {
             Divider()
             
             TabView(selection: $selectedTab) {
-                Books()
-                    .tag(Tab.books)
-                Collections()
-                    .tag(Tab.collections)
-                Tags()
-                    .tag(Tab.tags)
-                Users()
-                    .tag(Tab.users)
+                Group {
+                    Books()
+                        .tag(Tab.books)
+                    Collections()
+                        .tag(Tab.collections)
+                    Tags()
+                        .tag(Tab.tags)
+                    Users()
+                        .tag(Tab.users)
+                }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .frame(height: .infinity)
-            .padding(.horizontal, 20)
             .border(.red)
         }
+        .frame(maxHeight: .infinity)
+        .border(.green)
     }
     
     @ViewBuilder func Books() -> some View {
