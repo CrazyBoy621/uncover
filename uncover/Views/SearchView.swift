@@ -11,12 +11,11 @@ import UIKit
 struct SearchView: View {
     
     
-    @State var isSearching = false
+    @State var isSearching = true
     @State var searchValue = ""
     @State var searchPlaceholder = "Search"
     
     var body: some View {
-//        ScrollView(showsIndicators: false) {
             VStack {
                 VStack(spacing: 16) {
                     if !isSearching {
@@ -71,7 +70,6 @@ struct SearchView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-//            }
         }
     }
     
@@ -205,71 +203,8 @@ struct SearchingView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                Spacer()
-                Button {
-                    selectedTab = .books
-                } label: {
-                    Text("Books")
-                        .font(selectedTab == .books ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
-                        .frame(height: 36, alignment: .leading)
-                        .overlay(
-                            Rectangle()
-                                .fill(selectedTab == .books ? Color.customBlack : Color.clear)
-                                .frame(height: 2)
-                            , alignment: .bottom
-                        )
-                }
-                
-                Spacer()
-                Button {
-                    selectedTab = .collections
-                } label: {
-                    Text("Collections")
-                        .font(selectedTab == .collections ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
-                        .frame(height: 36, alignment: .leading)
-                        .overlay(
-                            Rectangle()
-                                .fill(selectedTab == .collections ? Color.customBlack : Color.clear)
-                                .frame(height: 2)
-                            , alignment: .bottom
-                        )
-                }
-                
-                Spacer()
-                Button {
-                    selectedTab = .tags
-                } label: {
-                    Text("Tags")
-                        .font(selectedTab == .tags ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
-                        .frame(height: 36, alignment: .leading)
-                        .overlay(
-                            Rectangle()
-                                .fill(selectedTab == .tags ? Color.customBlack : Color.clear)
-                                .frame(height: 2)
-                            , alignment: .bottom
-                        )
-                }
-                
-                Spacer()
-                Button {
-                    selectedTab = .users
-                } label: {
-                    Text("Users")
-                        .font(selectedTab == .users ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
-                        .frame(height: 36, alignment: .leading)
-                        .overlay(
-                            Rectangle()
-                                .fill(selectedTab == .users ? Color.customBlack : Color.clear)
-                                .frame(height: 2)
-                            , alignment: .bottom
-                        )
-                }
-                Spacer()
-            }
-            .font(.poppinsMedium(size: 16))
-            .foregroundColor(.customBlack)
-            .padding(.top, 16)
+            
+            HeaderSearchView()
             
             Divider()
             
@@ -287,10 +222,76 @@ struct SearchingView: View {
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .border(.red)
         }
         .frame(maxHeight: .infinity)
-        .border(.green)
+    }
+    
+    @ViewBuilder func HeaderSearchView() -> some View {
+        HStack {
+            Spacer()
+            Button {
+                selectedTab = .books
+            } label: {
+                Text("Books")
+                    .font(selectedTab == .books ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
+                    .frame(height: 36, alignment: .leading)
+                    .overlay(
+                        Rectangle()
+                            .fill(selectedTab == .books ? Color.customBlack : Color.clear)
+                            .frame(height: 2)
+                        , alignment: .bottom
+                    )
+            }
+            
+            Spacer()
+            Button {
+                selectedTab = .collections
+            } label: {
+                Text("Collections")
+                    .font(selectedTab == .collections ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
+                    .frame(height: 36, alignment: .leading)
+                    .overlay(
+                        Rectangle()
+                            .fill(selectedTab == .collections ? Color.customBlack : Color.clear)
+                            .frame(height: 2)
+                        , alignment: .bottom
+                    )
+            }
+            
+            Spacer()
+            Button {
+                selectedTab = .tags
+            } label: {
+                Text("Tags")
+                    .font(selectedTab == .tags ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
+                    .frame(height: 36, alignment: .leading)
+                    .overlay(
+                        Rectangle()
+                            .fill(selectedTab == .tags ? Color.customBlack : Color.clear)
+                            .frame(height: 2)
+                        , alignment: .bottom
+                    )
+            }
+            
+            Spacer()
+            Button {
+                selectedTab = .users
+            } label: {
+                Text("Users")
+                    .font(selectedTab == .users ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
+                    .frame(height: 36, alignment: .leading)
+                    .overlay(
+                        Rectangle()
+                            .fill(selectedTab == .users ? Color.customBlack : Color.clear)
+                            .frame(height: 2)
+                        , alignment: .bottom
+                    )
+            }
+            Spacer()
+        }
+        .font(.poppinsMedium(size: 16))
+        .foregroundColor(.customBlack)
+        .padding(.top, 16)
     }
     
     @ViewBuilder func Books() -> some View {
@@ -298,7 +299,32 @@ struct SearchingView: View {
             VStack(spacing: 24) {
                 Text("Popular new releases")
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.poppinsBold(size: 20))
+                
+                LazyVGrid(columns:
+                            [
+                                GridItem(.flexible()),
+                                GridItem(.flexible()),
+                                GridItem(.flexible())
+                            ], spacing: 10) {
+                            ForEach(1...20, id: \.self) { index in
+                                BookCard(title: "Pet Semata", imgUrl: "https://shorturl.at/kxKLT")
+                            }
+                        }
             }
+            .padding(.horizontal, 20)
+            .padding(.top, 24)
+        }
+    }
+    
+    @ViewBuilder func BookCard(title: String, imgUrl: String) -> some View{
+        VStack{
+            WebImageView(url: URL(string: imgUrl), defaultImage: "square.fill")
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 90, height: 140)
+                .cornerRadius(8)
+            Text(title.prefix(10) + (title.count > 10 ? "..." : ""))
+                .lineLimit(1)
         }
     }
     
