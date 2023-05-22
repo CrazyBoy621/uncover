@@ -28,6 +28,7 @@ struct CommentView: View {
                 WebImageView(url: URL(string: comment.userIMG))
                     .frame(width: 40, height: 40)
                     .cornerRadius(20)
+                
                 Spacer()
             }
             
@@ -43,38 +44,10 @@ struct CommentView: View {
                 
                 Text(comment.commentText)
                     .font(.robotoRegular(size: 16))
+                    .multilineTextAlignment(.leading)
+                    
                 
-                HStack{
-                    Button {
-                        
-                    } label: {
-                        Text("Reply")
-                            .font(.robotoMedium(size: 14))
-                            .foregroundColor(.darkGrey)
-                    }
-                    
-                    Circle()
-                        .fill(Color.lightGrey)
-                        .frame(width: 2, height: 2)
-                    
-                    Button {
-                        
-                    } label: {
-                        Text("Like")
-                            .font(.robotoMedium(size: 14))
-                            .foregroundColor(.darkGrey)
-                    }
-                    
-                    Circle()
-                        .fill(Color.lightGrey)
-                        .frame(width: 2, height: 2)
-                    
-                    Text(comment.likesCount)
-                        .font(.robotoRegular(size: 14))
-                        .foregroundColor(.lightGrey)
-                    
-                    Spacer()
-                }
+                BottomButtons()
                 
                 if comment.replies.count > 0 {
                     VStack(alignment: .leading, spacing: 4) {
@@ -97,6 +70,40 @@ struct CommentView: View {
                     }
                 }
             }
+        }
+    }
+    
+    @ViewBuilder func BottomButtons() -> some View {
+        HStack{
+            Button {
+                
+            } label: {
+                Text("Reply")
+                    .font(.robotoMedium(size: 14))
+                    .foregroundColor(.darkGrey)
+            }
+            
+            Circle()
+                .fill(Color.lightGrey)
+                .frame(width: 2, height: 2)
+            
+            Button {
+                
+            } label: {
+                Text("Like")
+                    .font(.robotoMedium(size: 14))
+                    .foregroundColor(.darkGrey)
+            }
+            
+            Circle()
+                .fill(Color.lightGrey)
+                .frame(width: 2, height: 2)
+            
+            Text(comment.likesCount)
+                .font(.robotoRegular(size: 14))
+                .foregroundColor(.lightGrey)
+            
+            Spacer()
         }
     }
 }
@@ -122,7 +129,7 @@ struct CommentView_Previews: PreviewProvider {
                                 Comment(
                                     username: "Bekzod",
                                     userIMG: "https://shorturl.at/bfvFK",
-                                    commentText: "This is sample comment",
+                                    commentText: "This is sample comment This is sample comment This is sample comment This is sample comment This is sample commentvsdaf",
                                     likesCount: "12k likes",
                                     time: "2 hours ago",
                                     replies: []

@@ -19,10 +19,8 @@ struct BookDetailsView: View {
         Comment(username: "msvitton", userIMG: "https://shorturl.at/fwzY6", commentText: "Do you agree that in this book was a little to much of an obscene conversations?", likesCount: "100k likes", time: "8 hours ago", replies: [
             Comment(username: "sunsethunter", userIMG: "https://shorturl.at/ainpX", commentText: "Maybe... for me it was fun do 🐸 ", likesCount: "10 likes", time: "6 hours ago", replies: []),
             Comment(username: "hufflepuffforever", userIMG: "https://shorturl.at/qFM14", commentText: "ehhh.... little sex never killed nobody :p girl is creative, that’s all xD", likesCount: "0 like", time: "6 hours ago", replies: []),
-            Comment(username: "hufflepuffforever", userIMG: "https://shorturl.at/qFM14", commentText: "ehhh.... little sex never killed nobody :p girl is creative, that’s all xD", likesCount: "0 like", time: "6 hours ago", replies: [
-                Comment(username: "sunsethunter", userIMG: "https://shorturl.at/ainpX", commentText: "Maybe... for me it was fun do 🐸 ", likesCount: "10 likes", time: "6 hours ago", replies: []),
-                Comment(username: "sunsethunter", userIMG: "https://shorturl.at/ainpX", commentText: "Maybe... for me it was fun do 🐸 ", likesCount: "10 likes", time: "6 hours ago", replies: []),
-            ])
+            Comment(username: "hufflepuffforever", userIMG: "https://shorturl.at/qFM14", commentText: "ehhh.... little sex never killed nobody :p girl is creative, that’s all xD", likesCount: "0 like", time: "6 hours ago", replies: []),
+            Comment(username: "msvitton", userIMG: "https://shorturl.at/fwzY6", commentText: "Do you agree that in this book was a little to much of an obscene conversations?", likesCount: "100k likes", time: "8 hours ago", replies: [])
         ])
     ]
     
