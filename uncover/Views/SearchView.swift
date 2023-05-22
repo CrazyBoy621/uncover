@@ -19,7 +19,7 @@ struct SearchView: View {
         VStack {
             VStack(spacing: 16) {
                 if !isSearching {
-                    ScrollView {
+                    HStack {
                         Text("Discover your new reads")
                             .font(.poppinsBold(size: 28))
                             .foregroundColor(.customBlack)
