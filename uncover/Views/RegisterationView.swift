@@ -25,6 +25,8 @@ struct RegisterationView: View {
     @State var isAlertTextVisible = false
     @State var isPasswordSecure = true
     
+    @State var showResetAlert = false
+    
     
     var body: some View {
         ZStack {
@@ -109,7 +111,9 @@ struct RegisterationView: View {
                             .padding(.vertical, 4)
                             
                             Button {
-                                
+                                withAnimation {
+                                    showResetAlert = true
+                                }
                             } label: {
                                 Text("Forgot Password?")
                                     .foregroundColor(.softBlue)
@@ -120,6 +124,61 @@ struct RegisterationView: View {
                 }
                 .padding(.horizontal, 24)
                 .padding(.top, 260)
+            }
+            .overlay{
+                if showResetAlert {
+                    ZStack {
+                        Color.black.opacity(0.3)
+                        
+                        VStack(spacing: 24) {
+                            VStack (spacing: 16) {
+                                Text("Reset password")
+                                    .font(.poppinsBold(size: 22))
+                                    .foregroundColor(.customBlack)
+                                
+                                Text("Are you sure you want to reset a password?")
+                                    .multilineTextAlignment(.center)
+                                    .font(.poppinsMedium(size: 18))
+                                    .foregroundColor(.darkGrey)
+                            }
+                            
+                            HStack(spacing: 20) {
+                                Button {
+                                    withAnimation {
+                                        showResetAlert = false
+                                    }
+                                } label: {
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .stroke(Color.accentColor, lineWidth: 1)
+                                        .frame(width: 91, height: 35)
+                                        .overlay(
+                                            Text("Cancel")
+                                                .foregroundColor(.accentColor)
+                                                .font(.poppinsMedium(size: 16))
+                                        )
+                                }
+                                
+                                Button {
+                                    
+                                } label: {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color.accentColor)
+                                        .frame(width: 91, height: 35)
+                                        .overlay(
+                                            Text("Yes")
+                                                .foregroundColor(.white)
+                                                .font(.poppinsMedium(size: 16))
+                                        )
+                                }
+                            }
+                        }
+                        .padding(.vertical, 24)
+                        .padding(.horizontal, 40)
+                        .background(Color.white.cornerRadius(20))
+                        .padding(.horizontal)
+                    }
+                    .edgesIgnoringSafeArea(.all)
+                }
             }
         }
         .edgesIgnoringSafeArea(.top)
