@@ -2,7 +2,7 @@
 //  SearchTextField.swift
 //  uncover
 //
-//  Created by Shohjahon Rakhmatov on 21/05/23.
+//  Created by Bekzod Rakhmatov on 21/05/23.
 //
 
 import SwiftUI

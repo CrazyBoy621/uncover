@@ -2,7 +2,7 @@
 //  SearchingView.swift
 //  uncover
 //
-//  Created by Shohjahon Rakhmatov on 22/05/23.
+//  Created by Bekzod Rakhmatov on 22/05/23.
 //
 
 import SwiftUI
