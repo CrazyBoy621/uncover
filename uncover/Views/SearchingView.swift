@@ -185,7 +185,7 @@ struct SearchingView: View {
                 
                 LazyVStack(spacing: 20) {
                     ForEach(1...10, id: \.self) { index in
-                        TagView(tagName: "Shohjahon", tagCount: "3453")
+                        TagView(tagName: "Bekzod", tagCount: "3453")
                     }
                 }
                 .padding(.bottom, 106)
