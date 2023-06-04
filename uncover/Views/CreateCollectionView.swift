@@ -162,6 +162,7 @@ struct ErrorWarning: View {
 struct ChangeBackground: View {
     
     @State var searchValue = ""
+    @State var showCamera = false
     
     var body: some View {
         VStack(spacing: 32) {
@@ -170,21 +171,84 @@ struct ChangeBackground: View {
                 .foregroundColor(.customBlack)
                 .frame(maxWidth: .infinity)
             
-            HStack {
-                Image("search")
-                TextField("Search", text: $searchValue)
-                Button {
-                    
-                } label: {
-                    Image("camera")
-                }
+            if showCamera {
+                CameraView()
+                    .transition(.move(edge: .trailing))
+            } else {
+                SearchView()
             }
-            .padding()
-            .background(Color.containerGrey.cornerRadius(14))
+            
         }
         .padding(.horizontal)
         .padding(.top, 32)
         .background(Color.white)
+    }
+    
+    @ViewBuilder func BookCard(imgUrl: String) -> some View {
+        WebImageView(url: URL(string: imgUrl))
+            .frame(width: 107, height: 134)
+            .aspectRatio(contentMode: .fill)
+            .cornerRadius(14)
+    }
+    
+    @ViewBuilder func SearchView() -> some View {
+        HStack {
+            Image("search")
+            TextField("Search", text: $searchValue)
+            Button {
+                withAnimation {
+                    showCamera = true
+                }
+            } label: {
+                Image("camera")
+            }
+        }
+        .padding()
+        .background(Color.containerGrey.cornerRadius(14))
+        
+        ScrollView {
+            LazyVGrid(columns:
+                        [
+                            GridItem(.flexible()),
+                            GridItem(.flexible()),
+                            GridItem(.flexible())
+                        ], spacing: 10) {
+                            ForEach(1...20, id: \.self) { index in
+                                BookCard(imgUrl: "https://s3-alpha-sig.figma.com/img/c460/2d86/d20ca040e5d10d05a84a97f0f083e217?Expires=1686528000&Signature=jl-CNaJrlIcoCOf6lHTs6nozAF-9nN6LPD5fn8hzkfC~L6yOLTVKs0OCzpeen5hUtYs~4HuxZHnzk5LSHqR2MF6gLWVYUUzJDjsRPeLZ7yeWSppqkmH2xY-8SRm1UgFHOaGyF4en7hP2Q02tgLWOkhBVpQdlQwfhGHyCIke1asEkmfFjHqitFgcNMmMjGpfmQqx9nKHeqWJhS1PwEVfspUEQYfaZfZhX8XaTUTd-K5RIa0pLt0wjbm4dxAsTBdpsHgiIZK8dBuz-0BE3JJq9KyHJQBygVxt~awd5krAab8INOBXrqxPy6uoHLCt6ZUQRpViN2YSHMuFByIAtZGVPhQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4")
+                            }
+                        }
+        }
+    }
+    
+    @ViewBuilder func CameraView() -> some View {
+        VStack(spacing: 40) {
+            Image("empty-camera")
+            VStack(spacing: 16) {
+                Text("Camera access".uppercased())
+                    .font(.poppinsRegular(size: 28))
+                    .foregroundColor(.customBlack)
+                Text("In order to upload photo as your collection background, please allow Uncover access to your camera.")
+                    .multilineTextAlignment(.center)
+                    .font(.poppinsRegular(size: 16))
+                    .foregroundColor(.lightGrey)
+            }
+            Button {
+                
+            } label: {
+                Text("Go to settings")
+                    .font(.poppinsSemiBold(size: 16))
+                    .foregroundColor(.white)
+                    .padding(.vertical)
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .shadow(color: Color.black.opacity(0.05), radius: 20, x: 0, y: 10)
+                    )
+            }
+
+        }
+        .padding(.horizontal, 24)
+        .padding(.vertical)
     }
 }
 
@@ -196,6 +260,6 @@ struct VisualEffectView: UIViewRepresentable {
 
 struct CreateCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        ChangeBackground()
+        CreateCollectionView()
     }
 }
