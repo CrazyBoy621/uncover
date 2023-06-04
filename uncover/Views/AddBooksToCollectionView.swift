@@ -10,13 +10,13 @@ import SwiftUI
 struct AddBooksToCollectionView: View {
     
     @State var searchValue = ""
-    @State var hiddenBooks = false
+    @State var hiddenBooks = true
     
     var body: some View {
         VStack(spacing: 18) {
             SearchField()
             AddedBooks()
-            Spacer()
+            BooksSelection()
         }
     }
     
@@ -33,30 +33,77 @@ struct AddBooksToCollectionView: View {
     @ViewBuilder func AddedBooks() -> some View {
         VStack(spacing: 16) {
             Button {
-                hiddenBooks.toggle()
+                withAnimation {
+                    hiddenBooks.toggle()
+                }
             } label: {
                 HStack {
                     Text("Hide added books (19)".uppercased())
                         .font(.system(size: 14, weight: .bold))
-                    Image(systemName: hiddenBooks ? "chevron.down" : "chevron.up")
+                    Image(systemName: "chevron.up")
+                        .rotationEffect(Angle(degrees: hiddenBooks ? 0 : 180))
                     Spacer()
                 }
                 .foregroundColor(.darkGrey)
                 .padding(.horizontal, 14)
             }
             
-            LazyHGrid(rows: [GridItem(.flexible())]) {
-                ScrollView(.horizontal) {
-                    ForEach(1...20, id: \.self) { index in
-                        Image("background-img")
-                            .resizable()
-                            .frame(width: 60, height: 90)
+            if !hiddenBooks {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHGrid(rows: [GridItem(.flexible())]) {
+                        ForEach(1...20, id: \.self) { index in
+                            Image("background-img")
+                                .resizable()
+                                .frame(width: 60, height: 92.66)
+                                .cornerRadius(8)
+                                .overlay (
+                                    Button{
+                                        
+                                    } label: {
+                                        Image(systemName: "minus.circle.fill")
+                                            .foregroundColor(.customRed)
+                                            .padding(2)
+                                            .background(
+                                                Color.white.cornerRadius(15)
+                                            )
+                                            .padding(-5)
+                                    }
+                                    , alignment: .topTrailing
+                                )
+                        }
                     }
+                    .padding(.horizontal)
                 }
                 .frame(height: 100)
-                .border(.blue)
             }
-            .border(.red)
+            
+            Divider()
+        }
+    }
+    
+    @ViewBuilder func BooksSelection() -> some View {
+        ScrollView {
+            LazyVGrid(columns:
+                        [
+                            GridItem(.flexible()),
+                            GridItem(.flexible()),
+                            GridItem(.flexible())
+                        ], spacing: 10) {
+                            ForEach(1...20, id: \.self) { index in
+                                BookCard(title: "Pet Semata", imgUrl: "https://shorturl.at/kxKLT")
+                            }
+                        }
+        }
+    }
+    
+    @ViewBuilder func BookCard(title: String, imgUrl: String) -> some View {
+        VStack{
+            WebImageView(url: URL(string: imgUrl), defaultImage: "square.fill")
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 90, height: 140)
+                .cornerRadius(8)
+            Text(title.prefix(10) + (title.count > 10 ? "..." : ""))
+                .lineLimit(1)
         }
     }
 }

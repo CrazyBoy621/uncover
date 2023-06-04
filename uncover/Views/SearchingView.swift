@@ -144,7 +144,7 @@ struct SearchingView: View {
         }
     }
     
-    @ViewBuilder func BookCard(title: String, imgUrl: String) -> some View{
+    @ViewBuilder func BookCard(title: String, imgUrl: String) -> some View {
         VStack{
             WebImageView(url: URL(string: imgUrl), defaultImage: "square.fill")
                 .aspectRatio(contentMode: .fill)
