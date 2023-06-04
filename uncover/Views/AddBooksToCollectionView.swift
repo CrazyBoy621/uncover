@@ -18,6 +18,23 @@ struct AddBooksToCollectionView: View {
             AddedBooks()
             BooksSelection()
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Add books to collection")
+                    .font(.poppinsBold(size: 20))
+                    .foregroundColor(.customBlack)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    
+                } label: {
+                    Text("Next")
+                        .font(.poppinsSemiBold(size: 16))
+                }
+
+            }
+        }
     }
     
     @ViewBuilder func SearchField() -> some View {
@@ -90,7 +107,7 @@ struct AddBooksToCollectionView: View {
                             GridItem(.flexible())
                         ], spacing: 10) {
                             ForEach(1...20, id: \.self) { index in
-                                BookCard(title: "Pet Semata", imgUrl: "https://shorturl.at/kxKLT")
+                                BookCard(title: "Pet Semata", imgUrl: "https://s3-alpha-sig.figma.com/img/c460/2d86/d20ca040e5d10d05a84a97f0f083e217?Expires=1686528000&Signature=jl-CNaJrlIcoCOf6lHTs6nozAF-9nN6LPD5fn8hzkfC~L6yOLTVKs0OCzpeen5hUtYs~4HuxZHnzk5LSHqR2MF6gLWVYUUzJDjsRPeLZ7yeWSppqkmH2xY-8SRm1UgFHOaGyF4en7hP2Q02tgLWOkhBVpQdlQwfhGHyCIke1asEkmfFjHqitFgcNMmMjGpfmQqx9nKHeqWJhS1PwEVfspUEQYfaZfZhX8XaTUTd-K5RIa0pLt0wjbm4dxAsTBdpsHgiIZK8dBuz-0BE3JJq9KyHJQBygVxt~awd5krAab8INOBXrqxPy6uoHLCt6ZUQRpViN2YSHMuFByIAtZGVPhQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4")
                             }
                         }
         }
@@ -110,6 +127,8 @@ struct AddBooksToCollectionView: View {
 
 struct AddBooksToCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        AddBooksToCollectionView()
+        NavigationView {
+            AddBooksToCollectionView()
+        }
     }
 }

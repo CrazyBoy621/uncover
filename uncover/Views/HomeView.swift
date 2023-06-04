@@ -15,17 +15,17 @@ struct HomeView: View {
                 NavigationLink {
                     CollectionWithDescriptionView()
                 } label: {
-                    CollectionDeckView(title: "Re-read someday", username: "martinpalmer", collectionUrl: "https://shorturl.at/bBN78", userAvatarUrl: "https://shorturl.at/fmA05", rating: 99)
+                    CollectionDeckView(title: "Re-read someday", username: "martinpalmer", collectionUrl: "https://shorturl.at/pvCDO", userAvatarUrl: "https://shorturl.at/dsEI9", rating: 99)
                 }
                 NavigationLink{
                     RegisterationView()
                 } label: {
-                    CollectionDeckView(title: "Children's literature", username: "Bekzod", collectionUrl: "https://shorturl.at/ABHMW", userAvatarUrl: "https://shorturl.at/bBN78", rating: 99)
+                    CollectionDeckView(title: "Children's literature", username: "Bekzod", collectionUrl: "https://shorturl.at/mqC56", userAvatarUrl: "https://shorturl.at/dsEI9", rating: 99)
                 }
                 NavigationLink {
                     BookDetailsView()
                 } label: {
-                    CollectionDeckView(title: "Children's literature", username: "Bekzod", collectionUrl: "https://shorturl.at/ABHMW", userAvatarUrl: "https://shorturl.at/bBN78", rating: 99)
+                    CollectionDeckView(title: "Children's literature", username: "Bekzod", collectionUrl: "https://shorturl.at/mqC56", userAvatarUrl: "https://shorturl.at/dsEI9", rating: 99)
                 }
             }
             .padding(.horizontal, 20)

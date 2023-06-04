@@ -11,64 +11,93 @@ struct CreateCollectionView: View {
     
     @State var collectionName = ""
     @State var showChangeBackground = false
+    @State var offsetChangeBackground = 1000
     
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                ScrollView {
-                    VStack {
-                        CollectionCard(collectionName: $collectionName) {
-                            withAnimation {
-                                showChangeBackground = true
+        ZStack {
+            NavigationView {
+                ZStack {
+                    ScrollView {
+                        VStack {
+                            CollectionCard(collectionName: $collectionName) {
+                                withAnimation {
+                                    showChangeBackground = true
+                                }
                             }
                         }
+                        .padding(.top, 25)
+                        .padding(.bottom, 32)
+                        .padding(.horizontal, 20)
                     }
-                    .padding(.top, 25)
-                    .padding(.bottom, 32)
-                    .padding(.horizontal, 20)
-                }
-                
-                if collectionName.count == 0 {
-                    VStack {
-                        Spacer()
-                        ErrorWarning()
-                            .padding(.bottom, 32)
-                            .padding(.horizontal, 24)
+                    if collectionName.count == 0 {
+                        VStack {
+                            Spacer()
+                            ErrorWarning()
+                                .padding(.bottom, 32)
+                                .padding(.horizontal, 24)
+                        }
                     }
                 }
-                
-                ChangeBackground()
-                    .offset(y: showChangeBackground ? 0 : 1000)
-                    .transition(.move(edge: .bottom))
+                .ignoresSafeArea(.keyboard, edges: .bottom)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            Image("x-mark")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                        }
+                    }
+                    ToolbarItem(placement: .principal) {
+                        Text("Create Collection")
+                            .font(.poppinsBold(size: 20))
+                            .foregroundColor(.customBlack)
+                    }
+                    ToolbarItem {
+                        NavigationLink {
+                            AddBooksToCollectionView()
+                        } label: {
+                            Text("Next")
+                                .font(.poppinsSemiBold(size: 16))
+                        }
+                        
+                    }
+                }
             }
-            .ignoresSafeArea(.keyboard, edges: .bottom)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        presentationMode.wrappedValue.dismiss()
-                    } label: {
-                        Image("x-mark")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                    }
-                }
-                ToolbarItem(placement: .principal) {
-                    Text("Create Collection")
-                        .font(.poppinsBold(size: 20))
-                        .foregroundColor(.customBlack)
-                }
-                ToolbarItem {
-                    NavigationLink {
-                        AddBooksToCollectionView()
-                    } label: {
-                        Text("Next")
-                            .font(.poppinsSemiBold(size: 16))
-                    }
-                    
-                }
+            
+            ZStack {
+                Color.black.opacity(showChangeBackground ? 0.2 : 0)
+                    .edgesIgnoringSafeArea(.all)
+                ChangeBackgroundView()
+                    .offset(y: CGFloat(offsetChangeBackground))
+                    .transition(.move(edge: .bottom))
+                    .gesture(
+                        DragGesture()
+                            .onChanged { value in
+                                if value.translation.height > 0 {
+                                    offsetChangeBackground = Int(value.translation.height)
+                                }
+                            }
+                            .onEnded { value in
+                                withAnimation {
+                                    if value.translation.height > 400 {
+                                        offsetChangeBackground = 1000
+                                        showChangeBackground = false
+                                    } else {
+                                        offsetChangeBackground = 0
+                                    }
+                                }
+                            }
+                    )
+            }
+        }
+        .onChange(of: showChangeBackground) { newValue in
+            withAnimation {
+                offsetChangeBackground = newValue ? 0 : 1000
             }
         }
     }
@@ -82,7 +111,7 @@ struct CollectionCard: View {
     var body: some View {
         ZStack {
             WebImageView(url: URL(string: "https://s3-alpha-sig.figma.com/img/f1af/8c51/36b8551759e45851870011c50b4d66e8?Expires=1686528000&Signature=qDEHfKItHdu~VMcR-Nl52~J0HSCdXW1SJb4dCTuEh3ZlBC5FV-MlaXI4uOkW8O-zWR8FcLCtBm~BtvIqaqYTF-7I6zzsjYb17-XuEyutbuJkjBjOf4-UtDmxAsdWxr9BkRoDN-WqSl2R-UlOb~5njD~xrsh7h6VtVy-labjPp1fctiRgaIsonrBAErb6QFxp4qMF4dMgnvkRubrISizbEUI5zFyw46wiGaxcxdPUo7qIMiUV12Qg3nobJa5iaMaplkQO3AiUZjfPFmXJPWfYlC9arM9AtQ2h2DimDXHVW7qmuHhT8vBFM~2y3-83uSVs8rEmzXR--roy-Bx6vYvp6A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"))
-                .frame(height: 420)
+                .frame(width: 335, height: 420)
                 .scaledToFill()
             
             VStack {
@@ -114,12 +143,12 @@ struct CollectionCard: View {
                             .cornerRadius(14)
                     )
                 }
-
+                
             }
             .padding(24)
         }
         .cornerRadius(12)
-        .frame(height: 420)
+        .frame(width: 335, height: 420)
         .shadow(
             color: Color.black.opacity(0.3), radius: 4, x: 0,  y: 4
         )
@@ -156,99 +185,6 @@ struct ErrorWarning: View {
                 .fill(Color.lightPink)
                 .shadow(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4)
         )
-    }
-}
-
-struct ChangeBackground: View {
-    
-    @State var searchValue = ""
-    @State var showCamera = false
-    
-    var body: some View {
-        VStack(spacing: 32) {
-            Text("Change background")
-                .font(.poppinsBold(size: 20))
-                .foregroundColor(.customBlack)
-                .frame(maxWidth: .infinity)
-            
-            if showCamera {
-                CameraView()
-                    .transition(.move(edge: .trailing))
-            } else {
-                SearchView()
-            }
-            
-        }
-        .padding(.horizontal)
-        .padding(.top, 32)
-        .background(Color.white)
-    }
-    
-    @ViewBuilder func BookCard(imgUrl: String) -> some View {
-        WebImageView(url: URL(string: imgUrl))
-            .frame(width: 107, height: 134)
-            .aspectRatio(contentMode: .fill)
-            .cornerRadius(14)
-    }
-    
-    @ViewBuilder func SearchView() -> some View {
-        HStack {
-            Image("search")
-            TextField("Search", text: $searchValue)
-            Button {
-                withAnimation {
-                    showCamera = true
-                }
-            } label: {
-                Image("camera")
-            }
-        }
-        .padding()
-        .background(Color.containerGrey.cornerRadius(14))
-        
-        ScrollView {
-            LazyVGrid(columns:
-                        [
-                            GridItem(.flexible()),
-                            GridItem(.flexible()),
-                            GridItem(.flexible())
-                        ], spacing: 10) {
-                            ForEach(1...20, id: \.self) { index in
-                                BookCard(imgUrl: "https://s3-alpha-sig.figma.com/img/c460/2d86/d20ca040e5d10d05a84a97f0f083e217?Expires=1686528000&Signature=jl-CNaJrlIcoCOf6lHTs6nozAF-9nN6LPD5fn8hzkfC~L6yOLTVKs0OCzpeen5hUtYs~4HuxZHnzk5LSHqR2MF6gLWVYUUzJDjsRPeLZ7yeWSppqkmH2xY-8SRm1UgFHOaGyF4en7hP2Q02tgLWOkhBVpQdlQwfhGHyCIke1asEkmfFjHqitFgcNMmMjGpfmQqx9nKHeqWJhS1PwEVfspUEQYfaZfZhX8XaTUTd-K5RIa0pLt0wjbm4dxAsTBdpsHgiIZK8dBuz-0BE3JJq9KyHJQBygVxt~awd5krAab8INOBXrqxPy6uoHLCt6ZUQRpViN2YSHMuFByIAtZGVPhQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4")
-                            }
-                        }
-        }
-    }
-    
-    @ViewBuilder func CameraView() -> some View {
-        VStack(spacing: 40) {
-            Image("empty-camera")
-            VStack(spacing: 16) {
-                Text("Camera access".uppercased())
-                    .font(.poppinsRegular(size: 28))
-                    .foregroundColor(.customBlack)
-                Text("In order to upload photo as your collection background, please allow Uncover access to your camera.")
-                    .multilineTextAlignment(.center)
-                    .font(.poppinsRegular(size: 16))
-                    .foregroundColor(.lightGrey)
-            }
-            Button {
-                
-            } label: {
-                Text("Go to settings")
-                    .font(.poppinsSemiBold(size: 16))
-                    .foregroundColor(.white)
-                    .padding(.vertical)
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .shadow(color: Color.black.opacity(0.05), radius: 20, x: 0, y: 10)
-                    )
-            }
-
-        }
-        .padding(.horizontal, 24)
-        .padding(.vertical)
     }
 }
 
