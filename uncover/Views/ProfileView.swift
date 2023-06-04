@@ -26,7 +26,7 @@ struct ProfileView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem{
+            ToolbarItem {
                 Button {
                     
                 } label: {

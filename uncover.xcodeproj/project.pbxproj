@@ -74,6 +74,9 @@
 		1E73FBA62A1A1ADC0079B45A /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E73FBA52A1A1ADC0079B45A /* WelcomeView.swift */; };
 		1E73FBAA2A1A2B540079B45A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E73FBA92A1A2B540079B45A /* SearchTextField.swift */; };
 		1E73FBAC2A1B83570079B45A /* SearchingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E73FBAB2A1B83570079B45A /* SearchingView.swift */; };
+		1EBA683C2A2B53FE0086F406 /* CreateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA683B2A2B53FE0086F406 /* CreateCollectionView.swift */; };
+		1EBA683E2A2B63940086F406 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA683D2A2B63940086F406 /* TextEditorView.swift */; };
+		1EC56D3F2A2B900200BD64B5 /* AddBooksToCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC56D3E2A2B900200BD64B5 /* AddBooksToCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,6 +149,9 @@
 		1E73FBA52A1A1ADC0079B45A /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		1E73FBA92A1A2B540079B45A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		1E73FBAB2A1B83570079B45A /* SearchingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingView.swift; sourceTree = "<group>"; };
+		1EBA683B2A2B53FE0086F406 /* CreateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionView.swift; sourceTree = "<group>"; };
+		1EBA683D2A2B63940086F406 /* TextEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
+		1EC56D3E2A2B900200BD64B5 /* AddBooksToCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBooksToCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +172,7 @@
 				1E2EA1042A137F5300BF21E3 /* Buttons */,
 				1E25EDA82A1112E1006E44A5 /* BooksCollectionView.swift */,
 				1E23EB702A0F53DD004FADBF /* CollectionDeckView.swift */,
+				1EBA683D2A2B63940086F406 /* TextEditorView.swift */,
 				1E73FBA32A1A1A950079B45A /* CommentView.swift */,
 				1E25EDAA2A111571006E44A5 /* CollectionTitle.swift */,
 				1E25EDB62A111CDF006E44A5 /* CollectionsView.swift */,
@@ -310,6 +317,8 @@
 				1E2EA1102A140EE000BF21E3 /* BookDetailsView.swift */,
 				1E2EA10B2A138BCD00BF21E3 /* Error Views */,
 				1E73FBAB2A1B83570079B45A /* SearchingView.swift */,
+				1EBA683B2A2B53FE0086F406 /* CreateCollectionView.swift */,
+				1EC56D3E2A2B900200BD64B5 /* AddBooksToCollectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -444,6 +453,7 @@
 				1E2FEF652A0EBB3F004D9E9D /* ContentView.swift in Sources */,
 				1E25EDA92A1112E1006E44A5 /* BooksCollectionView.swift in Sources */,
 				1E2EA10A2A13887800BF21E3 /* SomethingWentWrongView.swift in Sources */,
+				1EC56D3F2A2B900200BD64B5 /* AddBooksToCollectionView.swift in Sources */,
 				1E2FEF7A2A0EC71B004D9E9D /* Color+.swift in Sources */,
 				1E25EDAB2A111571006E44A5 /* CollectionTitle.swift in Sources */,
 				1E2FEF722A0EC287004D9E9D /* TabBarView.swift in Sources */,
@@ -456,6 +466,7 @@
 				1E2EA1062A137F9E00BF21E3 /* ContinueWith.swift in Sources */,
 				1E2EA1032A1346FC00BF21E3 /* OnBoardingView.swift in Sources */,
 				1E73FBAC2A1B83570079B45A /* SearchingView.swift in Sources */,
+				1EBA683C2A2B53FE0086F406 /* CreateCollectionView.swift in Sources */,
 				1E73FBA62A1A1ADC0079B45A /* WelcomeView.swift in Sources */,
 				1E2EA10D2A138C1600BF21E3 /* UnderConstructionView.swift in Sources */,
 				1E6EC0BC2A15EE0B00DE6BFF /* ServiceAPI.swift in Sources */,
@@ -469,6 +480,7 @@
 				1E4ED36B2A14A32E007A7DB8 /* CustomOutlineButton.swift in Sources */,
 				1E73FBA22A1A1A5B0079B45A /* RegisterationView.swift in Sources */,
 				1E25EDB22A1118F1006E44A5 /* WebImageView.swift in Sources */,
+				1EBA683E2A2B63940086F406 /* TextEditorView.swift in Sources */,
 				1E73FBA42A1A1A950079B45A /* CommentView.swift in Sources */,
 				1E25EE072A12B938006E44A5 /* NotificationView.swift in Sources */,
 			);
