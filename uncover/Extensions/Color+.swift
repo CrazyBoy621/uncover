@@ -26,4 +26,5 @@ extension Color {
     static var lightPink = Color("lightPink")
     static var backgroundGrey = Color("backgroundGrey")
     static var containerGrey = Color("containerGrey")
+    static var accentColor = Color("AccentColor")
 }

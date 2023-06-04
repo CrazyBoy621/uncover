@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import IQKeyboardManagerSwift
 
 @main
 struct uncoverApp: App {
     
     @AppStorage("onboarding") var onboarding: Bool = true
     @AppStorage("login") var login: Bool = true
+    
+    init() {
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+    }
     
     var body: some Scene {
         WindowGroup {

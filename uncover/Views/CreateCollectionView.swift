@@ -10,6 +10,7 @@ import SwiftUI
 struct CreateCollectionView: View {
     
     @State var collectionName = ""
+    @State var collectionInputFocused = true
     @State var showChangeBackground = false
     @State var offsetChangeBackground = 1000
     
@@ -68,6 +69,7 @@ struct CreateCollectionView: View {
                     }
                 }
             }
+            .accentColor(.accentColor)
             
             ZStack {
                 Color.black.opacity(showChangeBackground ? 0.2 : 0)
@@ -96,6 +98,7 @@ struct CreateCollectionView: View {
             }
         }
         .onChange(of: showChangeBackground) { newValue in
+            hideKeyboard()
             withAnimation {
                 offsetChangeBackground = newValue ? 0 : 1000
             }

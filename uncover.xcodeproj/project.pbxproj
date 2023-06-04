@@ -69,6 +69,8 @@
 		1E2FEF7C2A0ECF24004D9E9D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2FEF7B2A0ECF24004D9E9D /* HomeView.swift */; };
 		1E36C1122A2CA81200478E3E /* ChangeBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E36C1112A2CA81200478E3E /* ChangeBackgroundView.swift */; };
 		1E4ED36B2A14A32E007A7DB8 /* CustomOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4ED36A2A14A32E007A7DB8 /* CustomOutlineButton.swift */; };
+		1E530D0C2A2CDA8000721F09 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1E530D0B2A2CDA8000721F09 /* IQKeyboardManagerSwift */; };
+		1E530D0E2A2CDC8300721F09 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E530D0D2A2CDC8300721F09 /* View+.swift */; };
 		1E6EC0BC2A15EE0B00DE6BFF /* ServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6EC0BB2A15EE0B00DE6BFF /* ServiceAPI.swift */; };
 		1E73FBA22A1A1A5B0079B45A /* RegisterationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E73FBA12A1A1A5B0079B45A /* RegisterationView.swift */; };
 		1E73FBA42A1A1A950079B45A /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E73FBA32A1A1A950079B45A /* CommentView.swift */; };
@@ -145,6 +147,7 @@
 		1E2FEF7B2A0ECF24004D9E9D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		1E36C1112A2CA81200478E3E /* ChangeBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeBackgroundView.swift; sourceTree = "<group>"; };
 		1E4ED36A2A14A32E007A7DB8 /* CustomOutlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOutlineButton.swift; sourceTree = "<group>"; };
+		1E530D0D2A2CDC8300721F09 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		1E6EC0BB2A15EE0B00DE6BFF /* ServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAPI.swift; sourceTree = "<group>"; };
 		1E73FBA12A1A1A5B0079B45A /* RegisterationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterationView.swift; sourceTree = "<group>"; };
 		1E73FBA32A1A1A950079B45A /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
@@ -162,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E25EDB52A1119A1006E44A5 /* SDWebImageSwiftUI in Frameworks */,
+				1E530D0C2A2CDA8000721F09 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +335,7 @@
 			children = (
 				1E2FEF792A0EC71B004D9E9D /* Color+.swift */,
 				1E25EDE52A129634006E44A5 /* Font+.swift */,
+				1E530D0D2A2CDC8300721F09 /* View+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -361,6 +366,7 @@
 			name = uncover;
 			packageProductDependencies = (
 				1E25EDB42A1119A1006E44A5 /* SDWebImageSwiftUI */,
+				1E530D0B2A2CDA8000721F09 /* IQKeyboardManagerSwift */,
 			);
 			productName = uncover;
 			productReference = 1E2FEF5F2A0EBB3F004D9E9D /* uncover.app */;
@@ -392,6 +398,7 @@
 			mainGroup = 1E2FEF562A0EBB3F004D9E9D;
 			packageReferences = (
 				1E25EDB32A1119A1006E44A5 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				1E530D0A2A2CDA8000721F09 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 1E2FEF602A0EBB3F004D9E9D /* Products */;
 			projectDirPath = "";
@@ -456,6 +463,7 @@
 				1E2FEF652A0EBB3F004D9E9D /* ContentView.swift in Sources */,
 				1E25EDA92A1112E1006E44A5 /* BooksCollectionView.swift in Sources */,
 				1E2EA10A2A13887800BF21E3 /* SomethingWentWrongView.swift in Sources */,
+				1E530D0E2A2CDC8300721F09 /* View+.swift in Sources */,
 				1EC56D3F2A2B900200BD64B5 /* AddBooksToCollectionView.swift in Sources */,
 				1E2FEF7A2A0EC71B004D9E9D /* Color+.swift in Sources */,
 				1E25EDAB2A111571006E44A5 /* CollectionTitle.swift in Sources */,
@@ -720,6 +728,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		1E530D0A2A2CDA8000721F09 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -727,6 +743,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1E25EDB32A1119A1006E44A5 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		1E530D0B2A2CDA8000721F09 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E530D0A2A2CDA8000721F09 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
