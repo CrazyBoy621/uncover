@@ -18,7 +18,7 @@ struct HomeView: View {
                     CollectionDeckView(title: "Re-read someday", username: "martinpalmer", collectionUrl: "https://shorturl.at/pvCDO", userAvatarUrl: "https://shorturl.at/dsEI9", rating: 99)
                 }
                 NavigationLink{
-                    RegisterationView()
+                    WelcomeView()
                 } label: {
                     CollectionDeckView(title: "Children's literature", username: "Bekzod", collectionUrl: "https://shorturl.at/mqC56", userAvatarUrl: "https://shorturl.at/dsEI9", rating: 99)
                 }
