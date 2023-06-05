@@ -2,7 +2,7 @@
 //  View+.swift
 //  uncover
 //
-//  Created by Shohjahon Rakhmatov on 04/06/23.
+//  Created by Bekzod Rakhmatov on 04/06/23.
 //
 
 import Foundation
