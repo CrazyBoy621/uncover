@@ -6,8 +6,38 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseAuth
+import GoogleSignIn
+
+class WelcomeViewModel: ObservableObject {
+    
+    func googleLogin() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        // Start the sign in flow!
+//        let windowScene = UIWindowScene.windows.first?.rootViewController
+        if let windowScene = UIApplication.shared.windows.first?.rootViewController {
+            GIDSignIn.sharedInstance.signIn(withPresenting: windowScene) { result, error in
+                if let user = result?.user,
+                   let idToken = user.idToken?.tokenString {
+                    let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                                   accessToken: user.accessToken.tokenString)
+                    print("Ok: ", idToken)
+                    print("WWWWWWWWWWW: ", user.accessToken.tokenString)
+                }
+                
+                // ...
+            }
+        }
+    }
+}
 
 struct WelcomeView: View {
+    
+    @StateObject var viewModel = WelcomeViewModel()
     
     @AppStorage("login") var login: Bool = true
     
@@ -31,7 +61,9 @@ struct WelcomeView: View {
                 }
                 
                 VStack(spacing: 16) {
-                    Button { } label: {
+                    Button {
+                        viewModel.googleLogin()
+                    } label: {
                         ContinueWith(imgName: "google", continueWith: "Google")
                     }
                     Button { } label: {

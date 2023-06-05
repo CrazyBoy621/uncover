@@ -306,10 +306,10 @@
 			isa = PBXGroup;
 			children = (
 				1E25EDE42A12927E006E44A5 /* Info.plist */,
+				1E15E67A2A2DFA1000DDA179 /* GoogleService-Info.plist */,
 				1E25EDBA2A12917B006E44A5 /* Fonts */,
 				1E2FEF622A0EBB3F004D9E9D /* uncoverApp.swift */,
 				1E2FEF642A0EBB3F004D9E9D /* ContentView.swift */,
-				1E15E67A2A2DFA1000DDA179 /* GoogleService-Info.plist */,
 				1E23EB722A0F57A5004FADBF /* Components */,
 				1E2FEF762A0EC6E2004D9E9D /* Extensions */,
 				1E15E67C2A2E0FAE00DDA179 /* ViewModel */,
