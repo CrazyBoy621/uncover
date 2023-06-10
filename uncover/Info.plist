@@ -47,5 +47,26 @@
 		<string>Roboto-Thin.ttf</string>
 		<string>Roboto-ThinItalic.ttf</string>
 	</array>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fbAPP-ID</string>
+      </array>
+      </dict>
+    </array>
+    <key>1443921846423486</key>
+    <string>1443921846423486</string>
+    <key>39db234e31c6e06c6eac52e5f62681d6</key>
+    <string>39db234e31c6e06c6eac52e5f62681d6</string>
+    <key>uncover</key>
+    <string>uncover</string>
+    
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-share-api</string>
+    </array>
 </dict>
 </plist>
