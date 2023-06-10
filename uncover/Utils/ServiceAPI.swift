@@ -73,6 +73,31 @@ class ServiceAPI {
             }
             task.resume()
         }
+    
+    //MARK: - Book Likes
+    func postBookLikes(
+        userId: String,
+        completion: @escaping([String: Any]?, String?) -> ()) {
+            var params = [String: Any]()
+            params["user_id"] = userId
+            let stringURL = baseURL + bookLikes
+            
+            guard let url = URL(string: stringURL) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Ebm32X8XRRy0BZOQRfGndwU4GAIRPcEVouadOqpUOIAL77baABpzBnHfnIiNnuqg", forHTTPHeaderField: "X-CSRFToken")
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                    // we will use data to decode to our object model
+                // response can show status
+                completion(data?.object, error?.localizedDescription)
+                print(#function, data?.prettyPrintedJSONString, response, error)
+            }
+            task.resume()
+        }
 }
 
 extension Data {

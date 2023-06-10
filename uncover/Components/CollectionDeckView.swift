@@ -85,7 +85,7 @@ struct CollectionDeckView: View {
                 , alignment: .bottom
             )
         }
-        .frame(width: 335, height: 420)
+        .frame(width: (UIScreen.screenWidth - 32), height: (UIScreen.screenWidth - 32) / 335 * 420)
         .background(
             WebImageView(url: URL(string: collectionUrl))
                 .aspectRatio(contentMode: .fill)
