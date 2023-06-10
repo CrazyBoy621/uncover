@@ -86,6 +86,7 @@
 		1EBA683C2A2B53FE0086F406 /* CreateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA683B2A2B53FE0086F406 /* CreateCollectionView.swift */; };
 		1EBA683E2A2B63940086F406 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA683D2A2B63940086F406 /* TextEditorView.swift */; };
 		1EC56D3F2A2B900200BD64B5 /* AddBooksToCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC56D3E2A2B900200BD64B5 /* AddBooksToCollectionView.swift */; };
+		354677EA2A34A00F00E3511C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354677E92A34A00F00E3511C /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -165,6 +166,7 @@
 		1EBA683B2A2B53FE0086F406 /* CreateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionView.swift; sourceTree = "<group>"; };
 		1EBA683D2A2B63940086F406 /* TextEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
 		1EC56D3E2A2B900200BD64B5 /* AddBooksToCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBooksToCollectionView.swift; sourceTree = "<group>"; };
+		354677E92A34A00F00E3511C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -366,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				1E6EC0BB2A15EE0B00DE6BFF /* ServiceAPI.swift */,
+				354677E92A34A00F00E3511C /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E23EB742A0F662B004FADBF /* CollectionWithDescriptionView.swift in Sources */,
+				354677EA2A34A00F00E3511C /* Constants.swift in Sources */,
 				1E2FEF652A0EBB3F004D9E9D /* ContentView.swift in Sources */,
 				1E25EDA92A1112E1006E44A5 /* BooksCollectionView.swift in Sources */,
 				1E2EA10A2A13887800BF21E3 /* SomethingWentWrongView.swift in Sources */,

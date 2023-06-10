@@ -40,6 +40,10 @@ struct uncoverApp: App {
     init() {
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        
+        ServiceAPI.shared.postBookForm(title: "Hello", authorNames: ["Bekzod"]) { response, error in
+            print(response, error)
+        }
     }
     
     var body: some Scene {
