@@ -75,6 +75,8 @@
 		1E2FEF7C2A0ECF24004D9E9D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2FEF7B2A0ECF24004D9E9D /* HomeView.swift */; };
 		1E36C1122A2CA81200478E3E /* ChangeBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E36C1112A2CA81200478E3E /* ChangeBackgroundView.swift */; };
 		1E4ED36B2A14A32E007A7DB8 /* CustomOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4ED36A2A14A32E007A7DB8 /* CustomOutlineButton.swift */; };
+		1E4ED60D2A2F449100C91C04 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1E4ED60C2A2F449100C91C04 /* FacebookCore */; };
+		1E4ED60F2A2F449100C91C04 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 1E4ED60E2A2F449100C91C04 /* FacebookLogin */; };
 		1E530D0C2A2CDA8000721F09 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1E530D0B2A2CDA8000721F09 /* IQKeyboardManagerSwift */; };
 		1E530D0E2A2CDC8300721F09 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E530D0D2A2CDC8300721F09 /* View+.swift */; };
 		1E6EC0BC2A15EE0B00DE6BFF /* ServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6EC0BB2A15EE0B00DE6BFF /* ServiceAPI.swift */; };
@@ -172,8 +174,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E4ED60F2A2F449100C91C04 /* FacebookLogin in Frameworks */,
 				1E15E6772A2DF8B400DDA179 /* GoogleSignIn in Frameworks */,
 				1E25EDB52A1119A1006E44A5 /* SDWebImageSwiftUI in Frameworks */,
+				1E4ED60D2A2F449100C91C04 /* FacebookCore in Frameworks */,
 				1E038C5D2A2D002D00D1159D /* FirebaseAuth in Frameworks */,
 				1E15E6792A2DF8B400DDA179 /* GoogleSignInSwift in Frameworks */,
 				1E530D0C2A2CDA8000721F09 /* IQKeyboardManagerSwift in Frameworks */,
@@ -393,6 +397,8 @@
 				1E038C5E2A2D002D00D1159D /* FirebaseAuthCombine-Community */,
 				1E15E6762A2DF8B400DDA179 /* GoogleSignIn */,
 				1E15E6782A2DF8B400DDA179 /* GoogleSignInSwift */,
+				1E4ED60C2A2F449100C91C04 /* FacebookCore */,
+				1E4ED60E2A2F449100C91C04 /* FacebookLogin */,
 			);
 			productName = uncover;
 			productReference = 1E2FEF5F2A0EBB3F004D9E9D /* uncover.app */;
@@ -427,6 +433,7 @@
 				1E530D0A2A2CDA8000721F09 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				1E038C5B2A2D002D00D1159D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				1E15E6752A2DF8B400DDA179 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				1E4ED60B2A2F449100C91C04 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = 1E2FEF602A0EBB3F004D9E9D /* Products */;
 			projectDirPath = "";
@@ -774,6 +781,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		1E4ED60B2A2F449100C91C04 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.0.0;
+			};
+		};
 		1E530D0A2A2CDA8000721F09 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
@@ -809,6 +824,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1E25EDB32A1119A1006E44A5 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		1E4ED60C2A2F449100C91C04 /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E4ED60B2A2F449100C91C04 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		1E4ED60E2A2F449100C91C04 /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E4ED60B2A2F449100C91C04 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
 		};
 		1E530D0B2A2CDA8000721F09 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;

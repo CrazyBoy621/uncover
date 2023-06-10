@@ -9,7 +9,7 @@ import SwiftUI
 import Firebase
 import GoogleSignIn
 import CryptoKit
-import AuthenticationServices
+import AuthenticationService
 
 class WelcomeViewModel: NSObject, ObservableObject {
     
