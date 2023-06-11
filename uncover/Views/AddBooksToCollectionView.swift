@@ -26,13 +26,12 @@ struct AddBooksToCollectionView: View {
                     .foregroundColor(.customBlack)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    
+                NavigationLink {
+                    PublishingCollectionsView()
                 } label: {
                     Text("Next")
                         .font(.poppinsSemiBold(size: 16))
                 }
-
             }
         }
     }

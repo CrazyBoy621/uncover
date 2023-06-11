@@ -10,37 +10,50 @@ import SwiftUI
 struct PublishingCollectionsView: View {
     
     @Environment(\.presentationMode) var presentationMode
-
+    
+    @State var privateCollection = false
+    @State var wantToRead = false
+    @State var finished = false
+    @State var started = false
+    @State var captionTitle = ""
+    
     var body: some View {
         ScrollView {
-            CollectionTitleData()
+            VStack(spacing: 24) {
+                CollectionTitleData()
+                TextEditorView(string: $captionTitle, placeholder: "Write caption")
+                    .background(Color.lightGrey)
+                SwitchToggles()
+            }
+            .padding(.horizontal)
+            .padding(.top, 24)
         }
         .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        presentationMode.wrappedValue.dismiss()
-                    } label: {
-                        Image("x-mark")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                    }
-                }
-                ToolbarItem(placement: .principal) {
-                    Text("Family dramas")
-                        .font(.poppinsBold(size: 20))
-                        .foregroundColor(.customBlack)
-                }
-                ToolbarItem {
-                    NavigationLink {
-                        AddBooksToCollectionView()
-                    } label: {
-                        Text("Done")
-                            .font(.poppinsSemiBold(size: 16))
-                    }
-                    
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    NotificationCenter.default.post(name: Notification.Name("dismissPublishingCollectionsView"), object: nil)
+                } label: {
+                    Image("x-mark")
+                        .resizable()
+                        .frame(width: 20, height: 20)
                 }
             }
+            ToolbarItem(placement: .principal) {
+                Text("Family dramas")
+                    .font(.poppinsBold(size: 20))
+                    .foregroundColor(.customBlack)
+            }
+            ToolbarItem {
+                Button {
+                    NotificationCenter.default.post(name: Notification.Name("dismissPublishingCollectionsView"), object: nil)
+                } label: {
+                    Text("Done")
+                        .font(.poppinsSemiBold(size: 16))
+                }
+            }
+        }
     }
     
     @ViewBuilder func CollectionTitleData() -> some View {
@@ -52,6 +65,7 @@ struct PublishingCollectionsView: View {
                     Rectangle()
                         .fill(LinearGradient(colors: [Color.black.opacity(0.1), Color.black.opacity(0)], startPoint: .top, endPoint: .bottom))
                         .frame(height: 38)
+                    , alignment: .top
                 )
                 .shadow(color: Color.black.opacity(0.15), radius: 4, x: 0, y: 4)
             
@@ -65,17 +79,75 @@ struct PublishingCollectionsView: View {
                         .font(.robotoMedium(size: 14))
                         .foregroundColor(.customBlack)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("Family dramas with huge....")
                     .font(.poppinsSemiBold(size: 16))
                     .foregroundColor(.customBlack)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
+        }
+        .frame(maxWidth: .infinity)
+    }
+    
+    @ViewBuilder func SwitchToggles() -> some View {
+        VStack(spacing: 32) {
+            VStack(spacing: 4) {
+                GroupTitle(title: "preferences")
+                Toggle(isOn: $privateCollection) {
+                    Text("Set collections as private")
+                }
+                .tint(.accentColor)
+            }
+            VStack {
+                GroupTitle(title: "bulk progress change")
+                Toggle(isOn: $wantToRead) {
+                    Text("Mark all books as want to read")
+                }
+                Toggle(isOn: $finished) {
+                    Text("Mark all books as finished")
+                }
+                Toggle(isOn: $started) {
+                    Text("Mark all books as started")
+                }
+            }
+            .tint(.accentColor)
+            .onChange(of: wantToRead) { newValue in
+                if newValue {
+                    finished = false
+                    started = false
+                }
+            }
+            .onChange(of: finished) { newValue in
+                if newValue {
+                    wantToRead = false
+                    started = false
+                }
+            }
+            .onChange(of: started) { newValue in
+                if newValue {
+                    wantToRead = false
+                    finished = false
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder func GroupTitle(title: String) -> some View {
+        HStack {
+            Text(title.uppercased())
+                .font(.system(size: 14, weight: .bold))
+                .foregroundColor(.lightGrey)
+            Spacer()
         }
     }
 }
 
 struct PublishingCollectionsView_Previews: PreviewProvider {
     static var previews: some View {
-        PublishingCollectionsView()
+        NavigationView {
+            PublishingCollectionsView()
+        }
+        .accentColor(.accentColor)
     }
 }

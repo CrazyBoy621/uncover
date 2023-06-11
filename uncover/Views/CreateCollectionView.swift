@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CreateCollectionView: View {
     
+    let publisher = NotificationCenter.default.publisher(for: Notification.Name("dismissPublishingCollectionsView"))
+    
     @State var collectionName = ""
     @State var collectionInputFocused = true
     @State var showChangeBackground = false
@@ -43,6 +45,9 @@ struct CreateCollectionView: View {
                 }
                 .ignoresSafeArea(.keyboard, edges: .bottom)
                 .navigationBarTitleDisplayMode(.inline)
+                .onReceive(publisher, perform: { output in
+                    presentationMode.wrappedValue.dismiss()
+                })
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button {
