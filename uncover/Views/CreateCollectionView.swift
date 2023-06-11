@@ -74,7 +74,7 @@ struct CreateCollectionView: View {
                     }
                 }
             }
-            .accentColor(.accentColor)
+            .accentColor(.mainColor)
             
             ZStack {
                 Color.black.opacity(showChangeBackground ? 0.2 : 0)
@@ -119,7 +119,7 @@ struct CollectionCard: View {
     var body: some View {
         ZStack {
             WebImageView(url: URL(string: "https://s3-alpha-sig.figma.com/img/f1af/8c51/36b8551759e45851870011c50b4d66e8?Expires=1686528000&Signature=qDEHfKItHdu~VMcR-Nl52~J0HSCdXW1SJb4dCTuEh3ZlBC5FV-MlaXI4uOkW8O-zWR8FcLCtBm~BtvIqaqYTF-7I6zzsjYb17-XuEyutbuJkjBjOf4-UtDmxAsdWxr9BkRoDN-WqSl2R-UlOb~5njD~xrsh7h6VtVy-labjPp1fctiRgaIsonrBAErb6QFxp4qMF4dMgnvkRubrISizbEUI5zFyw46wiGaxcxdPUo7qIMiUV12Qg3nobJa5iaMaplkQO3AiUZjfPFmXJPWfYlC9arM9AtQ2h2DimDXHVW7qmuHhT8vBFM~2y3-83uSVs8rEmzXR--roy-Bx6vYvp6A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"))
-                .frame(width: 335, height: 420)
+                .frame(width: (UIScreen.screenWidth - 32), height: (UIScreen.screenWidth - 32) / 335 * 420)
                 .scaledToFill()
             
             VStack {
@@ -156,7 +156,7 @@ struct CollectionCard: View {
             .padding(24)
         }
         .cornerRadius(12)
-        .frame(width: 335, height: 420)
+        .frame(width: (UIScreen.screenWidth - 32), height: (UIScreen.screenWidth - 32) / 335 * 420)
         .shadow(
             color: Color.black.opacity(0.3), radius: 4, x: 0,  y: 4
         )

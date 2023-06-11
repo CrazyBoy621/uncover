@@ -58,7 +58,7 @@ struct OnboardingView: View {
                     }
                 }
             } label: {
-                CustomLargeButton(title: "Continue", foreground: .white, background: .accentColor)
+                CustomLargeButton(title: "Continue", foreground: .white, background: .mainColor)
             }
             .padding(.horizontal)
             .padding(.bottom)

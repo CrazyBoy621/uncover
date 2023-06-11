@@ -198,7 +198,7 @@ struct SearchingView: View {
     @ViewBuilder func TagView(tagName: String, tagCount: String) -> some View{
         HStack(spacing: 16) {
             Circle()
-                .fill(Color.accentColor)
+                .fill(Color.mainColor)
                 .frame(width: 48, height: 48)
                 .overlay(
                     Image("hash-icon")

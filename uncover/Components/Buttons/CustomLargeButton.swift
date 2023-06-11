@@ -27,6 +27,6 @@ struct CustomLargeButton: View {
 
 struct CustomLargeButton_Previews: PreviewProvider {
     static var previews: some View {
-        CustomLargeButton(title: "Explore", foreground: .white, background: .accentColor)
+        CustomLargeButton(title: "Explore", foreground: .white, background: .mainColor)
     }
 }

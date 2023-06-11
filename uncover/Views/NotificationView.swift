@@ -94,7 +94,7 @@ struct NotificationView: View {
                 Button {
                     
                 } label: {
-                    CustomLargeButton(title: "Explore", foreground: .white, background: .accentColor)
+                    CustomLargeButton(title: "Explore", foreground: .white, background: .mainColor)
                         .padding(24)
                 }
             }
@@ -157,7 +157,7 @@ struct NotificationView: View {
                     .cornerRadius(20)
                     .overlay(
                         Circle()
-                            .fill(Color.accentColor)
+                            .fill(Color.mainColor)
                             .frame(width: 12, height: 12)
                             .background(
                                 Circle()
@@ -201,7 +201,7 @@ struct NotificationView: View {
                     .cornerRadius(20)
                     .overlay(
                         Circle()
-                            .fill(Color.accentColor)
+                            .fill(Color.mainColor)
                             .frame(width: 12, height: 12)
                             .background(
                                 Circle()
@@ -319,7 +319,7 @@ struct NotificationView: View {
                     .cornerRadius(20)
                     .overlay(
                         Circle()
-                            .fill(Color.accentColor)
+                            .fill(Color.mainColor)
                             .frame(width: 12, height: 12)
                             .background(
                                 Circle()

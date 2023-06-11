@@ -31,7 +31,7 @@ struct UnderConstructionView: View {
                 Button {
                     
                 } label: {
-                    CustomLargeButton(title: "Retry", foreground: .white, background: .accentColor)
+                    CustomLargeButton(title: "Retry", foreground: .white, background: .mainColor)
                 }
                 .padding(.bottom, 36)
             }

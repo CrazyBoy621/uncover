@@ -223,7 +223,7 @@ struct BookDetailsView: View {
              Text(" #creepy"))
             .frame(maxWidth: .infinity, alignment: .leading)
             .font(.system(size: 16, weight: .bold))
-            .foregroundColor(.accentColor)
+            .foregroundColor(.mainColor)
             .multilineTextAlignment(.leading)
             
             HStack {
@@ -267,7 +267,7 @@ struct BookDetailsView: View {
                 
                 Image("at-icon")
                     .frame(width: 24, height: 24)
-                    .background(Color.accentColor.cornerRadius(12))
+                    .background(Color.mainColor.cornerRadius(12))
             }
             
             Button {
@@ -275,7 +275,7 @@ struct BookDetailsView: View {
             } label: {
                 Image("hash-icon")
                     .frame(width: 24, height: 24)
-                    .background(Color.accentColor.cornerRadius(12))
+                    .background(Color.mainColor.cornerRadius(12))
             }
             
             TextField("Add comment...", text: $commentText)

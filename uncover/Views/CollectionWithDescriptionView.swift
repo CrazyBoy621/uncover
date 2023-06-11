@@ -148,7 +148,7 @@ struct CollectionWithDescriptionView: View {
             Button {
                 isFollowed.toggle()
             } label: {
-                CustomButton(title: "Follow", foreground: .white, background: .accentColor)
+                CustomButton(title: "Follow", foreground: .white, background: .mainColor)
                     .padding(.top, 8)
             }
         }

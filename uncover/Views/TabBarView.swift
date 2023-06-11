@@ -43,7 +43,7 @@ struct TabBarView: View {
                         .foregroundColor(.white)
                         .background(
                             Circle()
-                                .fill(Color.accentColor)
+                                .fill(Color.mainColor)
                                 .frame(width: 50, height: 50)
                         )
                 }

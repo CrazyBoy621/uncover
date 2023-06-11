@@ -50,7 +50,7 @@ struct RegisterationView: View {
                         } label: {
                             Text("Sign Up")
                                 .font(.poppinsBold(size: 16))
-                                .foregroundColor(currentPage == .signin ? Color.lightGrey : Color.accentColor)
+                                .foregroundColor(currentPage == .signin ? Color.lightGrey : Color.mainColor)
                         }
                         Spacer()
                         Button {
@@ -60,7 +60,7 @@ struct RegisterationView: View {
                         } label: {
                             Text("Log In")
                                 .font(.poppinsBold(size: 16))
-                                .foregroundColor(currentPage == .signup ? Color.lightGrey : Color.accentColor)
+                                .foregroundColor(currentPage == .signup ? Color.lightGrey : Color.mainColor)
                         }
                         Spacer()
                     }
@@ -74,7 +74,7 @@ struct RegisterationView: View {
                             Button {
                                 
                             } label: {
-                                CustomLargeButton(title: "Sign up", foreground: .white, background: .accentColor)
+                                CustomLargeButton(title: "Sign up", foreground: .white, background: .mainColor)
                             }
                             .padding(.top, 4)
                         }
@@ -106,7 +106,7 @@ struct RegisterationView: View {
                                     isAlertTextVisible = email.isEmpty
                                 }
                             } label: {
-                                CustomLargeButton(title: "Sign in", foreground: .white, background: .accentColor)
+                                CustomLargeButton(title: "Sign in", foreground: .white, background: .mainColor)
                             }
                             .padding(.vertical, 4)
                             
@@ -149,11 +149,11 @@ struct RegisterationView: View {
                                     }
                                 } label: {
                                     RoundedRectangle(cornerRadius: 6)
-                                        .stroke(Color.accentColor, lineWidth: 1)
+                                        .stroke(Color.mainColor, lineWidth: 1)
                                         .frame(width: 91, height: 35)
                                         .overlay(
                                             Text("Cancel")
-                                                .foregroundColor(.accentColor)
+                                                .foregroundColor(.mainColor)
                                                 .font(.poppinsMedium(size: 16))
                                         )
                                 }
@@ -162,7 +162,7 @@ struct RegisterationView: View {
                                     
                                 } label: {
                                     RoundedRectangle(cornerRadius: 8)
-                                        .fill(Color.accentColor)
+                                        .fill(Color.mainColor)
                                         .frame(width: 91, height: 35)
                                         .overlay(
                                             Text("Yes")

@@ -11,6 +11,8 @@ struct TextEditorView: View {
     
     @Binding var string: String
     var placeholder: String
+    var minHeight: CGFloat = 120
+    var placeholderColor: Color = .white.opacity(0.7)
     @State var textEditorHeight: CGFloat = 40
     
     var body: some View {
@@ -27,19 +29,19 @@ struct TextEditorView: View {
                 )
             if string.isEmpty {
                 Text(placeholder)
-                    .foregroundColor(.white.opacity(0.7))
+                    .foregroundColor(placeholderColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 4)
                     .padding(.vertical, 8)
             }
             if #available(iOS 16.0, *) {
                 TextEditor(text: $string)
-                    .frame(height: max(120, textEditorHeight))
+                    .frame(height: max(minHeight, textEditorHeight))
                     .scrollContentBackground(.hidden)
                     .scrollDisabled(true)
             } else {
                 TextEditor(text: $string)
-                    .frame(height: max(120, textEditorHeight))
+                    .frame(height: max(minHeight, textEditorHeight))
             }
         }
         .onPreferenceChange(ViewHeightKey.self) {

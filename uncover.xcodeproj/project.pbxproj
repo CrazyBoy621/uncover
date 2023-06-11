@@ -89,6 +89,12 @@
 		1EBA683E2A2B63940086F406 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA683D2A2B63940086F406 /* TextEditorView.swift */; };
 		1EC56D3F2A2B900200BD64B5 /* AddBooksToCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC56D3E2A2B900200BD64B5 /* AddBooksToCollectionView.swift */; };
 		1EED5CA22A35BD2700062794 /* PublishingCollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CA12A35BD2700062794 /* PublishingCollectionsView.swift */; };
+		1EED5CAB2A36026D00062794 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CAA2A36026D00062794 /* SettingsView.swift */; };
+		1EED5CAD2A36132C00062794 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CAC2A36132C00062794 /* EditProfileView.swift */; };
+		1EED5CAF2A361F3500062794 /* EditUsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CAE2A361F3500062794 /* EditUsernameView.swift */; };
+		1EED5CB12A366F7B00062794 /* EditNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CB02A366F7B00062794 /* EditNameView.swift */; };
+		1EED5CB32A36714100062794 /* EditInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CB22A36714100062794 /* EditInfoView.swift */; };
+		1EED5CB52A36757D00062794 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CB42A36757D00062794 /* AccountView.swift */; };
 		354677EA2A34A00F00E3511C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354677E92A34A00F00E3511C /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -170,6 +176,12 @@
 		1EBA683D2A2B63940086F406 /* TextEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
 		1EC56D3E2A2B900200BD64B5 /* AddBooksToCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBooksToCollectionView.swift; sourceTree = "<group>"; };
 		1EED5CA12A35BD2700062794 /* PublishingCollectionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishingCollectionsView.swift; sourceTree = "<group>"; };
+		1EED5CAA2A36026D00062794 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		1EED5CAC2A36132C00062794 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		1EED5CAE2A361F3500062794 /* EditUsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUsernameView.swift; sourceTree = "<group>"; };
+		1EED5CB02A366F7B00062794 /* EditNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameView.swift; sourceTree = "<group>"; };
+		1EED5CB22A36714100062794 /* EditInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoView.swift; sourceTree = "<group>"; };
+		1EED5CB42A36757D00062794 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		354677E92A34A00F00E3511C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -356,6 +368,7 @@
 				1EBA683B2A2B53FE0086F406 /* CreateCollectionView.swift */,
 				1EC56D3E2A2B900200BD64B5 /* AddBooksToCollectionView.swift */,
 				1EED5CA12A35BD2700062794 /* PublishingCollectionsView.swift */,
+				1EED5CA92A36025D00062794 /* Settings */,
 				1E2EA10B2A138BCD00BF21E3 /* Error Views */,
 			);
 			path = Views;
@@ -378,6 +391,19 @@
 				354677E92A34A00F00E3511C /* Constants.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		1EED5CA92A36025D00062794 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1EED5CAA2A36026D00062794 /* SettingsView.swift */,
+				1EED5CAC2A36132C00062794 /* EditProfileView.swift */,
+				1EED5CAE2A361F3500062794 /* EditUsernameView.swift */,
+				1EED5CB02A366F7B00062794 /* EditNameView.swift */,
+				1EED5CB22A36714100062794 /* EditInfoView.swift */,
+				1EED5CB42A36757D00062794 /* AccountView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -503,6 +529,8 @@
 			files = (
 				1E23EB742A0F662B004FADBF /* CollectionWithDescriptionView.swift in Sources */,
 				354677EA2A34A00F00E3511C /* Constants.swift in Sources */,
+				1EED5CB32A36714100062794 /* EditInfoView.swift in Sources */,
+				1EED5CB12A366F7B00062794 /* EditNameView.swift in Sources */,
 				1E2FEF652A0EBB3F004D9E9D /* ContentView.swift in Sources */,
 				1E25EDA92A1112E1006E44A5 /* BooksCollectionView.swift in Sources */,
 				1E2EA10A2A13887800BF21E3 /* SomethingWentWrongView.swift in Sources */,
@@ -523,9 +551,12 @@
 				1EBA683C2A2B53FE0086F406 /* CreateCollectionView.swift in Sources */,
 				1E73FBA62A1A1ADC0079B45A /* WelcomeView.swift in Sources */,
 				1E2EA10D2A138C1600BF21E3 /* UnderConstructionView.swift in Sources */,
+				1EED5CB52A36757D00062794 /* AccountView.swift in Sources */,
 				1E6EC0BC2A15EE0B00DE6BFF /* ServiceAPI.swift in Sources */,
 				1E23EB6F2A0F528B004FADBF /* SearchView.swift in Sources */,
 				1E25EDE62A129634006E44A5 /* Font+.swift in Sources */,
+				1EED5CAD2A36132C00062794 /* EditProfileView.swift in Sources */,
+				1EED5CAB2A36026D00062794 /* SettingsView.swift in Sources */,
 				1E25EE052A12AE5D006E44A5 /* CustomSmallButton.swift in Sources */,
 				1EED5CA22A35BD2700062794 /* PublishingCollectionsView.swift in Sources */,
 				1E15E67E2A2E0FCF00DDA179 /* RegistrationViewModel.swift in Sources */,
@@ -539,6 +570,7 @@
 				1EBA683E2A2B63940086F406 /* TextEditorView.swift in Sources */,
 				1E73FBA42A1A1A950079B45A /* CommentView.swift in Sources */,
 				1E36C1122A2CA81200478E3E /* ChangeBackgroundView.swift in Sources */,
+				1EED5CAF2A361F3500062794 /* EditUsernameView.swift in Sources */,
 				1E25EE072A12B938006E44A5 /* NotificationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

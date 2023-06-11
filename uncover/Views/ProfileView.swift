@@ -27,14 +27,15 @@ struct ProfileView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem {
-                Button {
-                    
+                NavigationLink {
+                    SettingsView()
                 } label: {
                     Image(systemName: "gearshape")
                         .resizable()
                         .frame(width: 24, height: 24)
                         .foregroundColor(.black)
                 }
+
             }
             ToolbarItem(placement: .principal) {
                 VStack {

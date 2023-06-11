@@ -171,14 +171,14 @@ struct WelcomeView: View {
                         ContinueWith(imgName: "facebook", continueWith: "Facebook")
                     }
                     NavigationLink(destination: RegisterationView()) {
-                        CustomLargeButton(title: "Continue with e-mail", foreground: .white, background: .accentColor)
+                        CustomLargeButton(title: "Continue with e-mail", foreground: .white, background: .mainColor)
                     }
                     Button {
                         login = false
                     } label: {
                         Text("Explore as a guest")
                             .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.accentColor.opacity(0.8))
+                            .foregroundColor(.mainColor.opacity(0.8))
                     }
                 }
                 
