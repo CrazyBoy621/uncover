@@ -98,6 +98,8 @@
 		1EED5CB72A36819300062794 /* NotificationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CB62A36819300062794 /* NotificationSettingsView.swift */; };
 		1EED5CB92A3684E200062794 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CB82A3684E200062794 /* InfoView.swift */; };
 		354677EA2A34A00F00E3511C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354677E92A34A00F00E3511C /* Constants.swift */; };
+		354677F92A368B2A00E3511C /* ChangeEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354677F82A368B2A00E3511C /* ChangeEmailView.swift */; };
+		354677FB2A368DC700E3511C /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354677FA2A368DC700E3511C /* ChangePasswordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -187,6 +189,8 @@
 		1EED5CB62A36819300062794 /* NotificationSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsView.swift; sourceTree = "<group>"; };
 		1EED5CB82A3684E200062794 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		354677E92A34A00F00E3511C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		354677F82A368B2A00E3511C /* ChangeEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailView.swift; sourceTree = "<group>"; };
+		354677FA2A368DC700E3511C /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -408,6 +412,8 @@
 				1EED5CB42A36757D00062794 /* AccountView.swift */,
 				1EED5CB62A36819300062794 /* NotificationSettingsView.swift */,
 				1EED5CB82A3684E200062794 /* InfoView.swift */,
+				354677F82A368B2A00E3511C /* ChangeEmailView.swift */,
+				354677FA2A368DC700E3511C /* ChangePasswordView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -558,6 +564,7 @@
 				1E73FBAC2A1B83570079B45A /* SearchingView.swift in Sources */,
 				1EBA683C2A2B53FE0086F406 /* CreateCollectionView.swift in Sources */,
 				1E73FBA62A1A1ADC0079B45A /* WelcomeView.swift in Sources */,
+				354677F92A368B2A00E3511C /* ChangeEmailView.swift in Sources */,
 				1E2EA10D2A138C1600BF21E3 /* UnderConstructionView.swift in Sources */,
 				1EED5CB52A36757D00062794 /* AccountView.swift in Sources */,
 				1E6EC0BC2A15EE0B00DE6BFF /* ServiceAPI.swift in Sources */,
@@ -575,6 +582,7 @@
 				1E4ED36B2A14A32E007A7DB8 /* CustomOutlineButton.swift in Sources */,
 				1E73FBA22A1A1A5B0079B45A /* RegisterationView.swift in Sources */,
 				1E25EDB22A1118F1006E44A5 /* WebImageView.swift in Sources */,
+				354677FB2A368DC700E3511C /* ChangePasswordView.swift in Sources */,
 				1EBA683E2A2B63940086F406 /* TextEditorView.swift in Sources */,
 				1E73FBA42A1A1A950079B45A /* CommentView.swift in Sources */,
 				1E36C1122A2CA81200478E3E /* ChangeBackgroundView.swift in Sources */,
@@ -710,6 +718,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uncover/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Uncover;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -752,6 +761,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uncover/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Uncover;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

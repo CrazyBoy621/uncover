@@ -2,7 +2,7 @@
 //  AccountView.swift
 //  uncover
 //
-//  Created by Shohjahon Rakhmatov on 12/06/23.
+//  Created by Bekzod Rakhmatov on 12/06/23.
 //
 
 import SwiftUI
@@ -14,21 +14,16 @@ struct AccountView: View {
     
     var body: some View {
         ScrollView {
-            //            NavigationLink(isActive: $showUsernameView) {
-            //                EditUsernameView(usernameValue: usernameValue)
-            //            } label: {
-            //                EmptyView()
-            //            }
-            //            NavigationLink(isActive: $showNameView) {
-            //                EditNameView(nameValue: nameValue)
-            //            } label: {
-            //                EmptyView()
-            //            }
-            //            NavigationLink(isActive: $showUserInfoView) {
-            //                EditInfoView(infoValue: infoValue)
-            //            } label: {
-            //                EmptyView()
-            //            }
+            NavigationLink(isActive: $showChangeEmailView) {
+                ChangeEmailView()
+            } label: {
+                EmptyView()
+            }
+            NavigationLink(isActive: $showChangePasswordView) {
+                ChangePasswordView()
+            } label: {
+                EmptyView()
+            }
             
             VStack(spacing: 24) {
                 ProfileCell("email", "Change email"){

@@ -1,5 +1,5 @@
 //
-//  EditNameView.swift
+//  ChangeEmailView.swift
 //  uncover
 //
 //  Created by Bekzod Rakhmatov on 12/06/23.
@@ -7,11 +7,12 @@
 
 import SwiftUI
 
-struct EditNameView: View {
+struct ChangeEmailView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @State var nameValue: String
+    @State var email: String = ""
+    @State var isEmailValidated = false
     
     var body: some View {
         ScrollView {
@@ -21,13 +22,9 @@ struct EditNameView: View {
                     .foregroundColor(.lightGrey)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 HStack {
-                    TextField("Name", text: $nameValue)
+                    CustomTextField("Email", value: $email)
                 }
                 Divider()
-                Text("You can put here your full name or business name to help others to find your profile.")
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(.backgroundGrey)
-                    .multilineTextAlignment(.center)
                 
                 HStack(spacing: 16) {
                     Spacer()
@@ -51,16 +48,46 @@ struct EditNameView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Edit name")
+                Text("Change Email")
                     .font(.poppinsBold(size: 20))
                     .foregroundColor(.customBlack)
             }
         }
     }
+    
+    func CustomTextField(_ placeholder: String, value: Binding<String>) -> some View {
+        TextField(placeholder, text: value)
+            .padding(.trailing, isEmailValidated ? 27 : 0)
+            .overlay(
+                Image(systemName: isEmailValidated ? "checkmark" : "")
+                    .foregroundColor(.checkMarkColor)
+                    .padding(.trailing, 14)
+                , alignment: .trailing
+            )
+            .onChange(of: value.wrappedValue) { newValue in
+                validateEmail()
+            }
+            .onAppear{
+                validateEmail()
+            }
+            .textInputAutocapitalization(.never)
+            .keyboardType(.emailAddress)
+    }
+    
+    func validateEmail() {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        
+        if emailPredicate.evaluate(with: email) {
+            isEmailValidated = true
+        } else {
+            isEmailValidated = false
+        }
+    }
 }
 
-struct EditNameView_Previews: PreviewProvider {
+struct ChangeEmailView_Previews: PreviewProvider {
     static var previews: some View {
-        EditNameView(nameValue: "Jojo")
+        ChangeEmailView(email: "custom@gmail.com")
     }
 }
