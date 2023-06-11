@@ -29,32 +29,32 @@ struct NotificationSettingsView: View {
                 Toggle(isOn: $profileFollowers) {
                     Text("Profile followers")
                 }
-                Toggle(isOn: $profileFollowers) {
+                Toggle(isOn: $collectionLikes) {
                     Text("Collection likes")
                 }
-                Toggle(isOn: $profileFollowers) {
+                Toggle(isOn: $collectionFollowers) {
                     Text("Collection followers")
                 }
-                Toggle(isOn: $profileFollowers) {
+                Toggle(isOn: $commentLikes) {
                     Text("Comment likes")
                 }
-                Toggle(isOn: $profileFollowers) {
+                Toggle(isOn: $comments) {
                     Text("Comments")
                 }
-                Toggle(isOn: $profileFollowers) {
+                Toggle(isOn: $commentReplies) {
                     Text("Comment replies")
                 }
-                Toggle(isOn: $profileFollowers) {
+                Toggle(isOn: $userMentionInComment) {
                     Text("User mentioning you in comments")
                 }
-                Toggle(isOn: $profileFollowers) {
+                Toggle(isOn: $newBooksCollection) {
                     Text("New books showing up in collections you follow")
                 }
-                Toggle(isOn: $profileFollowers) {
+                Toggle(isOn: $youFollowBookUpdates) {
                     Text("Book updates or collections created by users you follow")
                 }
             }
-            .accentColor(.mainColor)
+            .tint(.mainColor)
             .font(.system(size: 20, weight: .medium))
             .foregroundColor(.customBlack)
             .padding(32)

@@ -95,6 +95,8 @@
 		1EED5CB12A366F7B00062794 /* EditNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CB02A366F7B00062794 /* EditNameView.swift */; };
 		1EED5CB32A36714100062794 /* EditInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CB22A36714100062794 /* EditInfoView.swift */; };
 		1EED5CB52A36757D00062794 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CB42A36757D00062794 /* AccountView.swift */; };
+		1EED5CB72A36819300062794 /* NotificationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CB62A36819300062794 /* NotificationSettingsView.swift */; };
+		1EED5CB92A3684E200062794 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED5CB82A3684E200062794 /* InfoView.swift */; };
 		354677EA2A34A00F00E3511C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354677E92A34A00F00E3511C /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -182,6 +184,8 @@
 		1EED5CB02A366F7B00062794 /* EditNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameView.swift; sourceTree = "<group>"; };
 		1EED5CB22A36714100062794 /* EditInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoView.swift; sourceTree = "<group>"; };
 		1EED5CB42A36757D00062794 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		1EED5CB62A36819300062794 /* NotificationSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsView.swift; sourceTree = "<group>"; };
+		1EED5CB82A3684E200062794 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		354677E92A34A00F00E3511C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -402,6 +406,8 @@
 				1EED5CB02A366F7B00062794 /* EditNameView.swift */,
 				1EED5CB22A36714100062794 /* EditInfoView.swift */,
 				1EED5CB42A36757D00062794 /* AccountView.swift */,
+				1EED5CB62A36819300062794 /* NotificationSettingsView.swift */,
+				1EED5CB82A3684E200062794 /* InfoView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -537,6 +543,7 @@
 				1E530D0E2A2CDC8300721F09 /* View+.swift in Sources */,
 				1EC56D3F2A2B900200BD64B5 /* AddBooksToCollectionView.swift in Sources */,
 				1E2FEF7A2A0EC71B004D9E9D /* Color+.swift in Sources */,
+				1EED5CB72A36819300062794 /* NotificationSettingsView.swift in Sources */,
 				1E25EDAB2A111571006E44A5 /* CollectionTitle.swift in Sources */,
 				1E2FEF722A0EC287004D9E9D /* TabBarView.swift in Sources */,
 				1E25EDB72A111CDF006E44A5 /* CollectionsView.swift in Sources */,
@@ -546,6 +553,7 @@
 				1E2FEF7C2A0ECF24004D9E9D /* HomeView.swift in Sources */,
 				1E23EB712A0F53DD004FADBF /* CollectionDeckView.swift in Sources */,
 				1E2EA1062A137F9E00BF21E3 /* ContinueWith.swift in Sources */,
+				1EED5CB92A3684E200062794 /* InfoView.swift in Sources */,
 				1E2EA1032A1346FC00BF21E3 /* OnBoardingView.swift in Sources */,
 				1E73FBAC2A1B83570079B45A /* SearchingView.swift in Sources */,
 				1EBA683C2A2B53FE0086F406 /* CreateCollectionView.swift in Sources */,

@@ -21,8 +21,8 @@ struct SettingsView: View {
                 } label: {
                     SettingCell("person.fill", "Account")
                 }
-                Button {
-                    
+                NavigationLink {
+                    NotificationSettingsView()
                 } label: {
                     SettingCell("bell", "Notifications")
                 }
@@ -45,8 +45,8 @@ struct SettingsView: View {
                 } label: {
                     SettingCell("questionmark.bubble", "Help")
                 }
-                Button {
-                    
+                NavigationLink {
+                    InfoView()
                 } label: {
                     SettingCell("doc.text", "Info")
                 }
