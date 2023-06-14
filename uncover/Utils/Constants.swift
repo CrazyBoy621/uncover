@@ -24,4 +24,6 @@ let reportBookEndpoint = "/v1/books/%@/report/"
 let similarBooksPreview = "/v1/books/%@/similar-books-preview/"
 let similarBooksEndpoint = "/v1/books/%@/similar-books/"
 let bookStatusEndpoint = "/v1/books/%@/status/%@/"
+let bookTagEndpoint = "/v1/books/%@/tag/"
+let bookTagPreviewEndpoint = "/v1/books/%@/tags-preview/"
 

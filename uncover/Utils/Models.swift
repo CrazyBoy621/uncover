@@ -44,3 +44,7 @@ struct BookData: Codable {
 struct Author: Codable {
     let id, name: String
 }
+
+struct Reaction: Codable {
+    let description: String
+}

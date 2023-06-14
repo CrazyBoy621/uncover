@@ -509,10 +509,6 @@ class ServiceAPI {
         }
     }
     
-    struct Reaction: Codable {
-        let description: String
-    }
-    
     func postBookReaction(bookId: String, firebaseUID: String, replyToId: String?, reaction: Reaction, completion: @escaping ([String: Any]?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: bookReaction, bookId)
@@ -929,6 +925,151 @@ class ServiceAPI {
                 completion(nil, "Error encoding request body")
                 return
             }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                // Process the received data here
+                if let data = data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        if let dictionary = json as? [String: Any] {
+                            completion(dictionary, nil)
+                        } else {
+                            completion(nil, "Invalid response format")
+                        }
+                    } catch {
+                        completion(nil, "Error decoding JSON response")
+                    }
+                } else {
+                    completion(nil, "No data received")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func getBookTag(bookId: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping ([String: Any]?, String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + String(format: bookTagEndpoint, bookId)
+
+            if let page = page {
+                urlString += "?page=\(page)"
+            }
+
+            if let pageSize = pageSize {
+                let separator = (page != nil) ? "&" : "?"
+                urlString += "\(separator)page_size=\(pageSize)"
+            }
+
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                // Process the received data here
+                if let data = data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        if let dictionary = json as? [String: Any] {
+                            completion(dictionary, nil)
+                        } else {
+                            completion(nil, "Invalid response format")
+                        }
+                    } catch {
+                        completion(nil, "Error decoding JSON response")
+                    }
+                } else {
+                    completion(nil, "No data received")
+                }
+            }
+
+            task.resume()
+        }
+    }
+    
+    func postBookTag(bookId: String, tagName: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: bookTagEndpoint, bookId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, "Invalid URL")
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            // Create the request body data
+            let requestBody: [String: Any] = [
+                "name": tagName
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody)
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error creating request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                // Process the received data here
+                if let data = data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        if let dictionary = json as? [String: Any] {
+                            completion(dictionary, nil)
+                        } else {
+                            completion(nil, "Invalid response format")
+                        }
+                    } catch {
+                        completion(nil, "Error decoding JSON response")
+                    }
+                } else {
+                    completion(nil, "No data received")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func getBookTagsPreview(bookId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: bookTagPreviewEndpoint, bookId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, "Invalid URL")
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
