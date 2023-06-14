@@ -41,17 +41,7 @@ struct uncoverApp: App {
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
-        ServiceAPI.shared.getBooksById(bookId: "2f577b2c-2b3b-4cb3-b4c6-3ff3a3d308e4") { response, error in
-            if let error = error {
-                // Handle the error
-                print("Error: \(error)")
-            } else if let response = response {
-                // Process the response
-                print("Response: \(response)")
-            }
-        }
-        
-        ServiceAPI.shared.getBookFeaturedInPreview(bookId: "2f577b2c-2b3b-4cb3-b4c6-3ff3a3d308e4") { response, error in
+        ServiceAPI.shared.getBookLikes(bookId: "2f577b2c-2b3b-4cb3-b4c6-3ff3a3d308e4") { response, error in
             if let error = error {
                 // Handle the error
                 print("Error: \(error)")
