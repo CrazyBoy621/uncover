@@ -20,3 +20,8 @@ let bookLikes = "/v1/books/%@/likes/"
 let bookReaction = "/v1/books/%@/reaction/"
 let bookReaderPreview = "/v1/books/%@/readers-preview/"
 let bookReaders = "/v1/books/%@/readers/"
+let reportBookEndpoint = "/v1/books/%@/report/"
+let similarBooksPreview = "/v1/books/%@/similar-books-preview/"
+let similarBooksEndpoint = "/v1/books/%@/similar-books/"
+let bookStatusEndpoint = "/v1/books/%@/status/%@/"
+
