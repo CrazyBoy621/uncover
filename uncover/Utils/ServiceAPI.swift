@@ -226,8 +226,7 @@ class ServiceAPI {
     
     func getBookFeaturedInPreview(bookId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
         getToken { token in
-//            let urlString = baseURL + String(format: "​/v1​/books​/%@​/featured-in-preview​/", bookId)
-            let urlString = baseURL + "​/v1​/books​/2f577b2c-2b3b-4cb3-b4c6-3ff3a3d308e4​/"
+            let urlString = baseURL + String(format: featuredInPreview, bookId)
             print(urlString)
             
             guard let url = URL(string: urlString) else {
