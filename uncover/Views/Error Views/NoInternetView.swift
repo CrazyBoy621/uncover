@@ -13,7 +13,7 @@ struct NoInternetView: View {
             ZStack {
                 Image("empty-background")
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: .fill)
                     .frame(maxWidth: .infinity)
                 Image("no-internet")
             }
@@ -37,6 +37,7 @@ struct NoInternetView: View {
             }
             .padding(.horizontal, 24)
         }
+        .background(Color.white.edgesIgnoringSafeArea(.all))
     }
 }
 

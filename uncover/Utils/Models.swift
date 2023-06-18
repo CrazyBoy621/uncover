@@ -2,10 +2,40 @@
 //  Models.swift
 //  uncover
 //
-//  Created by Shohjahon Rakhmatov on 14/06/23.
+//  Created by Bekzod Rakhmatov on 14/06/23.
 //
 
 import Foundation
+
+// MARK: - App Version
+struct AppVersion: Codable {
+    let id: String
+    let name: String
+    let versionCode: Int
+    let priority: Int
+    let description: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name, priority, description
+        case versionCode = "version_code"
+    }
+}
+
+// MARK: - Initial Data
+struct InitialDataResponse: Codable {
+    let id: Int?
+    let appVersions: [AppVersion]?
+    let isBeAvailable: Bool?
+    let minAndroidAppVersion, currentTermsOfUseVersion: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case appVersions = "app_versions"
+        case isBeAvailable = "is_be_available"
+        case minAndroidAppVersion = "min_android_app_version"
+        case currentTermsOfUseVersion = "current_terms_of_use_version"
+    }
+}
 
 // MARK: - Welcome
 struct GetBooksListResponse: Codable {

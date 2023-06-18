@@ -13,7 +13,7 @@ struct UnderConstructionView: View {
             ZStack {
                 Image("empty-background")
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: .fill)
                     .frame(maxWidth: .infinity)
                 Image("under-contruction")
             }

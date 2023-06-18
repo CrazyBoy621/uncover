@@ -9,6 +9,7 @@ import Foundation
 
 let invalidURLError = "URL is invalid."
 let baseURL = "https://api-stage.theuncoverapp.com/api"
+let initialData = "/v1/initial-data/"
 let bookForm = "/v1/book-form/"
 let bookList = "/v1/books-list/%@/"
 let booksByTag = "/v1/books/by-tag/%@/"
@@ -26,4 +27,6 @@ let similarBooksEndpoint = "/v1/books/%@/similar-books/"
 let bookStatusEndpoint = "/v1/books/%@/status/%@/"
 let bookTagEndpoint = "/v1/books/%@/tag/"
 let bookTagPreviewEndpoint = "/v1/books/%@/tags-preview/"
+let deckFollowersEndpoint = "/v1/deck-followers/"
+let getDecksEndpoint = "/v1/decks/"
 
