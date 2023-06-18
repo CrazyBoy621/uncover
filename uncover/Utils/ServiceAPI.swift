@@ -12,7 +12,8 @@ class ServiceAPI {
     static let shared = ServiceAPI()
     
     func getToken(completion:@escaping (String) -> ()){
-        completion("o44lqdhf2d1IMXULwOcuGFL2vga0vJtdgptyiV6xzgc4CL7w3hWbE7HZ038qrxTQ")
+//        completion("o44lqdhf2d1IMXULwOcuGFL2vga0vJtdgptyiV6xzgc4CL7w3hWbE7HZ038qrxTQ")
+        completion("exArjPRnNkRcIeSaen5K6SNCEaswbPHshbxb5502vCD2EiS6yKvdZaNYJv1HjR5U")
     }
     
     func getInitialData(completion: @escaping(InitialDataResponse?, String?) -> ()) {
