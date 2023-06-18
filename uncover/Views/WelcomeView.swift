@@ -185,6 +185,7 @@ struct WelcomeView: View {
                 .foregroundColor(.darkGrey)
                 .font(.system(size: 12, weight: .semibold))
                 .multilineTextAlignment(.center)
+                .tint(.mainColor)
             }
             .padding(.horizontal)
         }

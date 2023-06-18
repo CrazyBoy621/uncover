@@ -22,10 +22,13 @@ struct RegisterationView: View {
     
     @State var isUsernameValidated = false
     @State var isEmailValidated = false
-    @State var isAlertTextVisible = false
     @State var isPasswordSecure = true
     
+    @State var showEmailAlert = false
+    @State var showPasswordAlert = false
     @State var showResetAlert = false
+    
+    @State var emailAlertText = "Email address is required."
     
     
     var body: some View {
@@ -44,8 +47,10 @@ struct RegisterationView: View {
                     HStack{
                         Spacer()
                         Button {
-                            currentPage = .signup
-                            isPasswordSecure = true
+                            withAnimation {
+                                currentPage = .signup
+                                isPasswordSecure = true
+                            }
                             password = ""
                         } label: {
                             Text("Sign Up")
@@ -54,8 +59,10 @@ struct RegisterationView: View {
                         }
                         Spacer()
                         Button {
-                            currentPage = .signin
-                            isPasswordSecure = true
+                            withAnimation {
+                                currentPage = .signin
+                                isPasswordSecure = true
+                            }
                             password = ""
                         } label: {
                             Text("Log In")
@@ -65,51 +72,57 @@ struct RegisterationView: View {
                         Spacer()
                     }
                     
-                    if currentPage == .signup {
-                        VStack(spacing: 20) {
+                    VStack(spacing: 20) {
+                        if currentPage == .signup {
                             CustomTextField("Username", text: $username, isValidated: isUsernameValidated)
-                            CustomTextField("Email", text: $email, isValidated: isEmailValidated)
-                            CustomSecureField("Password", text: $password)
-                            
-                            Button {
-                                
-                            } label: {
-                                CustomLargeButton(title: "Sign up", foreground: .white, background: .mainColor)
-                            }
-                            .padding(.top, 4)
                         }
-                    }
-                    else{
-                        VStack(spacing: 20) {
-                            VStack(alignment: .leading, spacing: 8) {
-                                CustomTextField("Email", text: $email, isValidated: false)
-                                    .onChange(of: email, perform: { newValue in
-                                        withAnimation {
-                                            isAlertTextVisible = newValue.isEmpty
-                                        }
-                                    })
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .stroke(isAlertTextVisible ? Color.customRed : Color.clear, lineWidth: 1)
-                                    )
+                        CustomTextField("Email", text: $email, isValidated: isEmailValidated)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(showEmailAlert ? Color.customRed : Color.clear, lineWidth: 1)
+                            )
+                        if showEmailAlert {
+                            Text(emailAlertText)
+                                .font(.poppinsRegular(size: 12))
+                                .foregroundColor(.customRed)
+                                .padding(.horizontal, 13)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.top, -16)
+                        }
+                        CustomSecureField("Password", text: $password)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(showPasswordAlert ? Color.customRed : Color.clear, lineWidth: 1)
+                            )
+                        if showPasswordAlert {
+                            Text("Password is required")
+                                .font(.poppinsRegular(size: 12))
+                                .foregroundColor(.customRed)
+                                .padding(.horizontal, 13)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.top, -16)
+                        }
+                        
+                        Button {
+                            withAnimation {
+                                if email.isEmpty {
+                                    showEmailAlert = true
+                                } else {
+                                    showEmailAlert = false
+                                }
                                 
-                                if isAlertTextVisible {
-                                    Text("email adress is required")
-                                        .font(.poppinsRegular(size: 12))
-                                        .foregroundColor(.customRed)
-                                        .padding(.horizontal, 13)
+                                if password.isEmpty {
+                                    showPasswordAlert = true
+                                } else {
+                                    showPasswordAlert = false
                                 }
                             }
-                            CustomSecureField("Password", text: $password)
-                            Button {
-                                withAnimation {
-                                    isAlertTextVisible = email.isEmpty
-                                }
-                            } label: {
-                                CustomLargeButton(title: "Sign in", foreground: .white, background: .mainColor)
-                            }
-                            .padding(.vertical, 4)
-                            
+                        } label: {
+                            CustomLargeButton(title: currentPage == .signup ? "Sign up" : "Sign in", foreground: .white, background: .mainColor)
+                        }
+                        .padding(.top, 4)
+                        
+                        if currentPage == .signin {
                             Button {
                                 withAnimation {
                                     showResetAlert = true
@@ -118,8 +131,8 @@ struct RegisterationView: View {
                                 Text("Forgot Password?")
                                     .foregroundColor(.softBlue)
                             }
+                            .transition(.move(edge: .bottom))
                         }
-                        
                     }
                 }
                 .padding(.horizontal, 24)
@@ -205,10 +218,22 @@ struct RegisterationView: View {
                 , alignment: .trailing
             )
             .onChange(of: text.wrappedValue) { newValue in
-                if placeholder == "Username" && currentPage == .signup {
-                    validateUsername()
-                } else if placeholder == "Email" && currentPage == .signup {
-                    validateEmail()
+                withAnimation {
+                    if placeholder == "Username" && currentPage == .signup {
+                        validateUsername()
+                    } else if placeholder == "Email" && currentPage == .signup {
+                        validateEmail()
+                    }
+                    
+                    if email.isEmpty {
+                        emailAlertText = "Email address is required."
+                        showEmailAlert = true
+                    } else if !isEmailValidated {
+                        emailAlertText = "You have to provide corrent email address."
+                        showEmailAlert = true
+                    } else {
+                        showEmailAlert = false
+                    }
                 }
             }
             .textInputAutocapitalization(.never)
@@ -237,6 +262,15 @@ struct RegisterationView: View {
             , alignment: .trailing
         )
         .textInputAutocapitalization(.never)
+        .onChange(of: password) { newValue in
+            withAnimation {
+                if password.isEmpty {
+                    showPasswordAlert = true
+                } else {
+                    showPasswordAlert = false
+                }
+            }
+        }
     }
     
     func validateUsername() {
