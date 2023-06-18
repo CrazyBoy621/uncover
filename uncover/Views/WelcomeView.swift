@@ -181,21 +181,7 @@ struct WelcomeView: View {
                             .foregroundColor(.mainColor.opacity(0.8))
                     }
                 }
-                
-                Text("Continuing to use Moodreaders means you accept our ")
-                + Text("Terms of Service")
-                    .onTapGesture {
-                        guard let url = URL(string: "https://theuncoverapp.com/terms_of_use.html") else { return }
-                        UIApplication.shared.open(url)
-                    }
-                + Text(" and ")
-                + Group {
-                    Text("Privacy Policy.")
-                        .onTapGesture {
-                            guard let url = URL(string: "https://theuncoverapp.com/privacy_policy.html") else { return }
-                            UIApplication.shared.open(url)
-                        }
-                }
+                Text("Continuing to use Moodreaders means you accept our [Terms of Service](https://theuncoverapp.com/terms_of_use.html) and [Privacy Policy](https://theuncoverapp.com/privacy_policy.html).")
                 .foregroundColor(.darkGrey)
                 .font(.system(size: 12, weight: .semibold))
                 .multilineTextAlignment(.center)
