@@ -12,7 +12,7 @@ class ServiceAPI {
     static let shared = ServiceAPI()
     
     func getToken(completion:@escaping (String) -> ()){
-//        completion("o44lqdhf2d1IMXULwOcuGFL2vga0vJtdgptyiV6xzgc4CL7w3hWbE7HZ038qrxTQ")
+        //        completion("o44lqdhf2d1IMXULwOcuGFL2vga0vJtdgptyiV6xzgc4CL7w3hWbE7HZ038qrxTQ")
         completion("exArjPRnNkRcIeSaen5K6SNCEaswbPHshbxb5502vCD2EiS6yKvdZaNYJv1HjR5U")
     }
     
@@ -164,32 +164,32 @@ class ServiceAPI {
     func getBooksByTag(tagName: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping ([String: Any]?, String?) -> ()) {
         getToken { token in
             var urlString = baseURL + String(format: booksByTag, tagName)
-
+            
             if let page = page {
                 urlString += "?page=\(page)"
             }
-
+            
             if let pageSize = pageSize {
                 let separator = (page != nil) ? "&" : "?"
                 urlString += "\(separator)page_size=\(pageSize)"
             }
-
+            
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
                 return
             }
-
+            
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
-
+            
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     completion(nil, error.localizedDescription)
                     return
                 }
-
+                
                 // Process the received data here
                 if let data = data {
                     do {
@@ -206,7 +206,7 @@ class ServiceAPI {
                     completion(nil, "No data received")
                 }
             }
-
+            
             task.resume()
         }
     }
@@ -436,7 +436,7 @@ class ServiceAPI {
             task.resume()
         }
     }
-
+    
     func deleteBookLikes(bookId: String, userId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: bookLikes, bookId)
@@ -494,32 +494,32 @@ class ServiceAPI {
     func getBookReaction(bookId: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping ([String: Any]?, String?) -> ()) {
         getToken { token in
             var urlString = baseURL + String(format: bookReaction, bookId)
-
+            
             if let page = page {
                 urlString += "?page=\(page)"
             }
-
+            
             if let pageSize = pageSize {
                 let separator = (page != nil) ? "&" : "?"
                 urlString += "\(separator)page_size=\(pageSize)"
             }
-
+            
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
                 return
             }
-
+            
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
-
+            
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     completion(nil, error.localizedDescription)
                     return
                 }
-
+                
                 // Process the received data here
                 if let data = data {
                     do {
@@ -536,7 +536,7 @@ class ServiceAPI {
                     completion(nil, "No data received")
                 }
             }
-
+            
             task.resume()
         }
     }
@@ -797,7 +797,7 @@ class ServiceAPI {
             task.resume()
         }
     }
-
+    
     func getSimilarBookPreview(bookId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: similarBooksPreview, bookId)
@@ -842,32 +842,32 @@ class ServiceAPI {
     func getSimilarBooks(bookId: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping ([String: Any]?, String?) -> ()) {
         getToken { token in
             var urlString = baseURL + String(format: similarBooksEndpoint, bookId)
-
+            
             if let page = page {
                 urlString += "?page=\(page)"
             }
-
+            
             if let pageSize = pageSize {
                 let separator = (page != nil) ? "&" : "?"
                 urlString += "\(separator)page_size=\(pageSize)"
             }
-
+            
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
                 return
             }
-
+            
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
-
+            
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     completion(nil, error.localizedDescription)
                     return
                 }
-
+                
                 // Process the received data here
                 if let data = data {
                     do {
@@ -884,7 +884,7 @@ class ServiceAPI {
                     completion(nil, "No data received")
                 }
             }
-
+            
             task.resume()
         }
     }
@@ -988,32 +988,32 @@ class ServiceAPI {
     func getBookTag(bookId: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping ([String: Any]?, String?) -> ()) {
         getToken { token in
             var urlString = baseURL + String(format: bookTagEndpoint, bookId)
-
+            
             if let page = page {
                 urlString += "?page=\(page)"
             }
-
+            
             if let pageSize = pageSize {
                 let separator = (page != nil) ? "&" : "?"
                 urlString += "\(separator)page_size=\(pageSize)"
             }
-
+            
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
                 return
             }
-
+            
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
-
+            
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     completion(nil, error.localizedDescription)
                     return
                 }
-
+                
                 // Process the received data here
                 if let data = data {
                     do {
@@ -1030,7 +1030,7 @@ class ServiceAPI {
                     completion(nil, "No data received")
                 }
             }
-
+            
             task.resume()
         }
     }
@@ -1288,6 +1288,208 @@ class ServiceAPI {
             task.resume()
         }
     }
+    
+    //    ------------------------------------------
+    
+    func getDeckDetails(deckId: String, includeBooks: Bool? = nil, completion: @escaping (DeckDetails?, String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + String(format: getDeckIdEndpoint, deckId)
+            
+            if let includeBooks = includeBooks {
+                urlString += "?include_books=\(includeBooks)"
+            }
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "accept")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                if let data = data {
+                    do {
+                        let decoder = JSONDecoder()
+                        let deckDetails = try decoder.decode(DeckDetails.self, from: data)
+                        completion(deckDetails, nil)
+                    } catch {
+                        completion(nil, "Error decoding JSON response")
+                    }
+                } else {
+                    completion(nil, "No data received")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func updateDeck(deckId: String, title: String, description: String? = nil, background: String, isPublic: Bool? = nil, bookIds: [String]? = nil, completion: @escaping (DeckListing?, String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + String(format: getDeckIdEndpoint, deckId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "PUT"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            var data: [String: Any] = [
+                "title": title,
+                "description": description ?? "",
+                "background": background,
+            ]
+            
+            if let description = description {
+                data["description"] = description
+            }
+            
+            if let isPublic = isPublic {
+                data["public"] = isPublic
+            }
+            if let bookIds = bookIds {
+                data["book_ids"] = bookIds
+            }
+            
+            do {
+                let requestData = try JSONSerialization.data(withJSONObject: data)
+                request.httpBody = requestData
+            } catch {
+                completion(nil, "Error encoding request data")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                if let data = data {
+                    do {
+                        let decoder = JSONDecoder()
+                        let deckListing = try decoder.decode(DeckListing.self, from: data)
+                        completion(deckListing, nil)
+                    } catch {
+                        completion(nil, "Error decoding JSON response")
+                    }
+                } else {
+                    completion(nil, "No data received")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func deleteDeck(deckId: String, completion: @escaping (String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + String(format: getDeckIdEndpoint, deckId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "DELETE"
+            request.setValue("application/json", forHTTPHeaderField: "accept")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(error.localizedDescription)
+                } else {
+                    completion(nil)
+                }
+            }
+            
+            task.resume()
+        }
+    }
+
+    func postBlockDeck(deckId: String, blockingUserID: String, completion: @escaping (String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: blockDeckEndpoint, deckId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let blockData = ["blocking_user_id": blockingUserID]
+            do {
+                let requestData = try JSONSerialization.data(withJSONObject: blockData)
+                request.httpBody = requestData
+            } catch {
+                completion("Error encoding request data")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(error.localizedDescription)
+                } else {
+                    completion(nil)
+                }
+            }
+            
+            task.resume()
+        }
+    }
+
+    func deleteBlockDeck(deckId: String, blockingUserID: String, completion: @escaping (String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: blockDeckEndpoint, deckId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "DELETE"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let blockData = ["blocking_user_id": blockingUserID]
+            do {
+                let requestData = try JSONSerialization.data(withJSONObject: blockData)
+                request.httpBody = requestData
+            } catch {
+                completion("Error encoding request data")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(error.localizedDescription)
+                } else {
+                    completion(nil)
+                }
+            }
+            
+            task.resume()
+        }
+    }
+
 }
 
 extension Data {

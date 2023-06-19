@@ -29,4 +29,6 @@ let bookTagEndpoint = "/v1/books/%@/tag/"
 let bookTagPreviewEndpoint = "/v1/books/%@/tags-preview/"
 let deckFollowersEndpoint = "/v1/deck-followers/"
 let getDecksEndpoint = "/v1/decks/"
+let getDeckIdEndpoint = "/v1/decks/%@/"
+let blockDeckEndpoint = "/v1/decks/%@/block/"
 
