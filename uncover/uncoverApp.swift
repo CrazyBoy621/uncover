@@ -46,16 +46,19 @@ struct uncoverApp: App {
         
         ServiceAPI.shared.getInitialData { response, error in
             if let response = response {
-//                print(response.isBeAvailable)
+                print("RESPONSE: ", response)
 //                isAvailable = response.isBeAvailable ?? false
+            } else {
+                print("ERROR: ", error ?? "Error")
             }
         }
-        
-//        ServiceAPI.shared.getBooksList(languageCode: "en", search: "example") { response, error in
-//            if let response = response {
-//                print("RESPONSE: ", response)
-//            }
-//        }
+        ServiceAPI.shared.getBooksList(languageCode: "en", search: "example") { response, error in
+            if let response = response {
+                print("RESPONSE: ", response)
+            } else {
+                print("ERROR: ", error ?? "Error")
+            }
+        }
     }
     
     var body: some Scene {

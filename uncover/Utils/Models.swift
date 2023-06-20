@@ -7,15 +7,20 @@
 
 import Foundation
 
+// MARK: - Error RESPONSE
+struct ErrorResponse: Codable {
+    let detail: String?
+}
+
 // MARK: - Author
-struct Author: Codable {
+struct AuthorResponse: Codable {
     let id, name: String?
 }
 
 // MARK: - Book Listing
-struct BookListing: Codable {
+struct BookListingResponse: Codable {
     let id, googleBooksID, title, description: String?
-    let authors: [Author]?
+    let authors: [AuthorResponse]?
     let mainCoverLink: String?
     let likesCount, commentsCount: Int?
     let createdAt, updatedAt: String?
@@ -37,17 +42,17 @@ struct BookListing: Codable {
 }
 
 // MARK: - Publisher
-struct PublisherModel: Codable {
+struct PublisherResponse: Codable {
     let id, name: String?
 }
 
 // MARK: - Genre
-struct Genre: Codable {
+struct GenreResponse: Codable {
     let id, name: String?
 }
 
 // MARK: - Book Cover
-struct BookCover: Codable {
+struct BookCoverResponse: Codable {
     let id, link, cover, userProfile, createdAt: String?
     enum CodingKeys: String, CodingKey {
         case id, link, cover
@@ -57,21 +62,21 @@ struct BookCover: Codable {
 }
 
 // MARK: - Book Thumbnail
-struct BookThumbnail: Codable {
+struct BookThumbnailResponse: Codable {
     let id: String?
     let link: String?
 }
 
 // MARK: - Book
-struct Book: Codable {
+struct BookResponse: Codable {
     let id, googleBooksID, title: String?
-    let authors: [Author]?
-    let publishers: [PublisherModel]?
-    let genres: [Genre]?
+    let authors: [AuthorResponse]?
+    let publishers: [PublisherResponse]?
+    let genres: [GenreResponse]?
     let bookTags: String?
     let tagsCount, decksCount: Int?
-    let covers: [BookCover]?
-    let thumbnails: [BookThumbnail]?
+    let covers: [BookCoverResponse]?
+    let thumbnails: [BookThumbnailResponse]?
     let likesCount: Int?
     let isLikedByYou: Bool?
     let bookStatus: String?
@@ -131,7 +136,7 @@ struct Book: Codable {
 }
 
 // MARK: - UserProfile
-struct UserProfile: Codable {
+struct UserProfileResponse: Codable {
     let firebaseUid: String?
     let userId: String?
     let username: String?
@@ -186,11 +191,11 @@ struct UserProfile: Codable {
 }
 
 // MARK: - DeckListing
-struct DeckListing: Codable {
+struct DeckListingResponse: Codable {
     let id: String?
     let deckTagsCount: String?
     let booksCount: String?
-    let userProfile: UserProfile?
+    let userProfile: UserProfileResponse?
     let followersCount: String?
     let likesCount: String?
     let likingUsers: String?
@@ -231,9 +236,9 @@ struct DeckListing: Codable {
 }
 
 // MARK: - Reaction
-struct Reaction: Codable {
+struct ReactionResponse: Codable {
     let id: String?
-    let userProfile: UserProfile?
+    let userProfile: UserProfileResponse?
     let likesCount: String?
     let repliesCount: String?
     let isLikedByYou: String?
@@ -262,14 +267,14 @@ struct Reaction: Codable {
 }
 
 // MARK: - BookReaction
-struct BookReaction: Codable {
+struct BookReactionResponse: Codable {
     let id: String?
-    let reaction: Reaction?
+    let reaction: ReactionResponse?
     let book: String?
 }
 
 // MARK: - BookStatus
-struct BookStatus: Codable {
+struct BookStatusResponse: Codable {
     let id: Int?
     let book: String?
     let user: String?
@@ -294,7 +299,7 @@ enum BookStatusType: String, Codable {
 }
 
 // MARK: - BookTag
-struct BookTag: Codable {
+struct BookTagResponse: Codable {
     let id: Int?
     let tag: String?
     let count: Int?
@@ -307,8 +312,8 @@ struct BookTag: Codable {
 }
 
 // MARK: - BookTagPreview
-struct BookTagPreview: Codable {
-    let preview: [BookTag]?
+struct BookTagPreviewResponse: Codable {
+    let preview: [BookTagResponse]?
     let hashtagsCount: Int?
     
     enum CodingKeys: String, CodingKey {
@@ -318,20 +323,20 @@ struct BookTagPreview: Codable {
 }
 
 // MARK: - DeckFollower
-struct DeckFollower: Codable {
-    let user: UserProfile?
+struct DeckFollowerResponse: Codable {
+    let user: UserProfileResponse?
     let created: String?
 }
 
 // MARK: - DeckDetails
-struct DeckDetails: Codable {
+struct DeckDetailsResponse: Codable {
     let id: String?
     let title: String?
     let books: String?
     let deckTagsCount: String?
     let booksCount: String?
     let readBooksCount: String?
-    let userProfile: UserProfile?
+    let userProfile: UserProfileResponse?
     let followersCount: String?
     let likesCount: String?
     let likingUsers: String?
@@ -373,14 +378,14 @@ struct DeckDetails: Codable {
 }
 
 // MARK - Deck
-struct Deck: Codable {
+struct DeckResponse: Codable {
     let id: String?
     let title: String?
-    let books: [BookListing]?
+    let books: [BookListingResponse]?
     let deckTagsCount: String?
     let booksCount: String?
     let readBooksCount: String?
-    let userProfile: UserProfile?
+    let userProfile: UserProfileResponse?
     let followersCount: String?
     let likesCount: String?
     let likingUsers: String?
@@ -422,14 +427,14 @@ struct Deck: Codable {
 }
 
 // MARk - DeckReaction
-struct DeckReaction: Codable {
+struct DeckReactionResponse: Codable {
     let id: String?
-    let reaction: Reaction?
+    let reaction: ReactionResponse?
     let deck: String?
 }
 
 // MARk - DeckTag
-struct DeckTag: Codable {
+struct DeckTagResponse: Codable {
     let id: Int?
     let tag: String?
     let count: String?
@@ -442,8 +447,8 @@ struct DeckTag: Codable {
 }
 
 // MARk - UserFollower
-struct UserFollower: Codable {
-    let user: UserProfile?
+struct UserFollowerResponse: Codable {
+    let user: UserProfileResponse?
     let created: String?
 }
 
@@ -518,7 +523,7 @@ struct InitialDataResponse: Codable {
 }
 
 // MARK - UserProfilePicture
-struct UserProfilePicture: Codable {
+struct UserProfilePictureResponse: Codable {
     let id, profilePicture, createdAt, updatedAt, userProfile: String?
     
     enum CodingKeys: String, CodingKey {
@@ -531,7 +536,7 @@ struct UserProfilePicture: Codable {
 }
 
 // MARK - Tag
-struct Tag: Codable {
+struct TagResponse: Codable {
     let id: String?
     let name: String?
     let booksCount: Int?
@@ -546,7 +551,7 @@ struct Tag: Codable {
 }
 
 // MARK - TrendingBook
-struct TrendingBook: Codable {
+struct TrendingBookResponse: Codable {
     let book: String?
     
     enum CodingKeys: String, CodingKey {
@@ -555,7 +560,7 @@ struct TrendingBook: Codable {
 }
 
 // MARK - TrendingDeck
-struct TrendingDeck: Codable {
+struct TrendingDeckResponse: Codable {
     let deck: String?
     
     enum CodingKeys: String, CodingKey {
@@ -564,7 +569,7 @@ struct TrendingDeck: Codable {
 }
 
 // MARK - TrendingHashtag
-struct TrendingHashtag: Codable {
+struct TrendingHashtagResponse: Codable {
     let tag: String?
     
     enum CodingKeys: String, CodingKey {
@@ -573,7 +578,7 @@ struct TrendingHashtag: Codable {
 }
 
 // MARK - TrendingUser
-struct TrendingUser: Codable {
+struct TrendingUserResponse: Codable {
     let profile: String?
     
     enum CodingKeys: String, CodingKey {
@@ -582,8 +587,8 @@ struct TrendingUser: Codable {
 }
 
 // MARK - FollowedDeck
-struct FollowedDeck: Codable {
-    let deck: DeckListing?
+struct FollowedDeckResponse: Codable {
+    let deck: DeckListingResponse?
     let created: String?
     
     enum CodingKeys: String, CodingKey {

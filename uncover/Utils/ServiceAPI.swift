@@ -30,19 +30,33 @@ class ServiceAPI {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                // we will use data to decode to our object model
-                // response can show status
-                if let data = data {
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
                         let value = try JSONDecoder().decode(InitialDataResponse.self, from: data)
-                        completion(value, error?.localizedDescription)
+                        completion(value, nil)
                     } catch {
                         completion(nil, error.localizedDescription)
                     }
-                    return
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
-                completion(nil, error?.localizedDescription)
             }
+            
             task.resume()
         }
     }
@@ -60,7 +74,7 @@ class ServiceAPI {
         isbn10: String? = nil,
         isbn13: String? = nil,
         pageCount: Int? = nil,
-        completion: @escaping([String: Any]?, String?) -> ()) {
+        completion: @escaping(BookListingResponse?, String?) -> ()) {
             getToken { token in
                 var params = [String: Any]()
                 params["title"] = title
@@ -103,16 +117,38 @@ class ServiceAPI {
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                    // we will use data to decode to our object model
-                    // response can show status
-                    completion(data?.object, error?.localizedDescription)
-                    print(#function, data?.prettyPrintedJSONString, response, error)
+                    if let error = error {
+                        completion(nil, error.localizedDescription)
+                        return
+                    }
+
+                    guard let data = data, let response = response as? HTTPURLResponse else {
+                        completion(nil, "Failed to get the data!")
+                        return
+                    }
+
+                    if response.statusCode == 200 {
+                        do {
+                            let value = try JSONDecoder().decode(BookListingResponse.self, from: data)
+                            completion(value, nil)
+                        } catch {
+                            completion(nil, error.localizedDescription)
+                        }
+                    } else {
+                        do {
+                            let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                            completion(nil, errorResponse.detail)
+                        } catch {
+                            completion(nil, "Failed to get the data!")
+                        }
+                    }
                 }
+                
                 task.resume()
             }
         }
     
-    func getBooksList(languageCode: String, search: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func getBooksList(languageCode: String, search: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping (BookListingResponse?, String?) -> ()) {
         getToken { token in
             var urlString = baseURL + String(format: bookList, languageCode) + "?search=\(search)"
             
@@ -125,7 +161,7 @@ class ServiceAPI {
             }
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -139,21 +175,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(BookListingResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -161,7 +202,7 @@ class ServiceAPI {
         }
     }
     
-    func getBooksByTag(tagName: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func getBooksByTag(tagName: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping (BookListingResponse?, String?) -> ()) {
         getToken { token in
             var urlString = baseURL + String(format: booksByTag, tagName)
             
@@ -189,21 +230,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(BookListingResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -211,12 +257,12 @@ class ServiceAPI {
         }
     }
     
-    func getBooksById(bookId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func getBooksById(bookId: String, completion: @escaping (BookResponse?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: booksById, bookId)
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -231,21 +277,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(BookResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -253,15 +304,128 @@ class ServiceAPI {
         }
     }
     
-    //    PUT "/v1/books/{book_id}/cover/"
-    //    DELETE "/v1/books/{book_id}/cover/"
+    func updateBookCover(bookId: String, bookCover: String, completion: @escaping (BookResponse?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: bookIdCover, bookId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "PUT"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            // Construct the request body
+            let requestBody: [String: Any] = [
+                "book_cover": bookCover
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error encoding request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(BookResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
     
-    func getBookFeaturedInPreview(bookId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func deleteBookCover(bookId: String, completion: @escaping (BookResponse?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: bookIdCover, bookId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "DELETE"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            // Create the request body data
+            let requestBody: [String: Any] = [:]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody)
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error creating request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(BookResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func getBookFeaturedInPreview(bookId: String, completion: @escaping (DeckListingResponse?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: featuredInPreview, bookId)
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -275,21 +439,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(DeckListingResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -297,7 +466,7 @@ class ServiceAPI {
         }
     }
     
-    func getBookFeaturedIn(bookId: String, ordering: String? = nil, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func getBookFeaturedIn(bookId: String, ordering: String? = nil, completion: @escaping (DeckListingResponse?, String?) -> ()) {
         getToken { token in
             var urlString = baseURL + String(format: featuredIn, bookId)
             
@@ -306,7 +475,7 @@ class ServiceAPI {
             }
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -320,21 +489,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(DeckListingResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -342,12 +516,12 @@ class ServiceAPI {
         }
     }
     
-    func getBookLikes(bookId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func getBookLikes(bookId: String, completion: @escaping (UserProfileResponse?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: bookLikes, bookId)
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -361,21 +535,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(UserProfileResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -383,12 +562,12 @@ class ServiceAPI {
         }
     }
     
-    func postBookLikes(bookId: String, userId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func postBookLikes(bookId: String, userId: String, completion: @escaping (BookResponse?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: bookLikes, bookId)
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -415,21 +594,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(BookResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -437,12 +621,12 @@ class ServiceAPI {
         }
     }
     
-    func deleteBookLikes(bookId: String, userId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func deleteBookLikes(bookId: String, userId: String, completion: @escaping (BookResponse?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: bookLikes, bookId)
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -469,21 +653,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(BookResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -491,7 +680,7 @@ class ServiceAPI {
         }
     }
     
-    func getBookReaction(bookId: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func getBookReaction(bookId: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping (BookReactionResponse?, String?) -> ()) {
         getToken { token in
             var urlString = baseURL + String(format: bookReaction, bookId)
             
@@ -519,21 +708,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(BookReactionResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -541,7 +735,7 @@ class ServiceAPI {
         }
     }
     
-    func postBookReaction(bookId: String, firebaseUID: String, replyToId: String?, reaction: Reaction, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func postBookReaction(bookId: String, firebaseUID: String, replyToId: String?, reactionDescription: String, completion: @escaping (BookReactionResponse?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: bookReaction, bookId)
             
@@ -558,7 +752,9 @@ class ServiceAPI {
             // Construct the request body
             var requestBody: [String: Any] = [
                 "firebase_uid": firebaseUID,
-                "reaction": reaction
+                "reaction": [
+                    "description": reactionDescription
+                ]
             ]
             
             if let replyToId = replyToId {
@@ -578,21 +774,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(BookReactionResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -659,7 +860,7 @@ class ServiceAPI {
             let urlString = baseURL + String(format: bookReaderPreview, bookId)
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -708,7 +909,7 @@ class ServiceAPI {
             }
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -798,12 +999,12 @@ class ServiceAPI {
         }
     }
     
-    func getSimilarBookPreview(bookId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func getSimilarBookPreview(bookId: String, completion: @escaping (BookListingResponse?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: similarBooksPreview, bookId)
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -817,21 +1018,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(BookListingResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -839,7 +1045,7 @@ class ServiceAPI {
         }
     }
     
-    func getSimilarBooks(bookId: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func getSimilarBooks(bookId: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping (BookListingResponse?, String?) -> ()) {
         getToken { token in
             var urlString = baseURL + String(format: similarBooksEndpoint, bookId)
             
@@ -867,21 +1073,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(BookListingResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -889,12 +1100,12 @@ class ServiceAPI {
         }
     }
     
-    func getBookStatus(bookId: String, userId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func getBookStatus(bookId: String, userId: String, completion: @escaping (BookStatusResponse?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: bookStatusEndpoint, bookId, userId)
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -909,21 +1120,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(BookStatusResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -931,12 +1147,12 @@ class ServiceAPI {
         }
     }
     
-    func updateBookStatus(bookId: String, userId: String, status: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func updateBookStatus(bookId: String, userId: String, status: String, completion: @escaping (BookStatusResponse?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: bookStatusEndpoint, bookId, userId)
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -963,21 +1179,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(BookStatusResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -985,7 +1206,7 @@ class ServiceAPI {
         }
     }
     
-    func getBookTag(bookId: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func getBookTag(bookId: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping ([BookTagResponse]?, String?) -> ()) {
         getToken { token in
             var urlString = baseURL + String(format: bookTagEndpoint, bookId)
             
@@ -1013,21 +1234,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode([BookTagResponse].self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -1035,12 +1261,12 @@ class ServiceAPI {
         }
     }
     
-    func postBookTag(bookId: String, tagName: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func postBookTag(bookId: String, tagName: String, completion: @escaping (BookResponse?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: bookTagEndpoint, bookId)
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -1067,21 +1293,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(BookResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -1089,12 +1320,12 @@ class ServiceAPI {
         }
     }
     
-    func getBookTagsPreview(bookId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func getBookTagsPreview(bookId: String, completion: @escaping (BookTagPreviewResponse?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + String(format: bookTagPreviewEndpoint, bookId)
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -1108,21 +1339,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(BookTagPreviewResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -1130,12 +1366,12 @@ class ServiceAPI {
         }
     }
     
-    func postDeckFollowers(userId: String, deckId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func postDeckFollowers(userId: String, deckId: String, completion: @escaping (DeckFollowerResponse?, String?) -> ()) {
         getToken { token in
             let urlString = baseURL + deckFollowersEndpoint
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -1163,21 +1399,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(DeckFollowerResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -1190,7 +1431,7 @@ class ServiceAPI {
             let urlString = baseURL + deckFollowersEndpoint
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -1240,7 +1481,7 @@ class ServiceAPI {
         }
     }
     
-    func getDecks(search: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping ([String: Any]?, String?) -> ()) {
+    func getDecks(search: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping (DeckListingResponse?, String?) -> ()) {
         getToken { token in
             var urlString = baseURL + getDecksEndpoint
             
@@ -1253,7 +1494,7 @@ class ServiceAPI {
             }
             
             guard let url = URL(string: urlString) else {
-                completion(nil, "Invalid URL")
+                completion(nil, invalidURLError)
                 return
             }
             
@@ -1267,21 +1508,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                // Process the received data here
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let dictionary = json as? [String: Any] {
-                            completion(dictionary, nil)
-                        } else {
-                            completion(nil, "Invalid response format")
-                        }
+                        let value = try JSONDecoder().decode(DeckListingResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -1291,7 +1537,7 @@ class ServiceAPI {
     
     //    ------------------------------------------
     
-    func getDeckDetails(deckId: String, includeBooks: Bool? = nil, completion: @escaping (DeckDetails?, String?) -> ()) {
+    func getDeckDetails(deckId: String, includeBooks: Bool? = nil, completion: @escaping (DeckDetailsResponse?, String?) -> ()) {
         getToken { token in
             var urlString = baseURL + String(format: getDeckIdEndpoint, deckId)
             
@@ -1314,17 +1560,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let decoder = JSONDecoder()
-                        let deckDetails = try decoder.decode(DeckDetails.self, from: data)
-                        completion(deckDetails, nil)
+                        let value = try JSONDecoder().decode(DeckDetailsResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
@@ -1332,7 +1587,7 @@ class ServiceAPI {
         }
     }
     
-    func updateDeck(deckId: String, title: String, description: String? = nil, background: String, isPublic: Bool? = nil, bookIds: [String]? = nil, completion: @escaping (DeckListing?, String?) -> ()) {
+    func updateDeck(deckId: String, title: String, description: String? = nil, background: String, isPublic: Bool? = nil, bookIds: [String]? = nil, completion: @escaping (DeckListingResponse?, String?) -> ()) {
         getToken { token in
             var urlString = baseURL + String(format: getDeckIdEndpoint, deckId)
             
@@ -1376,17 +1631,26 @@ class ServiceAPI {
                     completion(nil, error.localizedDescription)
                     return
                 }
-                
-                if let data = data {
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
                     do {
-                        let decoder = JSONDecoder()
-                        let deckListing = try decoder.decode(DeckListing.self, from: data)
-                        completion(deckListing, nil)
+                        let value = try JSONDecoder().decode(DeckListingResponse.self, from: data)
+                        completion(value, nil)
                     } catch {
-                        completion(nil, "Error decoding JSON response")
+                        completion(nil, error.localizedDescription)
                     }
                 } else {
-                    completion(nil, "No data received")
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
                 }
             }
             
