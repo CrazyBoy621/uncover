@@ -1589,7 +1589,7 @@ class ServiceAPI {
     
     func updateDeck(deckId: String, title: String, description: String? = nil, background: String, isPublic: Bool? = nil, bookIds: [String]? = nil, completion: @escaping (DeckListingResponse?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: getDeckIdEndpoint, deckId)
+            let urlString = baseURL + String(format: getDeckIdEndpoint, deckId)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -1660,7 +1660,7 @@ class ServiceAPI {
     
     func deleteDeck(deckId: String, completion: @escaping (String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: getDeckIdEndpoint, deckId)
+            let urlString = baseURL + String(format: getDeckIdEndpoint, deckId)
             
             guard let url = URL(string: urlString) else {
                 completion(invalidURLError)
@@ -1754,6 +1754,504 @@ class ServiceAPI {
         }
     }
 
+    func getDeckBooks(deckId: String, completion: @escaping ([BookListingResponse]?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: deckBooksEndpoint, deckId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "accept")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode([BookListingResponse].self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+//    {Need to do}
+//    POST /v1/decks/{deck_id}/books/
+//    PATCH /v1/decks/{deck_id}/books/
+    
+    func deleteDeckBook(deckId: String, bookId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: deckBooksEndpoint, deckId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "DELETE"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            // Create the request body data
+            let requestBody: [String: Any] = [
+                "book_id": bookId
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody)
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error creating request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        if let dictionary = json as? [String: Any] {
+                            completion(dictionary, nil)
+                        } else {
+                            completion(nil, "Invalid response format")
+                        }
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func getDeckFollowers(deckId: String, completion: @escaping ([DeckFollowerResponse]?, String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + String(format: deckIdFollowersEndpoint, deckId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode([DeckFollowerResponse].self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func getDeckLikes(deckId: String, completion: @escaping ([UserProfileResponse]?, String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + String(format: deckLikesEndpoint, deckId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode([UserProfileResponse].self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func postDeckLike(deckId: String, userId: String, completion: @escaping (DeckResponse?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: deckLikesEndpoint, deckId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            // Create the request body data
+            let requestBody: [String: Any] = [
+                "user_id": userId
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody)
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error creating request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(DeckResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func deleteDeckLike(deckId: String, userId: String, completion: @escaping (DeckResponse?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: deckLikesEndpoint, deckId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "DELETE"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            // Create the request body data
+            let requestBody: [String: Any] = [
+                "user_id": userId
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody)
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error creating request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(DeckResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func getDeckReaction(deckId: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping (DeckReactionResponse?, String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + String(format: deckReactionEndpoint, deckId)
+            
+            if let page = page {
+                urlString += "?page=\(page)"
+            }
+            
+            if let pageSize = pageSize {
+                let separator = (page != nil) ? "&" : "?"
+                urlString += "\(separator)page_size=\(pageSize)"
+            }
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(DeckReactionResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func postDeckReaction(deckId: String, userId: String, reactionDescription: String, replyToId: String? = nil, completion: @escaping (DeckReactionResponse?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: deckReactionEndpoint, deckId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            // Create the request body data
+            var requestBody: [String: Any] = [
+                "firebase_uid": userId,
+                "reaction": [
+                    "description": reactionDescription
+                ]
+            ]
+            
+            if let replyToId = replyToId {
+                requestBody["reply_to_id"] = replyToId
+            }
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody)
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error creating request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(DeckReactionResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func deleteDeckReaction(deckId: String, reactionId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: deckReactionEndpoint, deckId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "DELETE"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            // Construct the request body
+            let requestBody: [String: Any] = [
+                "reaction_id": reactionId
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error encoding request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                // Process the received data here
+                if let data = data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        if let dictionary = json as? [String: Any] {
+                            completion(dictionary, nil)
+                        } else {
+                            completion(nil, "Invalid response format")
+                        }
+                    } catch {
+                        completion(nil, "Error decoding JSON response")
+                    }
+                } else {
+                    completion(nil, "No data received")
+                }
+            }
+            
+            task.resume()
+        }
+    }
 }
 
 extension Data {

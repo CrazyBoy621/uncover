@@ -31,4 +31,8 @@ let deckFollowersEndpoint = "/v1/deck-followers/"
 let getDecksEndpoint = "/v1/decks/"
 let getDeckIdEndpoint = "/v1/decks/%@/"
 let blockDeckEndpoint = "/v1/decks/%@/block/"
+let deckBooksEndpoint = "/v1/decks/%@/books/"
+let deckIdFollowersEndpoint = "/v1/decks/%@/followers/"
+let deckLikesEndpoint = "/v1/decks/%@/likes/"
+let deckReactionEndpoint = "/v1/decks/%@/reaction/"
 

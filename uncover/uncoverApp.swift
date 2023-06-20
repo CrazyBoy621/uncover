@@ -52,13 +52,13 @@ struct uncoverApp: App {
                 print("ERROR: ", error ?? "Error")
             }
         }
-        ServiceAPI.shared.getBooksList(languageCode: "en", search: "example") { response, error in
-            if let response = response {
-                print("RESPONSE: ", response)
-            } else {
-                print("ERROR: ", error ?? "Error")
-            }
-        }
+//        ServiceAPI.shared.getBooksList(languageCode: "en", search: "example") { response, error in
+//            if let response = response {
+//                print("RESPONSE: ", response)
+//            } else {
+//                print("ERROR: ", error ?? "Error")
+//            }
+//        }
     }
     
     var body: some Scene {
