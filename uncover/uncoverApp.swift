@@ -59,6 +59,14 @@ struct uncoverApp: App {
 //                print("ERROR: ", error ?? "Error")
 //            }
 //        }
+        
+        ServiceAPI.shared.getHomeModules { response, error in
+            if let response = response {
+                print("Home Module: ", response)
+            } else {
+                print("Home Module Error: ", error ?? "Error")
+            }
+        }
     }
     
     var body: some Scene {

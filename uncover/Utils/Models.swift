@@ -453,7 +453,7 @@ struct UserFollowerResponse: Codable {
 }
 
 // MARK - HomeModuleListing
-struct HomeModuleListing: Codable {
+struct HomeModuleListingResponse: Codable {
     let id: String?
     let name: String?
     let decks: String?
@@ -472,7 +472,7 @@ struct HomeModuleListing: Codable {
 }
 
 // MARK - HomeModule
-struct HomeModule: Codable {
+struct HomeModuleResponse: Codable {
     let id: String?
     let decks: String?
     let books: String?
