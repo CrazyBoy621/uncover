@@ -2734,6 +2734,496 @@ class ServiceAPI {
             task.resume()
         }
     }
+    
+    func postNotificationRegister(userId: String, registrationToken: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + notificationRegisterEndpoint
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            // Construct the request body
+            let requestBody: [String: Any] = [
+                "user_id": userId,
+                "registration_token": registrationToken
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error encoding request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                // Process the received data here
+                if let data = data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        if let dictionary = json as? [String: Any] {
+                            completion(dictionary, nil)
+                        } else {
+                            completion(nil, "Invalid response format")
+                        }
+                    } catch {
+                        completion(nil, "Error decoding JSON response")
+                    }
+                } else {
+                    completion(nil, "No data received")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func postNotificationUnregister(userId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + notificationUnregisterEndpoint
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            // Construct the request body
+            let requestBody: [String: Any] = [
+                "user_id": userId
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error encoding request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                // Process the received data here
+                if let data = data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        if let dictionary = json as? [String: Any] {
+                            completion(dictionary, nil)
+                        } else {
+                            completion(nil, "Invalid response format")
+                        }
+                    } catch {
+                        completion(nil, "Error decoding JSON response")
+                    }
+                } else {
+                    completion(nil, "No data received")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func postNotificationsMarkRead(userId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + notificationsMarkkReadEndpoint
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            // Construct the request body
+            let requestBody: [String: Any] = [
+                "user_id": userId
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error encoding request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                // Process the received data here
+                if let data = data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        if let dictionary = json as? [String: Any] {
+                            completion(dictionary, nil)
+                        } else {
+                            completion(nil, "Invalid response format")
+                        }
+                    } catch {
+                        completion(nil, "Error decoding JSON response")
+                    }
+                } else {
+                    completion(nil, "No data received")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func postUserNotifications(userId: String, newerThen: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: userNotificationsEndpoint, userId)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            // Construct the request body
+            let requestBody: [String: Any] = [
+                "newer_then": newerThen
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error encoding request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                // Process the received data here
+                if let data = data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        if let dictionary = json as? [String: Any] {
+                            completion(dictionary, nil)
+                        } else {
+                            completion(nil, "Invalid response format")
+                        }
+                    } catch {
+                        completion(nil, "Error decoding JSON response")
+                    }
+                } else {
+                    completion(nil, "No data received")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+//    {Need to do}
+//    /v1/notifications/{user_id}/unread-count/
+//    /v1/notifications/{user_id}/{notification_id}/
+    
+    func postProfilePicture(userProfile: String, completion: @escaping (UserProfilePictureResponse?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + profilePictureEndpoint
+
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+
+            // Create the request body data
+            var requestBody: [String: Any] = [
+                "user_profile": userProfile
+            ]
+
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody)
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error creating request body")
+                return
+            }
+
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(UserProfilePictureResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+
+            task.resume()
+        }
+    }
+    
+    func getProfilePictures(id: String, completion: @escaping (UserProfilePictureResponse?, String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + String(format: userProfilePictureEndpoint, id)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(UserProfilePictureResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func putProfilePicture(id: String, userProfile: String, completion: @escaping (UserProfilePictureResponse?, String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + String(format: userProfilePictureEndpoint, id)
+
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "PUT"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+
+            // Create the request body data
+            var requestBody: [String: Any] = [
+                "user_profile": userProfile
+            ]
+
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody)
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error creating request body")
+                return
+            }
+
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(UserProfilePictureResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+
+            task.resume()
+        }
+    }
+    
+    func patchProfilePicture(id: String, userProfile: String, completion: @escaping (UserProfilePictureResponse?, String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + String(format: userProfilePictureEndpoint, id)
+
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "PATCH"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+
+            // Create the request body data
+            var requestBody: [String: Any] = [
+                "user_profile": userProfile
+            ]
+
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody)
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error creating request body")
+                return
+            }
+
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(UserProfilePictureResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+
+            task.resume()
+        }
+    }
+    
+    func deleteProfilePictures(id: String, completion: @escaping (UserProfilePictureResponse?, String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + String(format: userProfilePictureEndpoint, id)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "DELETE"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(UserProfilePictureResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
 }
 
 extension Data {
