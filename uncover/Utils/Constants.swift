@@ -48,4 +48,7 @@ let notificationsMarkkReadEndpoint = "/v1/notifications-mark-read/"
 let userNotificationsEndpoint = "/v1/notifications/%@/"
 let profilePictureEndpoint = "/v1/profile_pictures/"
 let userProfilePictureEndpoint = "/v1/profile_pictures/%@/"
-
+let reactionEndpoint = "/v1/reactions/%@/"
+let reactionLikesEndpoint = "/v1/reactions/%@/likes/"
+let reactionRepliesEndpoint = "/v1/reactions/%@/replies/"
+let reactionReportEndpoint = "/v1/reactions/%@/report/"
