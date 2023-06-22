@@ -3852,6 +3852,7 @@ class ServiceAPI {
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     completion(nil, error.localizedDescription)
@@ -3877,6 +3878,551 @@ class ServiceAPI {
                     } catch {
                         completion(nil, "Failed to get the data!")
                     }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func getUsersList(
+        isActive: String? = nil,
+        isAuthenticated: String? = nil,
+        isAnonymous: String? = nil,
+        username: String? = nil,
+        firebaseUID: String? = nil,
+        search: String? = nil,
+        ordering: String? = nil,
+        page: Int? = nil,
+        pageSize: Int? = nil,
+        completion: @escaping ([String: Any]?, String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + usersEndpoint
+            
+            var queryParams = [URLQueryItem]()
+            if let isActive = isActive {
+                queryParams.append(URLQueryItem(name: "is_active", value: isActive))
+            }
+            if let isAuthenticated = isAuthenticated {
+                queryParams.append(URLQueryItem(name: "is_authenticated", value: isAuthenticated))
+            }
+            if let isAnonymous = isAnonymous {
+                queryParams.append(URLQueryItem(name: "is_anonymous", value: isAnonymous))
+            }
+            if let username = username {
+                queryParams.append(URLQueryItem(name: "username", value: username))
+            }
+            if let firebaseUID = firebaseUID {
+                queryParams.append(URLQueryItem(name: "firebase_uid", value: firebaseUID))
+            }
+            if let search = search {
+                queryParams.append(URLQueryItem(name: "search", value: search))
+            }
+            if let ordering = ordering {
+                queryParams.append(URLQueryItem(name: "ordering", value: ordering))
+            }
+            if let page = page {
+                queryParams.append(URLQueryItem(name: "page", value: String(page)))
+            }
+            if let pageSize = pageSize {
+                queryParams.append(URLQueryItem(name: "page_size", value: String(pageSize)))
+            }
+            
+            var urlComponents = URLComponents(string: urlString)
+            urlComponents?.queryItems = queryParams
+            
+            guard let url = urlComponents?.url else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "accept")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                // Process the received data here
+                if let data = data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        if let dictionary = json as? [String: Any] {
+                            completion(dictionary, nil)
+                        } else {
+                            completion(nil, "Invalid response format")
+                        }
+                    } catch {
+                        completion(nil, "Error decoding JSON response")
+                    }
+                } else {
+                    completion(nil, "No data received")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+
+    func postUser(
+        firebaseUid: String,
+        description: String? = nil,
+        isAnonymous: Bool? = nil,
+        registrationComplete: Bool? = nil,
+        isSuspended: Bool? = nil,
+        suspendedUntil: String? = nil,
+        activeLink: String? = nil,
+        isActiveLinkEnabled: Bool? = nil,
+        completion: @escaping (UserProfileResponse?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + usersEndpoint
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            var requestBody: [String: Any] = [
+                "firebase_uid": firebaseUid
+            ]
+            
+            if let description = description {
+                requestBody["description"] = description
+            }
+            
+            if let isAnonymous = isAnonymous {
+                requestBody["is_anonymous"] = isAnonymous
+            }
+            if let registrationComplete = registrationComplete {
+                requestBody["registration_complete"] = registrationComplete
+            }
+            if let isSuspended = isSuspended {
+                requestBody["is_suspended"] = isSuspended
+            }
+            if let suspendedUntil = suspendedUntil {
+                requestBody["suspended_until"] = suspendedUntil
+            }
+            if let activeLink = activeLink {
+                requestBody["active_link"] = activeLink
+            }
+            if let isActiveLinkEnabled = isActiveLinkEnabled {
+                requestBody["is_active_link_enabled"] = isActiveLinkEnabled
+            }
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error encoding request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+                
+                if response.statusCode == 201 {
+                    do {
+                        let value = try JSONDecoder().decode(UserProfileResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    completion(nil, "Failed to create the user!")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+
+    func checkEmailAvailability(email: String, completion: @escaping (Bool?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + emailAvailabilityEndpoint
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            var requestBody: [String: Any] = [
+                "email": email
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error encoding request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+                
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(Bool.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    completion(nil, "Failed to get email availablity")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func checkUsernameAvailability(username: String, completion: @escaping (Bool?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + usernameAvailabilityEndpoint
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            var requestBody: [String: Any] = [
+                "username": username
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error encoding request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+                
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(Bool.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    completion(nil, "Failed to get username availablity")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func postWelcomeEmail(email: String, username: String, completion: @escaping ([String: Any]?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + usernameAvailabilityEndpoint
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            var requestBody: [String: Any] = [
+                "username": username,
+                "email": email
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error encoding request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                // Process the received data here
+                if let data = data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        if let dictionary = json as? [String: Any] {
+                            completion(dictionary, nil)
+                        } else {
+                            completion(nil, "Invalid response format")
+                        }
+                    } catch {
+                        completion(nil, "Error decoding JSON response")
+                    }
+                } else {
+                    completion(nil, "No data received")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func getUser(firebaseUid: String, completion: @escaping (UserProfileResponse?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: firebaseUidEndpoint, firebaseUid)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "accept")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(UserProfileResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func putUser(
+        firebaseUid: String,
+        description: String? = nil,
+        isAnonymous: Bool? = nil,
+        registrationComplete: Bool? = nil,
+        isSuspended: Bool? = nil,
+        suspendedUntil: String? = nil,
+        activeLink: String? = nil,
+        isActiveLinkEnabled: Bool? = nil,
+        completion: @escaping (UserProfileResponse?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: firebaseUidEndpoint, firebaseUid)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "PUT"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            var requestBody: [String: Any] = [
+                "firebase_uid": firebaseUid
+            ]
+            
+            if let description = description {
+                requestBody["description"] = description
+            }
+            
+            if let isAnonymous = isAnonymous {
+                requestBody["is_anonymous"] = isAnonymous
+            }
+            if let registrationComplete = registrationComplete {
+                requestBody["registration_complete"] = registrationComplete
+            }
+            if let isSuspended = isSuspended {
+                requestBody["is_suspended"] = isSuspended
+            }
+            if let suspendedUntil = suspendedUntil {
+                requestBody["suspended_until"] = suspendedUntil
+            }
+            if let activeLink = activeLink {
+                requestBody["active_link"] = activeLink
+            }
+            if let isActiveLinkEnabled = isActiveLinkEnabled {
+                requestBody["is_active_link_enabled"] = isActiveLinkEnabled
+            }
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error encoding request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+                
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(UserProfileResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    completion(nil, "Failed to update the user profile")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func patchUser(
+        firebaseUid: String,
+        description: String? = nil,
+        isAnonymous: Bool? = nil,
+        registrationComplete: Bool? = nil,
+        isSuspended: Bool? = nil,
+        suspendedUntil: String? = nil,
+        activeLink: String? = nil,
+        isActiveLinkEnabled: Bool? = nil,
+        completion: @escaping (UserProfileResponse?, String?) -> ()) {
+        getToken { token in
+            let urlString = baseURL + String(format: firebaseUidEndpoint, firebaseUid)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "PATCH"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            var requestBody: [String: Any] = [
+                "firebase_uid": firebaseUid
+            ]
+            
+            if let description = description {
+                requestBody["description"] = description
+            }
+            
+            if let isAnonymous = isAnonymous {
+                requestBody["is_anonymous"] = isAnonymous
+            }
+            if let registrationComplete = registrationComplete {
+                requestBody["registration_complete"] = registrationComplete
+            }
+            if let isSuspended = isSuspended {
+                requestBody["is_suspended"] = isSuspended
+            }
+            if let suspendedUntil = suspendedUntil {
+                requestBody["suspended_until"] = suspendedUntil
+            }
+            if let activeLink = activeLink {
+                requestBody["active_link"] = activeLink
+            }
+            if let isActiveLinkEnabled = isActiveLinkEnabled {
+                requestBody["is_active_link_enabled"] = isActiveLinkEnabled
+            }
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+                request.httpBody = jsonData
+            } catch {
+                completion(nil, "Error encoding request body")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+                
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(UserProfileResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    completion(nil, "Failed to update the user profile")
                 }
             }
             
