@@ -3608,6 +3608,281 @@ class ServiceAPI {
             task.resume()
         }
     }
+    
+    func getTags(name: String, search: String, page: Int? = nil, pageSize: Int? = nil, completion: @escaping ([String: Any]?, String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + tagsEndpoint + "?name=\(name)$search=\(search)"
+            
+            if let page = page {
+                urlString += "&page=\(page)"
+            }
+            
+            if let pageSize = pageSize {
+                urlString += "&page_size=\(pageSize)"
+            }
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "accept")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+                
+                // Process the received data here
+                if let data = data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        if let dictionary = json as? [String: Any] {
+                            completion(dictionary, nil)
+                        } else {
+                            completion(nil, "Invalid response format")
+                        }
+                    } catch {
+                        completion(nil, "Error decoding JSON response")
+                    }
+                } else {
+                    completion(nil, "No data received")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func getTagWithId(Id: String, completion: @escaping (TagResponse?, String?) -> ()) {
+        getToken { token in
+            var urlString = baseURL + String(format: tagsIdEndpoint, Id)
+            
+            guard let url = URL(string: urlString) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode(TagResponse.self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func getTrendingBooks(completion: @escaping([TrendingBookResponse]?, String?) -> ()) {
+        getToken { token in
+            let stringURL = baseURL + trendingBooksEndpoint
+            
+            guard let url = URL(string: stringURL) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode([TrendingBookResponse].self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func getTrendingDecks(completion: @escaping([TrendingDeckResponse]?, String?) -> ()) {
+        getToken { token in
+            let stringURL = baseURL + trendingDecksEndpoint
+            
+            guard let url = URL(string: stringURL) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode([TrendingDeckResponse].self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func getTrendingTags(completion: @escaping([TrendingHashtagResponse]?, String?) -> ()) {
+        getToken { token in
+            let stringURL = baseURL + trendingTagsEndpoint
+            
+            guard let url = URL(string: stringURL) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode([TrendingHashtagResponse].self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+    func getTrendingUsers(completion: @escaping([TrendingUserResponse]?, String?) -> ()) {
+        getToken { token in
+            let stringURL = baseURL + trendingUsersEndpoint
+            
+            guard let url = URL(string: stringURL) else {
+                completion(nil, invalidURLError)
+                return
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 8)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                    return
+                }
+
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    completion(nil, "Failed to get the data!")
+                    return
+                }
+
+                if response.statusCode == 200 {
+                    do {
+                        let value = try JSONDecoder().decode([TrendingUserResponse].self, from: data)
+                        completion(value, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                } else {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                        completion(nil, errorResponse.detail)
+                    } catch {
+                        completion(nil, "Failed to get the data!")
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+    }
 }
 
 extension Data {
