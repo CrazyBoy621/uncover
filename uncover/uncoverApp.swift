@@ -15,11 +15,21 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        FirebaseApp.configure()
+        
+#if DEBUG
+        let filePath = Bundle.main.path(forResource: "GoogleService-Info-debug", ofType: "plist")!
+        let options = FirebaseOptions(contentsOfFile: filePath)
+        FirebaseApp.configure(options: options!)
+#else
+        let filePath = Bundle.main.path(forResource: "GoogleService-Info-QA", ofType: "plist")!
+        let options = FirebaseOptions(contentsOfFile: filePath)
+        FirebaseApp.configure(options: options!)
+#endif
         
         // Increase app open count
         var appOpenCount = UserDefaults.standard.integer(forKey: "AppOpenCount")
         appOpenCount += 1
+        print("App Open Count: ", appOpenCount)
         UserDefaults.standard.set(appOpenCount, forKey: "AppOpenCount")
         
         return true
@@ -47,18 +57,18 @@ struct uncoverApp: App {
         ServiceAPI.shared.getInitialData { response, error in
             if let response = response {
                 print("RESPONSE: ", response)
-//                isAvailable = response.isBeAvailable ?? false
+                //                isAvailable = response.isBeAvailable ?? false
             } else {
                 print("ERROR: ", error ?? "Error")
             }
         }
-//        ServiceAPI.shared.getBooksList(languageCode: "en", search: "example") { response, error in
-//            if let response = response {
-//                print("RESPONSE: ", response)
-//            } else {
-//                print("ERROR: ", error ?? "Error")
-//            }
-//        }
+        //        ServiceAPI.shared.getBooksList(languageCode: "en", search: "example") { response, error in
+        //            if let response = response {
+        //                print("RESPONSE: ", response)
+        //            } else {
+        //                print("ERROR: ", error ?? "Error")
+        //            }
+        //        }
         
         ServiceAPI.shared.getHomeModules { response, error in
             if let response = response {
@@ -97,10 +107,10 @@ struct uncoverApp: App {
                     if showSplash {
                         SplashScreen()
                             .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                showSplash = false
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    showSplash = false
+                                }
                             }
-                        }
                     }
                 }
             }

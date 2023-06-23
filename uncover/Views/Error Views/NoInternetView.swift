@@ -15,7 +15,9 @@ struct NoInternetView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(maxWidth: .infinity)
-                Image("no-internet")
+//                Image("no-internet")
+                LottieView(name: "no_internet_animation", isLoop: true)
+                    .frame(height: 300)
             }
             .edgesIgnoringSafeArea(.all)
             VStack(spacing: 11) {

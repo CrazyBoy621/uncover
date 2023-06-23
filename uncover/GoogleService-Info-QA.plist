@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>598276412941-91j0uar5v4qkmcqqh0d8oloajcqnq7lo.apps.googleusercontent.com</string>
+	<string>227681440752-13sanghja9h653mojrp2h3813t74fn7i.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.598276412941-91j0uar5v4qkmcqqh0d8oloajcqnq7lo</string>
+	<string>com.googleusercontent.apps.227681440752-13sanghja9h653mojrp2h3813t74fn7i</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>227681440752-b6h5odarqa6mv8ftplv281u44hc9vrcb.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDJvWYl92fYBegiHSAP8TMAL4TYggAtnKg</string>
+	<string>AIzaSyDe4Cr5sCGyIFPzCTlzFSA8c7aKKw3l9bY</string>
 	<key>GCM_SENDER_ID</key>
-	<string>598276412941</string>
+	<string>227681440752</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.uncover.uncovermeee</string>
+	<string>com.moodreaders.uncover.qa</string>
 	<key>PROJECT_ID</key>
-	<string>uncover-5defd</string>
+	<string>uncover-332121</string>
 	<key>STORAGE_BUCKET</key>
-	<string>uncover-5defd.appspot.com</string>
+	<string>uncover-332121.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:598276412941:ios:a8c37556a993edfda0a744</string>
+	<string>1:227681440752:ios:dcbe671cc8ed53aeec0335</string>
 </dict>
 </plist>

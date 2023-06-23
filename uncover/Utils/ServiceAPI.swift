@@ -3227,7 +3227,7 @@ class ServiceAPI {
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
             
             // Create the request body data
-            var requestBody: [String: Any] = [
+            let requestBody: [String: Any] = [
                 "user_profile": userProfile
             ]
             
@@ -3273,7 +3273,7 @@ class ServiceAPI {
     
     func getProfilePictures(id: String, completion: @escaping (UserProfilePictureResponse?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: userProfilePictureEndpoint, id)
+            let urlString = baseURL + String(format: userProfilePictureEndpoint, id)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -3319,7 +3319,7 @@ class ServiceAPI {
     
     func putProfilePicture(id: String, userProfile: String, completion: @escaping (UserProfilePictureResponse?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: userProfilePictureEndpoint, id)
+            let urlString = baseURL + String(format: userProfilePictureEndpoint, id)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -3332,7 +3332,7 @@ class ServiceAPI {
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
             
             // Create the request body data
-            var requestBody: [String: Any] = [
+            let requestBody: [String: Any] = [
                 "user_profile": userProfile
             ]
             
@@ -3378,7 +3378,7 @@ class ServiceAPI {
     
     func patchProfilePicture(id: String, userProfile: String, completion: @escaping (UserProfilePictureResponse?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: userProfilePictureEndpoint, id)
+            let urlString = baseURL + String(format: userProfilePictureEndpoint, id)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -3437,7 +3437,7 @@ class ServiceAPI {
     
     func deleteProfilePictures(id: String, completion: @escaping (UserProfilePictureResponse?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: userProfilePictureEndpoint, id)
+            let urlString = baseURL + String(format: userProfilePictureEndpoint, id)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -3483,7 +3483,7 @@ class ServiceAPI {
     
     func getReaction(reactionId: String, completion: @escaping (ReactionResponse?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: reactionEndpoint, reactionId)
+            let urlString = baseURL + String(format: reactionEndpoint, reactionId)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -3529,7 +3529,7 @@ class ServiceAPI {
     
     func putReaction(reactionId: String, reaction: String, completion: @escaping (ReactionResponse?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: reactionEndpoint, reactionId)
+            let urlString = baseURL + String(format: reactionEndpoint, reactionId)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -3541,7 +3541,7 @@ class ServiceAPI {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
             
-            var requestBody: [String: Any] = [
+            let requestBody: [String: Any] = [
                 "reaction": reaction
             ]
             
@@ -3642,7 +3642,7 @@ class ServiceAPI {
     
     func postReactionLike(reactionId: String, userId: String, completion: @escaping (ReactionResponse?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: reactionLikesEndpoint, reactionId)
+            let urlString = baseURL + String(format: reactionLikesEndpoint, reactionId)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -3654,7 +3654,7 @@ class ServiceAPI {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
             
-            var requestBody: [String: Any] = [
+            let requestBody: [String: Any] = [
                 "user_id": userId
             ]
             
@@ -3700,7 +3700,7 @@ class ServiceAPI {
     
     func deleteReactionLike(reactionId: String, userId: String, completion: @escaping (ReactionResponse?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: reactionLikesEndpoint, reactionId)
+            let urlString = baseURL + String(format: reactionLikesEndpoint, reactionId)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -3712,7 +3712,7 @@ class ServiceAPI {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
             
-            var requestBody: [String: Any] = [
+            let requestBody: [String: Any] = [
                 "user_id": userId
             ]
             
@@ -3916,7 +3916,7 @@ class ServiceAPI {
     
     func getTagWithId(Id: String, completion: @escaping (TagResponse?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: tagsIdEndpoint, Id)
+            let urlString = baseURL + String(format: tagsIdEndpoint, Id)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -4153,7 +4153,7 @@ class ServiceAPI {
         pageSize: Int? = nil,
         completion: @escaping ([String: Any]?, String?) -> ()) {
             getToken { token in
-                var urlString = baseURL + usersEndpoint
+                let urlString = baseURL + usersEndpoint
                 
                 var queryParams = [URLQueryItem]()
                 if let isActive = isActive {
@@ -4191,6 +4191,7 @@ class ServiceAPI {
                     completion(nil, invalidURLError)
                     return
                 }
+                print(url)
                 
                 var request = URLRequest(url: url, timeoutInterval: 8)
                 request.httpMethod = "GET"
@@ -4323,7 +4324,7 @@ class ServiceAPI {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
             
-            var requestBody: [String: Any] = [
+            let requestBody: [String: Any] = [
                 "email": email
             ]
             
@@ -4376,7 +4377,7 @@ class ServiceAPI {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
             
-            var requestBody: [String: Any] = [
+            let requestBody: [String: Any] = [
                 "username": username
             ]
             
@@ -4429,7 +4430,7 @@ class ServiceAPI {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
             
-            var requestBody: [String: Any] = [
+            let requestBody: [String: Any] = [
                 "username": username,
                 "email": email
             ]
@@ -4741,7 +4742,7 @@ class ServiceAPI {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
             
-            var requestBody: [String: Any] = [
+            let requestBody: [String: Any] = [
                 "blocking_user_id": blockingUserId
             ]
             
@@ -4794,7 +4795,7 @@ class ServiceAPI {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
             
-            var requestBody: [String: Any] = [
+            let requestBody: [String: Any] = [
                 "blocking_user_id": blockingUserId
             ]
             
@@ -5254,7 +5255,7 @@ class ServiceAPI {
     
     func getUserFollowedDecksPreview(userId: String, completion: @escaping ([DeckListingResponse]?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: userFollowedDecksPreview, userId)
+            let urlString = baseURL + String(format: userFollowedDecksPreview, userId)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -5460,7 +5461,7 @@ class ServiceAPI {
     
     func getUserHighlights(userId: String, completion: @escaping ([UserHighlightStoryListing]?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: userHighlightsEndpoint, userId)
+            let urlString = baseURL + String(format: userHighlightsEndpoint, userId)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -5506,7 +5507,7 @@ class ServiceAPI {
     
     func getUserHighlightStory(userId: String, highlightStoryId: String, completion: @escaping (UserHighlightStory?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: userHighlightsEndpoint, userId, highlightStoryId)
+            let urlString = baseURL + String(format: userHighlightsEndpoint, userId, highlightStoryId)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -5552,7 +5553,7 @@ class ServiceAPI {
     
     func getUserPreloadImages(userId: String, completion: @escaping ([String: Any]?, String?) -> ()) {
         getToken { token in
-            var urlString = baseURL + String(format: userHighlightsEndpoint, userId)
+            let urlString = baseURL + String(format: userHighlightsEndpoint, userId)
             
             guard let url = URL(string: urlString) else {
                 completion(nil, invalidURLError)
@@ -5794,7 +5795,7 @@ class ServiceAPI {
         completion: @escaping ([HomeModuleListingResponse]?, String?) -> ()
     ) {
         getToken { token in
-            var urlString = baseURL + homeModulesEndpointv2
+            let urlString = baseURL + homeModulesEndpointv2
             
             var queryParams = [URLQueryItem]()
             if let page = page {

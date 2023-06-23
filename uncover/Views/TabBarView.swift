@@ -51,7 +51,7 @@ struct TabBarView: View {
                 Button {
                     currentTab = .notification
                 } label: {
-                    Image(currentTab == .notification ? "notification-selected" : "notification")
+                    Image(currentTab == .notification ? "no-notification-selected" : "no-notification")
                 }
                 
                 Spacer()
