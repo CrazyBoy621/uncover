@@ -42,7 +42,7 @@ struct RegisterationView: View {
                     .aspectRatio(contentMode: .fit)
                 Spacer()
             }
-            ScrollView{
+            ScrollView(showsIndicators: false) {
                 VStack(spacing: 16) {
                     HStack{
                         Spacer()
@@ -77,6 +77,7 @@ struct RegisterationView: View {
                             CustomTextField("Username", text: $username, isValidated: isUsernameValidated)
                         }
                         CustomTextField("Email", text: $email, isValidated: isEmailValidated)
+                            .keyboardType(.emailAddress)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 15)
                                     .stroke(showEmailAlert ? Color.customRed : Color.clear, lineWidth: 1)
@@ -115,6 +116,17 @@ struct RegisterationView: View {
                                     showPasswordAlert = true
                                 } else {
                                     showPasswordAlert = false
+                                }
+                            }
+                            
+                            print(isEmailValidated)
+                            print(isUsernameValidated)
+                            if isEmailValidated && isUsernameValidated {
+                                ServiceAPI.shared.postWelcomeEmail(email: email, username: username) { response, error in
+                                    if let response = response {
+                                        print("WELCOME RESPONSE: ", response)
+                                        
+                                    }
                                 }
                             }
                         } label: {
@@ -220,16 +232,29 @@ struct RegisterationView: View {
             .onChange(of: text.wrappedValue) { newValue in
                 withAnimation {
                     if placeholder == "Username" && currentPage == .signup {
-                        validateUsername()
+                        ServiceAPI.shared.checkUsernameAvailability(username: username) { response, error in
+                            if let response = response {
+                                isUsernameValidated = response
+                            } else {
+                                isUsernameValidated = false
+                            }
+                        }
                     } else if placeholder == "Email" && currentPage == .signup {
-                        validateEmail()
+                        ServiceAPI.shared.checkEmailAvailability(email: email) { response, error in
+                            if let response = response {
+                                isEmailValidated = response
+                            } else {
+                                isEmailValidated = false
+                            }
+                        }
                     }
                     
                     if email.isEmpty {
                         emailAlertText = "Email address is required."
                         showEmailAlert = true
                     } else if !isEmailValidated {
-                        emailAlertText = "You have to provide corrent email address."
+                        print(email)
+                        emailAlertText = "You have to provide correct email address."
                         showEmailAlert = true
                     } else {
                         showEmailAlert = false
@@ -270,28 +295,6 @@ struct RegisterationView: View {
                     showPasswordAlert = false
                 }
             }
-        }
-    }
-    
-    func validateUsername() {
-        let characterCount = username.count
-        let containsNumber = username.rangeOfCharacter(from: .decimalDigits) != nil
-        
-        if characterCount >= 8 && containsNumber {
-            isUsernameValidated = true
-        } else {
-            isUsernameValidated = false
-        }
-    }
-    
-    func validateEmail() {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
-        
-        if emailPredicate.evaluate(with: email) {
-            isEmailValidated = true
-        } else {
-            isEmailValidated = false
         }
     }
 }
