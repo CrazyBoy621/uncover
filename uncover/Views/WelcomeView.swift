@@ -29,9 +29,40 @@ class WelcomeViewModel: NSObject, ObservableObject {
                                                                    accessToken: user.accessToken.tokenString)
                     print("Ok: ", idToken)
                     print("WWWWWWWWWWW: ", user.accessToken.tokenString)
+                    UserDefaults.standard.set(idToken, forKey: "userIDToken")
                 }
                 
                 // ...
+            }
+        }
+    }
+    
+    func authenticateAnonymously(completion: @escaping (String?, Error?) -> Void) {
+        Auth.auth().signInAnonymously { authResult, error in
+            if let error = error {
+                print("Anonymous authentication failed: \(error.localizedDescription)")
+                completion(nil, error)
+            } else {
+                guard let user = authResult?.user else {
+                    print("User not found after anonymous authentication")
+                    completion(nil, nil)
+                    return
+                }
+                
+                // Retrieve the user's authentication token
+                user.getIDToken { token, error in
+                    if let error = error {
+                        print("Error retrieving user ID token: \(error.localizedDescription)")
+                        completion(nil, error)
+                    } else if let token = token {
+                        let userIDToken = token // User ID token
+                        print("User ID token: \(userIDToken)")
+                        UserDefaults.standard.set(userIDToken, forKey: "userIDToken")
+                        completion(userIDToken, nil)
+                    } else {
+                        completion(nil, nil)
+                    }
+                }
             }
         }
     }
@@ -182,10 +213,10 @@ struct WelcomeView: View {
                     }
                 }
                 Text("Continuing to use Moodreaders means you accept our [Terms of Service](https://theuncoverapp.com/terms_of_use.html) and [Privacy Policy](https://theuncoverapp.com/privacy_policy.html).")
-                .foregroundColor(.darkGrey)
-                .font(.system(size: 12, weight: .semibold))
-                .multilineTextAlignment(.center)
-                .tint(.mainColor)
+                    .foregroundColor(.darkGrey)
+                    .font(.system(size: 12, weight: .semibold))
+                    .multilineTextAlignment(.center)
+                    .tint(.mainColor)
             }
             .padding(.horizontal)
         }

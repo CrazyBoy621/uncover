@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 enum Registeration{
     case signup
@@ -119,16 +120,18 @@ struct RegisterationView: View {
                                 }
                             }
                             
-                            print(isEmailValidated)
-                            print(isUsernameValidated)
-                            if isEmailValidated && isUsernameValidated {
-                                ServiceAPI.shared.postWelcomeEmail(email: email, username: username) { response, error in
-                                    if let response = response {
-                                        print("WELCOME RESPONSE: ", response)
-                                        
+                            if isEmailValidated && isUsernameValidated && !password.isEmpty {
+                                print("Working on it")
+                                    if currentPage == .signup {
+                                        signUp(email: email, password: password) { response, error in
+                                            if let response = response {
+                                                print("SIGN UP RESPONSE: ", response)
+                                            }
+                                        }
+                                    } else if currentPage == .signin {
+                                        signIn(email: email, password: password)
                                     }
                                 }
-                            }
                         } label: {
                             CustomLargeButton(title: currentPage == .signup ? "Sign up" : "Sign in", foreground: .white, background: .mainColor)
                         }
@@ -294,6 +297,62 @@ struct RegisterationView: View {
                 } else {
                     showPasswordAlert = false
                 }
+            }
+        }
+    }
+    
+    func signUp(email: String, password: String, completion: @escaping (AuthDataResult?, Error?) -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print("Sign-up error: \(error.localizedDescription)")
+            } else {
+                guard let user = authResult?.user else {
+                    print("User not found after sign-up")
+                    return
+                }
+                
+                // Retrieve the user's authentication tokens
+                user.getIDToken { token, error in
+                    if let error = error {
+                        print("Error retrieving user ID token: \(error.localizedDescription)")
+                    } else if let token = token {
+                        let userIDToken = token // User ID token
+                        print("User ID token: \(userIDToken)")
+                        UserDefaults.standard.set(userIDToken, forKey: "userIDToken")
+                        
+                    }
+                }
+                
+                print("Sign-up successful")
+            }
+        }
+    }
+    
+    func signIn(email: String, password: String) {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print("Sign-in error: \(error.localizedDescription)")
+            } else {
+                guard let user = authResult?.user else {
+                    print("User not found after sign-in")
+                    return
+                }
+                
+                // Retrieve the user's authentication tokens
+                user.getIDToken { token, error in
+                    if let error = error {
+                        print("Error retrieving user ID token: \(error.localizedDescription)")
+                    } else if let token = token {
+                        let userIDToken = token // User ID token
+                        print("User ID token: \(userIDToken)")
+                        UserDefaults.standard.set(userIDToken, forKey: "userIDToken")
+                        
+                    }
+                }
+                
+                // Additional code after successful sign-in
+                
+                print("Sign-in successful")
             }
         }
     }

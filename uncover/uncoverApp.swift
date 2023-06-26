@@ -16,6 +16,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         
+        FirebaseApp.configure()
+        
 #if DEBUG
         let filePath = Bundle.main.path(forResource: "GoogleService-Info-debug", ofType: "plist")!
         let options = FirebaseOptions(contentsOfFile: filePath)
@@ -43,12 +45,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct uncoverApp: App {
     @AppStorage("onboarding") var onboarding: Bool = true
-    @AppStorage("login") var login: Bool = true
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var networkManager = NetworkManager()
     @State var isAvailable = true
     @State var showSplash = true
+    let userIDToken = UserDefaults.standard.string(forKey: "userIDToken")
     
     init() {
         IQKeyboardManager.shared.enableAutoToolbar = false
@@ -62,13 +64,6 @@ struct uncoverApp: App {
                 print("ERROR: ", error ?? "Error")
             }
         }
-        //        ServiceAPI.shared.getBooksList(languageCode: "en", search: "example") { response, error in
-        //            if let response = response {
-        //                print("RESPONSE: ", response)
-        //            } else {
-        //                print("ERROR: ", error ?? "Error")
-        //            }
-        //        }
         
         ServiceAPI.shared.getHomeModules { response, error in
             if let response = response {
@@ -77,26 +72,33 @@ struct uncoverApp: App {
                 print("Home Module Error: ", error ?? "Error")
             }
         }
+        
+        if let currentUser = Auth.auth().currentUser {
+            let uid = currentUser.uid
+            UserDefaults.standard.set(uid, forKey: "userIDToken")
+        }
     }
     
     var body: some Scene {
         WindowGroup {
             Group {
                 ZStack {
-                    if isAvailable {
-                        if onboarding {
-                            NavigationView {
-                                OnboardingView()
-                            }
-                        } else if login {
-                            NavigationView {
-                                WelcomeView()
-                            }
-                        } else {
-                            ContentView()
+                    if userIDToken == nil {
+                        NavigationView {
+                            WelcomeView()
                         }
                     } else {
-                        UnderConstructionView()
+                        if isAvailable {
+                            if onboarding {
+                                NavigationView {
+                                    OnboardingView()
+                                }
+                            } else {
+                                ContentView()
+                            }
+                        } else {
+                            UnderConstructionView()
+                        }
                     }
                     
                     if !networkManager.isOnline {
