@@ -40,16 +40,16 @@ struct EditProfileView: View {
             VStack(spacing: 24) {
                 ProfileImage()
                     .padding(32)
-                ProfileCell("username", usernameValue){
+                ProfileCell("username".localized, usernameValue){
                     showUsernameView = true
                 }
-                ProfileCell("name", nameValue){
+                ProfileCell("name".localized, nameValue){
                     showNameView = true
                 }
-                ProfileCell("info", infoValue, "Write smth about yourself..."){
+                ProfileCell("info".localized, infoValue, "write_smth_about_yourself".localized){
                     showUserInfoView = true
                 }
-                ProfileCell("active link", activeLinkValue, "Add one active link..."){
+                ProfileCell("active_link".localized, activeLinkValue, "add_active_link".localized){
                     showActiveLinkView = true
                 }
             }
@@ -58,7 +58,7 @@ struct EditProfileView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Edit Profile")
+                Text("edit_profile".localized)
                     .font(.poppinsBold(size: 20))
                     .foregroundColor(.customBlack)
             }

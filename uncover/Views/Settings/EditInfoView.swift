@@ -17,15 +17,16 @@ struct EditInfoView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 8) {
-                Text("info".uppercased())
+                Text("info".localized.uppercased())
                     .font(.system(size: 12, weight: .bold))
                     .foregroundColor(.lightGrey)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 VStack(spacing: -12) {
-                    TextEditorView(string: $infoValue, placeholder: "Info", minHeight: 40, placeholderColor: .darkGrey)
+                    TextEditorView(string: $infoValue, placeholder: "info".localized, minHeight: 40, placeholderColor: .darkGrey)
                         .padding(.top, -14)
                         .padding(.horizontal, -12)
                         .offset(x: start ? 8 : 0)
+                        .textInputAutocapitalization(.none)
                         .onChange(of: infoValue) { newValue in
                             let count = newValue.count - 150
                             if count > 0 {
@@ -50,12 +51,12 @@ struct EditInfoView: View {
                     Button {
                             presentationMode.wrappedValue.dismiss()
                     } label: {
-                        CustomButton(title: "Cancel", foreground: .softBlue, background: .white)
+                        CustomButton(title: "cancel".localized, foreground: .softBlue, background: .white)
                     }
                     Button {
                         
                     } label: {
-                        CustomButton(title: "Done", foreground: .white, background: .mainColor)
+                        CustomButton(title: "done".localized, foreground: .white, background: .mainColor)
                     }
 
                 }
@@ -67,7 +68,7 @@ struct EditInfoView: View {
         .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("Edit info")
+                    Text("edit_info".localized)
                         .font(.poppinsBold(size: 20))
                         .foregroundColor(.customBlack)
                 }

@@ -42,7 +42,7 @@ struct CollectionDeckView: View {
                     Text(username)
                         .font(.system(size: 16, weight: .bold))
                     Spacer()
-                    Text("\(rating) \(rating > 1 ? "books" : "book")")
+                    Text("\(rating) \(rating > 1 ? "books".localized.lowercased() : "book".localized.lowercased())")
                         .font(.system(size: 14, weight: .medium))
                 }
                 .foregroundColor(.white)
@@ -97,6 +97,6 @@ struct CollectionDeckView: View {
 
 struct CollectionDeckView_Previews: PreviewProvider {
     static var previews: some View {
-        CollectionDeckView(title: "Re-read someday", username: "martinpalmer", collectionUrl: "https://shorturl.at/iMVZ7", userAvatarUrl: "https://shorturl.at/fwzAP", rating: 99)
+        CollectionDeckView(title: "Re-read someday", username: "martinpalmer", collectionUrl: "https://shorturl.at/iMVZ7", userAvatarUrl: "https://shorturl.at/fwzAP", rating: 1)
     }
 }

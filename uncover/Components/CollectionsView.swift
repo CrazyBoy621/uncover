@@ -13,7 +13,7 @@ struct CollectionsView: View {
             Button {
                 
             } label: {
-                CollectionTitle(title: "Collections")
+                CollectionTitle(title: "collections".localized)
             }
            
             ScrollView(.horizontal, showsIndicators: false) {

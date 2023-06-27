@@ -56,7 +56,7 @@ struct CommentView: View {
                         } label: {
                             HStack{
                                 Image(systemName: isRepliesHidden ? "chevron.up" : "chevron.down")
-                                Text("\(isRepliesHidden ? "Hide" : "Show") replies")
+                                Text("\(isRepliesHidden ? "hide".localized : "show".localized) " + "replies".localized.lowercased())
                                 Spacer()
                             }
                             .font(.robotoRegular(size: 16))
@@ -78,7 +78,7 @@ struct CommentView: View {
             Button {
                 
             } label: {
-                Text("Reply")
+                Text("reply".localized)
                     .font(.robotoMedium(size: 14))
                     .foregroundColor(.darkGrey)
             }
@@ -90,7 +90,7 @@ struct CommentView: View {
             Button {
                 
             } label: {
-                Text("Like")
+                Text("like".localized)
                     .font(.robotoMedium(size: 14))
                     .foregroundColor(.darkGrey)
             }

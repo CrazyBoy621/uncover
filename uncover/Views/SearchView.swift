@@ -13,14 +13,14 @@ struct SearchView: View {
     
     @State var isSearching = false
     @State var searchValue = ""
-    @State var searchPlaceholder = "Search"
+    @State var searchPlaceholder = "search".localized
     
     var body: some View {
         VStack {
             VStack(spacing: 16) {
                 if !isSearching {
                     HStack {
-                        Text("Discover your new reads")
+                        Text("discover_your_new_reads".localized)
                             .font(.poppinsBold(size: 28))
                             .foregroundColor(.customBlack)
                             .frame(maxWidth: 295, alignment: .leading)
@@ -34,7 +34,7 @@ struct SearchView: View {
                     if isSearching {
                         Button {
                             withAnimation {
-                                searchPlaceholder = "Search..."
+                                searchPlaceholder = "search".localized
                                 isSearching = false
                             }
                             hideKeyboard()
@@ -50,7 +50,7 @@ struct SearchView: View {
                         .onTapGesture {
                             if isSearching == false {
                                 withAnimation {
-                                    searchPlaceholder = "Search by title & author..."
+                                    searchPlaceholder = "search_by_title_and_author".localized
                                     isSearching = true
                                 }
                             }
@@ -91,7 +91,7 @@ struct SearchView: View {
             Button {
                 
             } label: {
-                CollectionTitle(title: "Book trends")
+                CollectionTitle(title: "book_trends".localized)
             }
             .padding(.horizontal, 16)
             ScrollView(.horizontal, showsIndicators: false) {
@@ -115,7 +115,7 @@ struct SearchView: View {
             Button {
                 
             } label: {
-                CollectionTitle(title: "Fantasy Collections")
+                CollectionTitle(title: "fantasy_collections".localized)
             }
             .padding(.horizontal, 16)
             ScrollView(.horizontal, showsIndicators: false) {
@@ -135,7 +135,7 @@ struct SearchView: View {
             Button {
                 
             } label: {
-                CollectionTitle(title: "Mystery & Crime")
+                CollectionTitle(title: "mystery_and_crime".localized)
             }
             .padding(.horizontal, 16)
             ScrollView(.horizontal, showsIndicators: false) {

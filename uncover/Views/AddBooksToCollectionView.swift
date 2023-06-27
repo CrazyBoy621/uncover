@@ -21,7 +21,7 @@ struct AddBooksToCollectionView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Add books to collection")
+                Text("add_books_to_collection".localized)
                     .font(.poppinsBold(size: 20))
                     .foregroundColor(.customBlack)
             }
@@ -29,7 +29,7 @@ struct AddBooksToCollectionView: View {
                 NavigationLink {
                     PublishingCollectionsView()
                 } label: {
-                    Text("Next")
+                    Text("next".localized)
                         .font(.poppinsSemiBold(size: 16))
                 }
             }
@@ -39,7 +39,7 @@ struct AddBooksToCollectionView: View {
     @ViewBuilder func SearchField() -> some View {
         HStack(spacing: 12) {
             Image("search")
-            TextField("Search books", text: $searchValue)
+            TextField("search_books".localized, text: $searchValue)
         }
         .padding(16)
         .background(Color.containerGrey.cornerRadius(14))
@@ -54,10 +54,10 @@ struct AddBooksToCollectionView: View {
                 }
             } label: {
                 HStack {
-                    Text("Hide added books (19)".uppercased())
+                    (Text(hiddenBooks ? "show_added_books".localized.uppercased() : "hide_added_books".localized.uppercased()) + Text(" (19)"))
                         .font(.system(size: 14, weight: .bold))
                     Image(systemName: "chevron.up")
-                        .rotationEffect(Angle(degrees: hiddenBooks ? 0 : 180))
+                        .rotationEffect(Angle(degrees: hiddenBooks ? 180 : 0))
                     Spacer()
                 }
                 .foregroundColor(.darkGrey)

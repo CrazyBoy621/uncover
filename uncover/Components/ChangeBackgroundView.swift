@@ -15,7 +15,7 @@ struct ChangeBackgroundView: View {
     var body: some View {
         VStack {
             VStack(spacing: 32) {
-                Text("Change background")
+                Text("change_background".localized)
                     .font(.poppinsBold(size: 20))
                     .foregroundColor(.customBlack)
                     .frame(maxWidth: .infinity)
@@ -57,7 +57,7 @@ struct ChangeBackgroundView: View {
         VStack(spacing: 16) {
             HStack {
                 Image("search")
-                TextField("Search", text: $searchValue)
+                TextField("search".localized, text: $searchValue)
                 Button {
                     withAnimation {
                         showCamera = true
@@ -88,10 +88,10 @@ struct ChangeBackgroundView: View {
         VStack(spacing: 40) {
             Image("empty-camera")
             VStack(spacing: 16) {
-                Text("Camera access".uppercased())
+                Text("camera_access".localized.uppercased())
                     .font(.poppinsRegular(size: 28))
                     .foregroundColor(.customBlack)
-                Text("In order to upload photo as your collection background, please allow Uncover access to your camera.")
+                Text("camera_access_detail".localized)
                     .multilineTextAlignment(.center)
                     .font(.poppinsRegular(size: 16))
                     .foregroundColor(.lightGrey)
@@ -99,7 +99,7 @@ struct ChangeBackgroundView: View {
             Button {
                 
             } label: {
-                Text("Go to settings")
+                Text("go_to_settings".localized)
                     .font(.poppinsSemiBold(size: 16))
                     .foregroundColor(.white)
                     .padding(.vertical)

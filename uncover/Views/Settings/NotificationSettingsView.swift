@@ -24,34 +24,34 @@ struct NotificationSettingsView: View {
         ScrollView {
             VStack(spacing: 24) {
                 Toggle(isOn: $updateFromUncover) {
-                    Text("Updates from Uncover team")
+                    Text("updates_from_uncover".localized)
                 }
                 Toggle(isOn: $profileFollowers) {
-                    Text("Profile followers")
+                    Text("profile_followers".localized)
                 }
                 Toggle(isOn: $collectionLikes) {
-                    Text("Collection likes")
+                    Text("collection_likes".localized)
                 }
                 Toggle(isOn: $collectionFollowers) {
-                    Text("Collection followers")
+                    Text("collection_followers".localized)
                 }
                 Toggle(isOn: $commentLikes) {
-                    Text("Comment likes")
+                    Text("comment_likes".localized)
                 }
                 Toggle(isOn: $comments) {
-                    Text("Comments")
+                    Text("comments".localized)
                 }
                 Toggle(isOn: $commentReplies) {
-                    Text("Comment replies")
+                    Text("comment_replies".localized)
                 }
                 Toggle(isOn: $userMentionInComment) {
-                    Text("User mentioning you in comments")
+                    Text("user_mentioning_you_in_comments".localized)
                 }
                 Toggle(isOn: $newBooksCollection) {
-                    Text("New books showing up in collections you follow")
+                    Text("new_books_showing_up_in_collections_you_follow".localized)
                 }
                 Toggle(isOn: $youFollowBookUpdates) {
-                    Text("Book updates or collections created by users you follow")
+                    Text("updates_collections_from_followed_users".localized)
                 }
             }
             .tint(.mainColor)
@@ -62,7 +62,7 @@ struct NotificationSettingsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Notifications")
+                Text("notifications".localized)
                     .font(.poppinsBold(size: 20))
                     .foregroundColor(.customBlack)
             }

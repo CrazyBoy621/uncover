@@ -19,10 +19,10 @@ struct UnderConstructionView: View {
             }
             .edgesIgnoringSafeArea(.all)
             VStack(spacing: 11) {
-                Text(("Under Contruction").uppercased())
+                Text(("under_construction".localized).uppercased())
                     .font(.poppinsRegular(size: 28))
                     .foregroundColor(.customBlack)
-                Text("We’re doing necessery system updates. It may take a while. Sound like a great time to read a book instead!")
+                Text("under_construction_details".localized)
                     .foregroundColor(.darkGrey)
                     .font(.system(size: 16))
                     .lineSpacing(6)
@@ -31,7 +31,7 @@ struct UnderConstructionView: View {
                 Button {
                     
                 } label: {
-                    CustomLargeButton(title: "Retry", foreground: .white, background: .mainColor)
+                    CustomLargeButton(title: "retry".localized, foreground: .white, background: .mainColor)
                 }
                 .padding(.bottom, 36)
             }

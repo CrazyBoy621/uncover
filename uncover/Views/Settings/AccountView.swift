@@ -26,10 +26,10 @@ struct AccountView: View {
             }
             
             VStack(spacing: 24) {
-                ProfileCell("email", "Change email"){
+                ProfileCell("email".localized, "change_email".localized){
                     showChangeEmailView = true
                 }
-                ProfileCell("password", "Change password"){
+                ProfileCell("password".localized, "change_password".localized){
                     showChangePasswordView = true
                 }
             }
@@ -43,7 +43,7 @@ struct AccountView: View {
             } label: {
                 HStack(spacing: 10) {
                     Image(systemName: "rectangle.portrait.and.arrow.forward")
-                    Text("Deactivate the account")
+                    Text("deactivate_the_account".localized)
                     Spacer()
                 }
                 .foregroundColor(.customRed)
@@ -55,7 +55,7 @@ struct AccountView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Account")
+                Text("account".localized)
                     .font(.poppinsBold(size: 20))
                     .foregroundColor(.customBlack)
             }

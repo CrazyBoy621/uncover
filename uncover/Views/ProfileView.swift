@@ -39,7 +39,7 @@ struct ProfileView: View {
             }
             ToolbarItem(placement: .principal) {
                 VStack {
-                    Text("My Profile")
+                    Text("my_profile".localized)
                         .font(.system(size: 20, weight: .bold))
                 }
             }
@@ -60,15 +60,15 @@ struct ProfileView: View {
             Button {
                 
             } label: {
-                CustomButton(title: "Edit", foreground: .white, background: .customPink)
+                CustomButton(title: "edit".localized, foreground: .white, background: .customPink)
             }
             .frame(width: 120, height: 32)
             .padding(4)
             
             HStack(spacing: 16){
-                InfoView(count: 238, title: "Books")
-                InfoView(count: 89, title: "Followers")
-                InfoView(count: 15181, title: "Following")
+                InfoView(count: 238, title: "books".localized)
+                InfoView(count: 89, title: "followers".localized)
+                InfoView(count: 15181, title: "following".localized)
             }
             .padding(4)
             
@@ -91,7 +91,7 @@ struct ProfileView: View {
         @State var expanded = false
         
         VStack(alignment: .leading, spacing: 11) {
-            Text("Info")
+            Text("info")
                 .foregroundColor(.customBlack)
                 .font(.system(size: 20, weight: .heavy))
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -107,7 +107,7 @@ struct ProfileView: View {
                     isTextExpanded.toggle()
                 }
             } label: {
-                Text(isTextExpanded ? "Read less..." : "Read more...")
+                Text(isTextExpanded ? "read_less" : "read_more")
                     .foregroundColor(.lightGrey)
                     .font(.system(size: 14, weight: .heavy))
             }

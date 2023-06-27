@@ -52,7 +52,7 @@ struct SearchingView: View {
                     selectedTab = .books
                 }
             } label: {
-                Text("Books")
+                Text("books".localized)
                     .font(selectedTab == .books ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
                     .frame(height: 36, alignment: .leading)
                     .overlay(
@@ -69,7 +69,7 @@ struct SearchingView: View {
                     selectedTab = .collections
                 }
             } label: {
-                Text("Collections")
+                Text("collections".localized)
                     .font(selectedTab == .collections ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
                     .frame(height: 36, alignment: .leading)
                     .overlay(
@@ -86,7 +86,7 @@ struct SearchingView: View {
                     selectedTab = .tags
                 }
             } label: {
-                Text("Tags")
+                Text("tags".localized)
                     .font(selectedTab == .tags ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
                     .frame(height: 36, alignment: .leading)
                     .overlay(
@@ -103,7 +103,7 @@ struct SearchingView: View {
                     selectedTab = .users
                 }
             } label: {
-                Text("Users")
+                Text("users".localized)
                     .font(selectedTab == .users ? .poppinsBold(size: 16) : .poppinsMedium(size: 16))
                     .frame(height: 36, alignment: .leading)
                     .overlay(
@@ -123,7 +123,7 @@ struct SearchingView: View {
     @ViewBuilder func Books() -> some View {
         ScrollView {
             VStack(spacing: 24) {
-                Text("Popular new releases")
+                Text("popular_new_releases".localized)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.poppinsBold(size: 20))
                 
@@ -158,7 +158,7 @@ struct SearchingView: View {
     @ViewBuilder func Collections() -> some View {
         ScrollView {
             VStack(spacing: 24) {
-                Text("Popular collections")
+                Text("popular_collections".localized)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.poppinsBold(size: 20))
                 
@@ -179,7 +179,7 @@ struct SearchingView: View {
     @ViewBuilder func Tags() -> some View {
         ScrollView {
             VStack(spacing: 24) {
-                Text("Popular tags")
+                Text("popular_tags".localized)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.poppinsBold(size: 20))
                 
@@ -220,7 +220,7 @@ struct SearchingView: View {
     @ViewBuilder func Users() -> some View {
         ScrollView {
             VStack(spacing: 24) {
-                Text("Popular users")
+                Text("popular_users".localized)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.poppinsBold(size: 20))
                 
@@ -260,7 +260,7 @@ struct SearchingView: View {
             Button {
                 
             } label: {
-                Text(isFollowing ? "Following" : "Follow")
+                Text(isFollowing ? "following".localized : "follow".localized)
                     .font(.poppinsSemiBold(size: 14))
                     .foregroundColor(isFollowing ? .customPink : .white)
                     .frame(width: 80, height: 28)

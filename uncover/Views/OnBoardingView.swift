@@ -19,18 +19,18 @@ struct OnboardingView: View {
     private var onboardings = [
         Onboarding(
             image: "onboarding-1",
-            title: "Discover",
-            subtitle: "Search by favourite subject, author, title, or maybe plot elements – mix and match! Tags will make it easy for you. Just dive in other’s ideas and discover new titles."
+            title: "discover".localized,
+            subtitle: "onboarding_1_description".localized
         ),
         Onboarding(
             image: "onboarding-2",
-            title: "Book Collections",
-            subtitle: "Organize your reads. Save all your books on your bookish profile divided into your own categories. Be creative without any limits!"
+            title: "book_collections".localized,
+            subtitle: "onboarding_2_description".localized
         ),
         Onboarding(
             image: "onboarding-3",
-            title: "Recommendations",
-            subtitle: "Join a bookish community to stay up to date with book trends. Discuss your reads with other members and discover new books on a social feed!"
+            title: "recommendations".localized,
+            subtitle: "onboarding_3_description".localized
         )
     ]
     
@@ -58,7 +58,7 @@ struct OnboardingView: View {
                     }
                 }
             } label: {
-                CustomLargeButton(title: "Continue", foreground: .white, background: .mainColor)
+                CustomLargeButton(title: "continue".localized, foreground: .white, background: .mainColor)
             }
             .padding(.horizontal)
             .padding(.bottom)
@@ -66,7 +66,7 @@ struct OnboardingView: View {
             Button {
                 onboarding = false
             } label: {
-                Text("Skip")
+                Text("skip".localized)
                     .foregroundColor(.darkGrey)
                     .font(.system(size: 16, weight: .semibold))
             }

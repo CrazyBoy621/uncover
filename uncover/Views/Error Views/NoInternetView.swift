@@ -21,10 +21,10 @@ struct NoInternetView: View {
             }
             .edgesIgnoringSafeArea(.all)
             VStack(spacing: 11) {
-                Text(("No Internet").uppercased())
+                Text(("no_internet".localized).uppercased())
                     .font(.poppinsRegular(size: 28))
                     .foregroundColor(.customBlack)
-                Text("It seems like you don’t have a connection to the internet.")
+                Text("no_internet_details".localized)
                     .foregroundColor(.darkGrey)
                     .font(.system(size: 16))
                     .lineSpacing(6)
@@ -33,7 +33,7 @@ struct NoInternetView: View {
                 Button {
                     
                 } label: {
-                    CustomLargeButton(title: "Retry", foreground: .white, background: .mainColor)
+                    CustomLargeButton(title: "retry".localized, foreground: .white, background: .mainColor)
                 }
                 .padding(.bottom, 36)
             }

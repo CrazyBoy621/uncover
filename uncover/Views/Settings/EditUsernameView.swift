@@ -16,15 +16,15 @@ struct EditUsernameView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 8) {
-                Text("username".uppercased())
+                Text("username".localized.uppercased())
                     .font(.system(size: 12, weight: .bold))
                     .foregroundColor(.lightGrey)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 HStack {
-                    TextField("Username", text: $usernameValue)
+                    TextField("username".localized, text: $usernameValue)
                 }
                 Divider()
-                Text("Username has to be unique")
+                Text("username_has_to_be_unique")
                     .font(.system(size: 12, weight: .medium))
                     .foregroundColor(.backgroundGrey)
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -34,12 +34,12 @@ struct EditUsernameView: View {
                     Button {
                             presentationMode.wrappedValue.dismiss()
                     } label: {
-                        CustomButton(title: "Cancel", foreground: .softBlue, background: .white)
+                        CustomButton(title: "cancel".localized, foreground: .softBlue, background: .white)
                     }
                     Button {
                         
                     } label: {
-                        CustomButton(title: "Done", foreground: .white, background: .mainColor)
+                        CustomButton(title: "done".localized, foreground: .white, background: .mainColor)
                     }
 
                 }
@@ -51,7 +51,7 @@ struct EditUsernameView: View {
         .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("Edit username")
+                    Text("edit_username".localized)
                         .font(.poppinsBold(size: 20))
                         .foregroundColor(.customBlack)
                 }

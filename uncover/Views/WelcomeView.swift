@@ -177,11 +177,11 @@ struct WelcomeView: View {
             
             VStack(spacing: 20) {
                 VStack(spacing: 6) {
-                    Text("Welcome")
+                    Text("welcome".localized)
                         .font(.poppinsSemiBold(size: 28))
                         .foregroundColor(.customBlack)
                     
-                    Text("Enjoy sharing the books with others")
+                    Text("enjoy_sharing_books".localized)
                         .foregroundColor(.darkGrey)
                         .font(.poppinsRegular(size: 16))
                         .multilineTextAlignment(.center)
@@ -202,12 +202,12 @@ struct WelcomeView: View {
                         ContinueWith(imgName: "facebook", continueWith: "Facebook")
                     }
                     NavigationLink(destination: RegisterationView()) {
-                        CustomLargeButton(title: "Continue with e-mail", foreground: .white, background: .mainColor)
+                        CustomLargeButton(title: "continue_with_email".localized, foreground: .white, background: .mainColor)
                     }
                     Button {
                         login = false
                     } label: {
-                        Text("Explore as a guest")
+                        Text("explore_as_a_guest".localized)
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.mainColor.opacity(0.8))
                     }

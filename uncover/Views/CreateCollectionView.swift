@@ -59,7 +59,7 @@ struct CreateCollectionView: View {
                         }
                     }
                     ToolbarItem(placement: .principal) {
-                        Text("Create Collection")
+                        Text("create_collection".localized)
                             .font(.poppinsBold(size: 20))
                             .foregroundColor(.customBlack)
                     }
@@ -67,7 +67,7 @@ struct CreateCollectionView: View {
                         NavigationLink {
                             AddBooksToCollectionView()
                         } label: {
-                            Text("Next")
+                            Text("next".localized)
                                 .font(.poppinsSemiBold(size: 16))
                         }
                         
@@ -130,7 +130,7 @@ struct CollectionCard: View {
             }
             
             VStack {
-                TextEditorView(string: $collectionName, placeholder: "Write a title of your collection")
+                TextEditorView(string: $collectionName, placeholder: "write_a_title_of_collection".localized)
                     .font(.poppinsBold(size: 28))
                     .foregroundColor(.white)
                     .shadow(color: Color.white.opacity(0.3), radius: 4, x: 0, y: 4)
@@ -140,7 +140,7 @@ struct CollectionCard: View {
                 } label: {
                     HStack(spacing: 16) {
                         Image("empty-image")
-                        Text("Change background")
+                        Text("change_background".localized)
                             .font(.poppinsSemiBold(size: 16))
                             .foregroundColor(.white)
                     }
@@ -180,7 +180,7 @@ struct CollectionCard: View {
 struct ErrorWarning: View {
     var body: some View {
         HStack {
-            Text("Please name your collection")
+            Text("name_your_collection_alert".localized)
                 .font(.poppinsSemiBold(size: 16))
                 .foregroundColor(.customPink)
             Spacer()

@@ -18,17 +18,17 @@ struct InfoView: View {
                         guard let url = URL(string: "https://theuncoverapp.com/terms_of_use.html") else { return }
                         UIApplication.shared.open(url)
                     } label: {
-                        SettingCell("Terms of service")
+                        SettingCell("terms_of_service".localized)
                     }
                 }
                 Button {
                     guard let url = URL(string: "https://theuncoverapp.com/privacy_policy.html") else { return }
                     UIApplication.shared.open(url)
                 } label: {
-                    SettingCell("Privacy policy")
+                    SettingCell("privacy_policy".localized)
                 }
                 VStack(spacing: 8) {
-                    Title("find us")
+                    Title("find_us".localized)
                     Button {
                         guard let url = URL(string: "https://www.theuncoverapp.com") else { return }
                         UIApplication.shared.open(url)
@@ -37,20 +37,20 @@ struct InfoView: View {
                     }
                 }
                 VStack(spacing: 8) {
-                    Title("rate us")
+                    Title("rate_us".localized)
                     Button {
                         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                             SKStoreReviewController.requestReview(in: scene)
                         }
                     } label: {
-                        SettingCell("App Store")
+                        SettingCell("app_store".localized)
                     }
                 }
             }
             .padding(32)
             
             Divider()
-            Text("Version 1.2")
+            Text("app_version".localized)
                 .foregroundColor(.mainColor)
                 .font(.system(size: 16, weight: .medium))
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -61,7 +61,7 @@ struct InfoView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Info")
+                Text("info".localized)
                     .font(.poppinsBold(size: 20))
                     .foregroundColor(.customBlack)
             }

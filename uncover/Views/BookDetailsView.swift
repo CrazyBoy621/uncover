@@ -33,19 +33,19 @@ struct BookDetailsView: View {
                     Button {
                         
                     } label: {
-                        CustomOutlineButton(title: "Status", foregroundTextColor: .customPink, outlineColor: .customPink)
+                        CustomOutlineButton(title: "status".localized, foregroundTextColor: .customPink, outlineColor: .customPink)
                     }
                     Button {
                         
                     } label: {
-                        CustomButton(title: "Add", foreground: .white, background: .customPink)
+                        CustomButton(title: "add".localized, foreground: .white, background: .customPink)
                     }
                 }
                 
                 HStack(spacing: 16){
-                    InfoView(count: 145, title: "Collections")
-                    InfoView(count: 58, title: "Likes")
-                    InfoView(count: 5786, title: "Comments")
+                    InfoView(count: 145, title: "collections".localized)
+                    InfoView(count: 58, title: "likes".localized)
+                    InfoView(count: 5786, title: "comments".localized)
                 }
                 
                 DescriptionView()
@@ -173,7 +173,7 @@ struct BookDetailsView: View {
     
     @ViewBuilder func DescriptionView() -> some View {
         VStack(alignment: .leading, spacing: 11) {
-            Text("Description")
+            Text("description".localized)
                 .foregroundColor(.customBlack)
                 .font(.poppinsBold(size: 20))
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -190,7 +190,7 @@ struct BookDetailsView: View {
                         isDescriptionExpanded.toggle()
                     }
                 } label: {
-                    Text(isDescriptionExpanded ? "Read less..." : "Read more...")
+                    Text(isDescriptionExpanded ? "read_less" : "read_more")
                         .foregroundColor(.lightGrey)
                         .font(.system(size: 14, weight: .heavy))
                 }
@@ -203,7 +203,7 @@ struct BookDetailsView: View {
             Button {
                 
             } label: {
-                CollectionTitle(title: "Book tags")
+                CollectionTitle(title: "book_tags".localized)
             }
             
             (Text("#creepy")
@@ -230,7 +230,7 @@ struct BookDetailsView: View {
                 Button {
                     
                 } label: {
-                    Text("Add tag")
+                    Text("add_tag".localized)
                         .foregroundColor(.lightGrey)
                         .font(.system(size: 14, weight: .heavy))
                 }
@@ -242,7 +242,7 @@ struct BookDetailsView: View {
     @ViewBuilder func Comments() -> some View{
         VStack(spacing: 12) {
             HStack {
-                Text("Comments")
+                Text("comments".localized)
                     .foregroundColor(.customBlack)
                     .font(.poppinsSemiBold(size: 20))
                 Spacer()
@@ -278,7 +278,7 @@ struct BookDetailsView: View {
                     .background(Color.mainColor.cornerRadius(12))
             }
             
-            TextField("Add comment...", text: $commentText)
+            TextField("add_comment", text: $commentText)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 16)
                 .background(Color.containerGrey.cornerRadius(18)).overlay(

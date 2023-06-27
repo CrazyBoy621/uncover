@@ -16,15 +16,15 @@ struct EditNameView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 8) {
-                Text("name".uppercased())
+                Text("name".localized.uppercased())
                     .font(.system(size: 12, weight: .bold))
                     .foregroundColor(.lightGrey)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 HStack {
-                    TextField("Name", text: $nameValue)
+                    TextField("name".localized, text: $nameValue)
                 }
                 Divider()
-                Text("You can put here your full name or business name to help others to find your profile.")
+                Text("name_field_alert".localized)
                     .font(.system(size: 12, weight: .medium))
                     .foregroundColor(.backgroundGrey)
                     .multilineTextAlignment(.center)
@@ -34,12 +34,12 @@ struct EditNameView: View {
                     Button {
                         presentationMode.wrappedValue.dismiss()
                     } label: {
-                        CustomButton(title: "Cancel", foreground: .softBlue, background: .white)
+                        CustomButton(title: "cancel".localized, foreground: .softBlue, background: .white)
                     }
                     Button {
                         
                     } label: {
-                        CustomButton(title: "Done", foreground: .white, background: .mainColor)
+                        CustomButton(title: "done".localized, foreground: .white, background: .mainColor)
                     }
                     
                 }
@@ -51,7 +51,7 @@ struct EditNameView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Edit name")
+                Text("edit_name".localized)
                     .font(.poppinsBold(size: 20))
                     .foregroundColor(.customBlack)
             }

@@ -19,10 +19,10 @@ struct SomethingWentWrongView: View {
             }
             .edgesIgnoringSafeArea(.all)
             VStack(spacing: 11) {
-                Text("OOPS!")
+                Text("oops".localized)
                     .font(.poppinsRegular(size: 28))
                 .foregroundColor(.customBlack)
-                Text("Something went wrong :(")
+                Text("something_went_wrong".localized)
                     .foregroundColor(.darkGrey)
                     .font(.system(size: 16))
                     .multilineTextAlignment(.center)
@@ -30,7 +30,7 @@ struct SomethingWentWrongView: View {
                 Button {
                     
                 } label: {
-                    CustomLargeButton(title: "Back to Home", foreground: .white, background: .mainColor)
+                    CustomLargeButton(title: "back_to_home".localized, foreground: .white, background: .mainColor)
                 }
                 .padding(.bottom, 36)
             }

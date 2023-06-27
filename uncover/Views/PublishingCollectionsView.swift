@@ -50,7 +50,7 @@ struct PublishingCollectionsView: View {
                 Button {
                     NotificationCenter.default.post(name: Notification.Name("dismissPublishingCollectionsView"), object: nil)
                 } label: {
-                    Text("Done")
+                    Text("done".localized)
                         .font(.poppinsSemiBold(size: 16))
                 }
             }
@@ -95,22 +95,22 @@ struct PublishingCollectionsView: View {
     @ViewBuilder func SwitchToggles() -> some View {
         VStack(spacing: 32) {
             VStack(spacing: 4) {
-                GroupTitle(title: "preferences")
+                GroupTitle(title: "preferences".localized)
                 Toggle(isOn: $privateCollection) {
-                    Text("Set collections as private")
+                    Text("set_collections_private".localized)
                 }
                 .tint(.mainColor)
             }
             VStack {
-                GroupTitle(title: "bulk progress change")
+                GroupTitle(title: "bulk_progress_change".localized)
                 Toggle(isOn: $wantToRead) {
-                    Text("Mark all books as want to read")
+                    Text("mark_all_books_want_read".localized)
                 }
                 Toggle(isOn: $finished) {
-                    Text("Mark all books as finished")
+                    Text("mark_all_books_as_finished".localized)
                 }
                 Toggle(isOn: $started) {
-                    Text("Mark all books as started")
+                    Text("mark_all_books_as_started".localized)
                 }
             }
             .tint(.mainColor)
@@ -137,7 +137,7 @@ struct PublishingCollectionsView: View {
     
     @ViewBuilder func AddedBooks() -> some View {
         VStack(spacing: 24) {
-            GroupTitle(title: "added books (7)")
+            GroupTitle(title: String(format: "added_books_count".localized, 7))
             HStack (spacing: 16) {
                 WebImageView(url: URL(string: "https://s3-alpha-sig.figma.com/img/1443/1daf/d33da3b75615926327a5c71b7d812a3d?Expires=1687132800&Signature=Fdm4eeYhy-PG266wUmOKKNLLf3v3LZXT8hifYrBU8dYUs3DpigA0-Gt3x8vnocfTVMziPRZ1fGpe45FOzb6qV6i4RWnfn9iP43uL1Zs2bXNMQRc90ILS1KDdr7gCxBDfypeZUj-5BUSsyVA-G0U~dMDIZOpkSztb2GnT-NWycZfFwnA9aCj3nf3lpITRlQpEx4kSBzqLf1pBBM4-iHf1L28ZRnZibhLXVpGtSTcGaHemJZI-aFC7DK8PgnYv6Thhc~8KUplZ7JDMctRCLUhs9SFLLBfeiNdLbbO07tTSNj0kMti4dXMDCrLzynrSgAccN3GrGK0CxOFd-3W58xbf8Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"))
                     .frame(width: 80, height: 125)
@@ -155,7 +155,7 @@ struct PublishingCollectionsView: View {
                             
                         } label: {
                             HStack {
-                                Text("Status")
+                                Text("status".localized)
                                 Image(systemName: "chevron.down")
                             }
                             .font(.system(size: 14, weight: .bold))
@@ -195,7 +195,7 @@ struct PublishingCollectionsView: View {
     
     @ViewBuilder func CaptionView() -> some View {
         VStack(spacing: -12) {
-            TextEditorView(string: $captionTitle, placeholder: "Write caption", minHeight: 40, placeholderColor: .darkGrey)
+            TextEditorView(string: $captionTitle, placeholder: "write_caption", minHeight: 40, placeholderColor: .darkGrey)
                 .offset(x: start ? 8 : 0)
                 .onChange(of: captionTitle) { newValue in
                     let count = newValue.count - 396

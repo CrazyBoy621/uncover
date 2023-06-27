@@ -125,7 +125,7 @@ struct CollectionWithDescriptionView: View {
                     Image(systemName: "checkmark.circle.fill")
                         .renderingMode(.template)
                         .foregroundColor(Color.checkMarkColor)
-                    Text("\(readCount) of \(totalReadCount) read")
+                    Text(String(format: "read_count_of_read".localized, readCount, totalReadCount))
                 }
             }
             
@@ -139,16 +139,16 @@ struct CollectionWithDescriptionView: View {
                 .foregroundColor(.customBlack)
             
             HStack(spacing: 16) {
-                BookDetailInfo(title: "5786", subTitle: "Comments")
-                BookDetailInfo(title: "89", subTitle: "Likes")
-                BookDetailInfo(title: "57,7K", subTitle: "Followers")
+                BookDetailInfo(title: "5786", subTitle: "comments".localized)
+                BookDetailInfo(title: "89", subTitle: "likes".localized)
+                BookDetailInfo(title: "57,7K", subTitle: "followers".localized)
             }
             .padding(8)
             
             Button {
                 isFollowed.toggle()
             } label: {
-                CustomButton(title: "Follow", foreground: .white, background: .mainColor)
+                CustomButton(title: "follow".localized, foreground: .white, background: .mainColor)
                     .padding(.top, 8)
             }
         }

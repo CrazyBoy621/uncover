@@ -19,19 +19,19 @@ struct ChangePasswordView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 8) {
-                Text("old password".uppercased())
+                Text("old_password".localized.uppercased())
                     .font(.system(size: 12, weight: .bold))
                     .foregroundColor(.lightGrey)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                PasswordTextField("Old Password", value: $oldPassword, isSecure: $isOldPasswordSecure)
+                PasswordTextField("old_password".localized, value: $oldPassword, isSecure: $isOldPasswordSecure)
                 Divider()
                 
-                Text("new password".uppercased())
+                Text("new_password".localized.uppercased())
                     .font(.system(size: 12, weight: .bold))
                     .foregroundColor(.lightGrey)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 16)
-                PasswordTextField("New Password", value: $newPassword, isSecure: $isNewPasswordSecure)
+                PasswordTextField("new_password".localized, value: $newPassword, isSecure: $isNewPasswordSecure)
                 Divider()
                 
                 HStack(spacing: 16) {
@@ -39,12 +39,12 @@ struct ChangePasswordView: View {
                     Button {
                         presentationMode.wrappedValue.dismiss()
                     } label: {
-                        CustomButton(title: "Cancel", foreground: .softBlue, background: .white)
+                        CustomButton(title: "cancel".localized, foreground: .softBlue, background: .white)
                     }
                     Button {
                         
                     } label: {
-                        CustomButton(title: "Done", foreground: .white, background: .mainColor)
+                        CustomButton(title: "done".localized, foreground: .white, background: .mainColor)
                     }
                     
                 }
@@ -56,7 +56,7 @@ struct ChangePasswordView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Change Password")
+                Text("change_password".localized)
                     .font(.poppinsBold(size: 20))
                     .foregroundColor(.customBlack)
             }

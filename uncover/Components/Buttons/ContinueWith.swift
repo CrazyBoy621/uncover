@@ -13,7 +13,7 @@ struct ContinueWith: View {
     var body: some View {
         HStack(spacing: 24) {
             Image(imgName)
-            Text("Continue with \(continueWith)")
+            Text(String(format: "continue_with".localized, continueWith))
                 .foregroundColor(.customBlack)
             Spacer()
         }

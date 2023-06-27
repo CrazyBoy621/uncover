@@ -13,7 +13,7 @@ struct NotificationView: View {
         NavigationView {
             ScrollView {
                 LazyVStack {
-                    NotificationTitle(title: "New")
+                    NotificationTitle(title: "new".localized)
                     VStack(spacing: 12) {
                         LikedCollectionNotification(userImgURL: "https://shorturl.at/egvCO", userName: "Bekzod", collectionImgURL: "https://shorturl.at/tBDV4")
                         SharedCollectionNotification(userImgURL: "https://shorturl.at/egvCO", userName: "Bekzod", collectionImgURL: "https://shorturl.at/tBDV4")
@@ -21,7 +21,7 @@ struct NotificationView: View {
                     }
                     .padding(.bottom)
                     
-                    NotificationTitle(title: "Recent")
+                    NotificationTitle(title: "recent".localized)
                     VStack {
                         RepliedCommentInCollection(userImgURL: "https://shorturl.at/egvCO", userName: "Bekzod", collectionImgURL: "https://shorturl.at/tBDV4")
                         
@@ -43,7 +43,7 @@ struct NotificationView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     HStack(spacing: 8) {
-                        Text("Notification")
+                        Text("notification".localized)
                             .font(.poppinsExtraBold(size: 20))
                         Text("20+")
                             .font(.robotoMedium(size: 14))
@@ -78,12 +78,12 @@ struct NotificationView: View {
                 }
                 
                 VStack(spacing: 11) {
-                    Text("It's lonely here")
+                    Text("its_lonely_here".localized)
                         .font(.poppinsRegular(size: 28))
                     
                     VStack {
-                        Text("There is nothing here, yet :(")
-                        Text("Let’s find you some interesting collections to follow!")
+                        Text("there_is_nothing_here_yet".localized)
+                        Text("lets_find_out_collections".localized)
                     }
                     .foregroundColor(.darkGrey)
                     .multilineTextAlignment(.center)
@@ -94,7 +94,7 @@ struct NotificationView: View {
                 Button {
                     
                 } label: {
-                    CustomLargeButton(title: "Explore", foreground: .white, background: .mainColor)
+                    CustomLargeButton(title: "explore".localized, foreground: .white, background: .mainColor)
                         .padding(24)
                 }
             }
@@ -225,7 +225,7 @@ struct NotificationView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .multilineTextAlignment(.leading)
                 
-                CustomSmallButton(title: "Following", foreground: .customPink, background: .lightPink)
+                CustomSmallButton(title: "following".localized, foreground: .customPink, background: .lightPink)
             }
         }
     }
@@ -349,7 +349,7 @@ struct NotificationView: View {
                 Button {
                     
                 } label: {
-                    CustomSmallButton(title: "Follow", foreground: .white, background: .customPink)
+                    CustomSmallButton(title: "follow".localized, foreground: .white, background: .customPink)
                 }
             }
         }

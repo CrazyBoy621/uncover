@@ -54,7 +54,7 @@ struct RegisterationView: View {
                             }
                             password = ""
                         } label: {
-                            Text("Sign Up")
+                            Text("sign_up".localized)
                                 .font(.poppinsBold(size: 16))
                                 .foregroundColor(currentPage == .signin ? Color.lightGrey : Color.mainColor)
                         }
@@ -66,7 +66,7 @@ struct RegisterationView: View {
                             }
                             password = ""
                         } label: {
-                            Text("Log In")
+                            Text("login".localized)
                                 .font(.poppinsBold(size: 16))
                                 .foregroundColor(currentPage == .signup ? Color.lightGrey : Color.mainColor)
                         }
@@ -75,9 +75,9 @@ struct RegisterationView: View {
                     
                     VStack(spacing: 20) {
                         if currentPage == .signup {
-                            CustomTextField("Username", text: $username, isValidated: isUsernameValidated)
+                            CustomTextField("username".localized, text: $username, isValidated: isUsernameValidated)
                         }
-                        CustomTextField("Email", text: $email, isValidated: isEmailValidated)
+                        CustomTextField("email".localized, text: $email, isValidated: isEmailValidated)
                             .keyboardType(.emailAddress)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 15)
@@ -91,13 +91,13 @@ struct RegisterationView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.top, -16)
                         }
-                        CustomSecureField("Password", text: $password)
+                        CustomSecureField("password".localized, text: $password)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 15)
                                     .stroke(showPasswordAlert ? Color.customRed : Color.clear, lineWidth: 1)
                             )
                         if showPasswordAlert {
-                            Text("Password is required")
+                            Text("password_is_required".localized)
                                 .font(.poppinsRegular(size: 12))
                                 .foregroundColor(.customRed)
                                 .padding(.horizontal, 13)
@@ -137,7 +137,7 @@ struct RegisterationView: View {
                             
                             
                         } label: {
-                            CustomLargeButton(title: currentPage == .signup ? "Sign up" : "Sign in", foreground: .white, background: .mainColor)
+                            CustomLargeButton(title: currentPage == .signup ? "sign_up".localized : "login".localized, foreground: .white, background: .mainColor)
                         }
                         .padding(.top, 4)
                         
@@ -147,7 +147,7 @@ struct RegisterationView: View {
                                     showResetAlert = true
                                 }
                             } label: {
-                                Text("Forgot Password?")
+                                Text("forgot_password".localized)
                                     .foregroundColor(.softBlue)
                             }
                             .transition(.move(edge: .bottom))
@@ -164,11 +164,11 @@ struct RegisterationView: View {
                         
                         VStack(spacing: 24) {
                             VStack (spacing: 16) {
-                                Text("Reset password")
+                                Text("reset_password".localized)
                                     .font(.poppinsBold(size: 22))
                                     .foregroundColor(.customBlack)
                                 
-                                Text("Are you sure you want to reset a password?")
+                                Text("reset_password_alert".localized)
                                     .multilineTextAlignment(.center)
                                     .font(.poppinsMedium(size: 18))
                                     .foregroundColor(.darkGrey)
@@ -184,7 +184,7 @@ struct RegisterationView: View {
                                         .stroke(Color.mainColor, lineWidth: 1)
                                         .frame(width: 91, height: 35)
                                         .overlay(
-                                            Text("Cancel")
+                                            Text("cancel".localized)
                                                 .foregroundColor(.mainColor)
                                                 .font(.poppinsMedium(size: 16))
                                         )
@@ -197,7 +197,7 @@ struct RegisterationView: View {
                                         .fill(Color.mainColor)
                                         .frame(width: 91, height: 35)
                                         .overlay(
-                                            Text("Yes")
+                                            Text("yes".localized)
                                                 .foregroundColor(.white)
                                                 .font(.poppinsMedium(size: 16))
                                         )
@@ -257,11 +257,11 @@ struct RegisterationView: View {
                     }
                     
                     if email.isEmpty {
-                        emailAlertText = "Email address is required."
+                        emailAlertText = "email_address_required".localized
                         showEmailAlert = true
                     } else if !isEmailValidated {
                         print(email)
-                        emailAlertText = "You have to provide correct email address."
+                        emailAlertText = "provide_correct_email_address".localized
                         showEmailAlert = true
                     } else {
                         showEmailAlert = false

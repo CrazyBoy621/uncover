@@ -13,7 +13,7 @@ struct BooksCollectionView: View {
             Button {
                 
             } label: {
-                CollectionTitle(title: "Books")
+                CollectionTitle(title: "books".localized)
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack{

@@ -14,41 +14,41 @@ struct SettingsView: View {
                 NavigationLink {
                     EditProfileView()
                 } label: {
-                    SettingCell("square.and.pencil", "Edit Profile")
+                    SettingCell("square.and.pencil", "edit_profile".localized)
                 }
                 NavigationLink {
                     AccountView()
                 } label: {
-                    SettingCell("person.fill", "Account")
+                    SettingCell("person.fill", "account".localized)
                 }
                 NavigationLink {
                     NotificationSettingsView()
                 } label: {
-                    SettingCell("bell", "Notifications")
+                    SettingCell("bell", "notifications".localized)
                 }
                 Button {
                     
                 } label: {
-                    SettingCell("square.and.arrow.up", "Share Uncover with friends")
+                    SettingCell("square.and.arrow.up", "share_uncover_with_friends".localized)
                 }
                 Button {
                     
                 } label: {
-                    SettingCell("link", "Profile link")
+                    SettingCell("link", "profile_link".localized)
                 }
                 Button {
                     
                 } label: {
-                    SettingCell("folder.badge.plus", "Add missing book manually")
+                    SettingCell("folder.badge.plus", "add_missing_book_manually".localized)
                 }
                 Button {
                 } label: {
-                    SettingCell("questionmark.bubble", "Help")
+                    SettingCell("questionmark.bubble", "help".localized)
                 }
                 NavigationLink {
                     InfoView()
                 } label: {
-                    SettingCell("doc.text", "Info")
+                    SettingCell("doc.text", "info".localized)
                 }
             }
             .padding(.horizontal, 32)
@@ -60,7 +60,7 @@ struct SettingsView: View {
             Button {
                 
             } label: {
-                SettingCell("rectangle.portrait.and.arrow.forward", "Log out")
+                SettingCell("rectangle.portrait.and.arrow.forward", "log_out".localized)
                     .foregroundColor(.customRed)
                     .padding(.horizontal, 32)
                     .padding(.vertical, 20)
@@ -70,7 +70,7 @@ struct SettingsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Settings")
+                Text("settings".localized)
                     .font(.poppinsBold(size: 20))
                     .foregroundColor(.customBlack)
             }

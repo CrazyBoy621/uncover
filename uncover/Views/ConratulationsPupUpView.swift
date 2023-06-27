@@ -11,10 +11,10 @@ struct ConratulationsPupUpView: View {
     var body: some View {
         VStack(spacing: 32) {
             VStack(spacing: 20) {
-                Text("Conratulations")
+                Text("conratulations".localized)
                     .font(.poppinsRegular(size: 28))
                     .foregroundColor(.customBlack)
-                Text("You’ve accomplished to finish your yearly A-Z Challenge for 2022 by reading books for every letter of alphabet! ✨")
+                Text("conratulations_detail".localized)
                     .multilineTextAlignment(.center)
                     .font(.poppinsRegular(size: 16))
                     .foregroundColor(.darkGrey)
@@ -23,7 +23,7 @@ struct ConratulationsPupUpView: View {
             Button {
                 
             } label: {
-                Text("Go to your wrap-up")
+                Text("go_to_your_wrapup".localized)
                     .padding(.vertical)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(.white)
