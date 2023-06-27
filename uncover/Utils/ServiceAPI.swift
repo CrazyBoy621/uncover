@@ -14,7 +14,7 @@ class ServiceAPI {
     func getToken(completion:@escaping (String) -> ()){
         let token = UserDefaults.standard.string(forKey: "userIDToken") ?? ""
         print("TOKEN: ", token)
-        completion(token)
+        completion("FirebaseToken " + token)
     }
     
     func getInitialData(completion: @escaping(InitialDataResponse?, String?) -> ()) {
@@ -29,7 +29,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     completion(nil, error.localizedDescription)
@@ -116,7 +116,7 @@ class ServiceAPI {
                 var request = URLRequest(url: url, timeoutInterval: 8)
                 request.httpMethod = "POST"
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+                request.setValue(token, forHTTPHeaderField: "Authorization")
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
                     if let error = error {
                         completion(nil, error.localizedDescription)
@@ -169,7 +169,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -224,7 +224,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -271,7 +271,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -317,7 +317,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "PUT"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Construct the request body
             let requestBody: [String: Any] = [
@@ -376,7 +376,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [:]
@@ -433,7 +433,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -483,7 +483,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -529,7 +529,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -575,7 +575,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -634,7 +634,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -702,7 +702,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -748,7 +748,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Construct the request body
             var requestBody: [String: Any] = [
@@ -814,7 +814,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Construct the request body
             let requestBody: [String: Any] = [
@@ -868,7 +868,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -917,7 +917,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -958,7 +958,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Construct the request body
             let requestBody: [String: Any] = [
@@ -1012,7 +1012,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -1067,7 +1067,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -1114,7 +1114,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -1160,7 +1160,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "PUT"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Construct the request body
             let requestBody: [String: Any] = [
@@ -1228,7 +1228,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -1274,7 +1274,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -1333,7 +1333,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -1379,7 +1379,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -1439,7 +1439,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -1502,7 +1502,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -1554,7 +1554,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -1600,7 +1600,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "PUT"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             var data: [String: Any] = [
                 "title": title,
@@ -1671,7 +1671,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -1697,7 +1697,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let blockData = ["blocking_user_id": blockingUserID]
             do {
@@ -1732,7 +1732,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let blockData = ["blocking_user_id": blockingUserID]
             do {
@@ -1768,7 +1768,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -1817,7 +1817,7 @@ class ServiceAPI {
             
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -1872,7 +1872,7 @@ class ServiceAPI {
             
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "PATCH"
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -1924,7 +1924,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -1987,7 +1987,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -2033,7 +2033,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -2079,7 +2079,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -2138,7 +2138,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -2206,7 +2206,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -2252,7 +2252,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             var requestBody: [String: Any] = [
@@ -2318,7 +2318,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Construct the request body
             let requestBody: [String: Any] = [
@@ -2372,7 +2372,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -2418,7 +2418,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Construct the request body
             let requestBody: [String: Any] = [
@@ -2481,7 +2481,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -2541,7 +2541,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -2595,7 +2595,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -2655,7 +2655,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -2715,9 +2715,10 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                print(data?.prettyPrintedJSONString ?? "DATA")
                 if let error = error {
                     completion(nil, error.localizedDescription)
                     return
@@ -2727,7 +2728,7 @@ class ServiceAPI {
                     completion(nil, "Failed to get the data!")
                     return
                 }
-                
+                print(response.statusCode)
                 if response.statusCode == 200 {
                     do {
                         let value = try JSONDecoder().decode(HomeModuleListingResponse.self, from: data)
@@ -2762,7 +2763,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -2817,7 +2818,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -2872,7 +2873,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -2918,7 +2919,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Construct the request body
             let requestBody: [String: Any] = [
@@ -2973,7 +2974,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Construct the request body
             let requestBody: [String: Any] = [
@@ -3027,7 +3028,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Construct the request body
             let requestBody: [String: Any] = [
@@ -3081,7 +3082,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Construct the request body
             let requestBody: [String: Any] = [
@@ -3138,7 +3139,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -3183,7 +3184,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -3224,7 +3225,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -3283,7 +3284,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -3329,7 +3330,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "PUT"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -3388,7 +3389,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "PATCH"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -3447,7 +3448,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -3493,7 +3494,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -3539,7 +3540,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "PUT"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let requestBody: [String: Any] = [
                 "reaction": reaction
@@ -3606,7 +3607,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -3652,7 +3653,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let requestBody: [String: Any] = [
                 "user_id": userId
@@ -3710,7 +3711,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let requestBody: [String: Any] = [
                 "user_id": userId
@@ -3777,7 +3778,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -3823,7 +3824,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Construct the request body
             let requestBody: [String: Any] = [
@@ -3885,7 +3886,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -3926,7 +3927,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -3972,7 +3973,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     completion(nil, error.localizedDescription)
@@ -4017,7 +4018,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     completion(nil, error.localizedDescription)
@@ -4062,7 +4063,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     completion(nil, error.localizedDescription)
@@ -4107,7 +4108,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -4196,7 +4197,7 @@ class ServiceAPI {
                 var request = URLRequest(url: url, timeoutInterval: 8)
                 request.httpMethod = "GET"
                 request.setValue("application/json", forHTTPHeaderField: "accept")
-                request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+                request.setValue(token, forHTTPHeaderField: "Authorization")
                 
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
                     if let error = error {
@@ -4246,7 +4247,7 @@ class ServiceAPI {
                 var request = URLRequest(url: url, timeoutInterval: 8)
                 request.httpMethod = "POST"
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+                request.setValue(token, forHTTPHeaderField: "Authorization")
                 
                 var requestBody: [String: Any] = [
                     "firebase_uid": firebaseUid
@@ -4322,7 +4323,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let requestBody: [String: Any] = [
                 "email": email
@@ -4375,7 +4376,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let requestBody: [String: Any] = [
                 "username": username
@@ -4428,7 +4429,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let requestBody: [String: Any] = [
                 "username": username,
@@ -4483,7 +4484,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -4538,7 +4539,7 @@ class ServiceAPI {
                 var request = URLRequest(url: url, timeoutInterval: 8)
                 request.httpMethod = "PUT"
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+                request.setValue(token, forHTTPHeaderField: "Authorization")
                 
                 var requestBody: [String: Any] = [
                     "firebase_uid": firebaseUid
@@ -4623,7 +4624,7 @@ class ServiceAPI {
                 var request = URLRequest(url: url, timeoutInterval: 8)
                 request.httpMethod = "PATCH"
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+                request.setValue(token, forHTTPHeaderField: "Authorization")
                 
                 var requestBody: [String: Any] = [
                     "firebase_uid": firebaseUid
@@ -4699,7 +4700,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -4740,7 +4741,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let requestBody: [String: Any] = [
                 "blocking_user_id": blockingUserId
@@ -4793,7 +4794,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let requestBody: [String: Any] = [
                 "blocking_user_id": blockingUserId
@@ -4869,7 +4870,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -4928,7 +4929,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -4970,7 +4971,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -5017,7 +5018,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -5089,7 +5090,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -5141,7 +5142,7 @@ class ServiceAPI {
             
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             var requestBody: [String: Any] = [
@@ -5216,7 +5217,7 @@ class ServiceAPI {
             
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Create the request body data
             let requestBody: [String: Any] = [
@@ -5265,7 +5266,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -5315,7 +5316,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -5370,7 +5371,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -5425,7 +5426,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -5471,7 +5472,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -5517,7 +5518,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -5563,7 +5564,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -5604,7 +5605,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             // Construct the request body
             let requestBody: [String: Any] = [
@@ -5664,7 +5665,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -5718,7 +5719,7 @@ class ServiceAPI {
                 request.httpMethod = "PUT"
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.setValue("application/json", forHTTPHeaderField: "accept")
-                request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+                request.setValue(token, forHTTPHeaderField: "Authorization")
                 request.httpBody = jsonData
                 
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -5765,7 +5766,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "DELETE"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -5816,7 +5817,7 @@ class ServiceAPI {
             var request = URLRequest(url: url, timeoutInterval: 8)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(token, forHTTPHeaderField: "X-CSRFToken")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -5826,6 +5827,7 @@ class ServiceAPI {
                 
                 // Process the received data here
                 if let data = data {
+                    print("HOME MODULES DATA: ", data.prettyPrintedJSONString)
                     do {
                         let decoder = JSONDecoder()
                         let homeModules = try decoder.decode([HomeModuleListingResponse].self, from: data)

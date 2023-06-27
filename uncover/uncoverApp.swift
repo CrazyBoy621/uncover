@@ -16,8 +16,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         
-        FirebaseApp.configure()
-        
 #if DEBUG
         let filePath = Bundle.main.path(forResource: "GoogleService-Info-debug", ofType: "plist")!
         let options = FirebaseOptions(contentsOfFile: filePath)
@@ -73,9 +71,12 @@ struct uncoverApp: App {
             }
         }
         
-        if let currentUser = Auth.auth().currentUser {
-            let uid = currentUser.uid
-            UserDefaults.standard.set(uid, forKey: "userIDToken")
+        ServiceAPI.shared.postHomeModules { response, error in
+            if let response = response {
+                print("Home Module: ", response)
+            } else {
+                print("Home Module Error: ", error ?? "Error")
+            }
         }
     }
     

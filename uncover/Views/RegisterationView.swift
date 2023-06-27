@@ -120,18 +120,22 @@ struct RegisterationView: View {
                                 }
                             }
                             
-                            if isEmailValidated && isUsernameValidated && !password.isEmpty {
-                                print("Working on it")
-                                    if currentPage == .signup {
-                                        signUp(email: email, password: password) { response, error in
-                                            if let response = response {
-                                                print("SIGN UP RESPONSE: ", response)
-                                            }
+                            if currentPage == .signup {
+                                if isEmailValidated && isUsernameValidated && !password.isEmpty {
+                                    print("Working on it")
+                                    signUp(email: email, password: password) { response, error in
+                                        if let response = response {
+                                            print("SIGN UP RESPONSE: ", response)
                                         }
-                                    } else if currentPage == .signin {
-                                        signIn(email: email, password: password)
                                     }
                                 }
+                            } else if currentPage == .signin {
+                                if !email.isEmpty && !password.isEmpty {
+                                    signIn(email: email, password: password)
+                                }
+                            }
+                            
+                            
                         } label: {
                             CustomLargeButton(title: currentPage == .signup ? "Sign up" : "Sign in", foreground: .white, background: .mainColor)
                         }
