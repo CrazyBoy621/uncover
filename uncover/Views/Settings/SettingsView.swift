@@ -36,11 +36,12 @@ struct SettingsView: View {
                 } label: {
                     SettingCell("link", "profile_link".localized)
                 }
-                Button {
-                    
+                NavigationLink {
+                    AddMissingBookView()
                 } label: {
                     SettingCell("folder.badge.plus", "add_missing_book_manually".localized)
                 }
+
                 Button {
                 } label: {
                     SettingCell("questionmark.bubble", "help".localized)

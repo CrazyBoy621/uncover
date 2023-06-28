@@ -78,7 +78,7 @@ struct ChangePasswordView: View {
                     isSecure.wrappedValue.toggle()
                 }
             } label: {
-                Image(systemName: isSecure.wrappedValue ? "eye.slash" : "eye")
+                Image(isSecure.wrappedValue ? "eye-close" : "eye-open")
                     .foregroundColor(.lightGrey)
                     .padding(.trailing, 14)
             }

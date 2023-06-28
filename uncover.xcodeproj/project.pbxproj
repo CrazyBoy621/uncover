@@ -113,6 +113,7 @@
 		354677EA2A34A00F00E3511C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354677E92A34A00F00E3511C /* Constants.swift */; };
 		354677F92A368B2A00E3511C /* ChangeEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354677F82A368B2A00E3511C /* ChangeEmailView.swift */; };
 		354677FB2A368DC700E3511C /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354677FA2A368DC700E3511C /* ChangePasswordView.swift */; };
+		35794B972A4CC39D005DC45B /* AddMissingBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35794B962A4CC39D005DC45B /* AddMissingBookView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -216,6 +217,7 @@
 		354677E92A34A00F00E3511C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		354677F82A368B2A00E3511C /* ChangeEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailView.swift; sourceTree = "<group>"; };
 		354677FA2A368DC700E3511C /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		35794B962A4CC39D005DC45B /* AddMissingBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissingBookView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -460,6 +462,7 @@
 				1EED5CB82A3684E200062794 /* InfoView.swift */,
 				354677F82A368B2A00E3511C /* ChangeEmailView.swift */,
 				354677FA2A368DC700E3511C /* ChangePasswordView.swift */,
+				35794B962A4CC39D005DC45B /* AddMissingBookView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				1E25EE052A12AE5D006E44A5 /* CustomSmallButton.swift in Sources */,
 				1EED5CA22A35BD2700062794 /* PublishingCollectionsView.swift in Sources */,
 				1E15E67E2A2E0FCF00DDA179 /* RegistrationViewModel.swift in Sources */,
+				35794B972A4CC39D005DC45B /* AddMissingBookView.swift in Sources */,
 				1E2EA1112A140EE000BF21E3 /* BookDetailsView.swift in Sources */,
 				1E25EDA72A1108F9006E44A5 /* CustomButton.swift in Sources */,
 				1E2FEF632A0EBB3F004D9E9D /* uncoverApp.swift in Sources */,

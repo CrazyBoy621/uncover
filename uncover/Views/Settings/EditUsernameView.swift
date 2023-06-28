@@ -12,6 +12,7 @@ struct EditUsernameView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State var usernameValue: String
+    @State var isUsernameAvailable = true
     
     var body: some View {
         ScrollView {
@@ -22,11 +23,25 @@ struct EditUsernameView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 HStack {
                     TextField("username".localized, text: $usernameValue)
+                        .autocapitalization(.none)
+                        .onAppear{
+                            checkAvailability()
+                        }
+                        .onChange(of: usernameValue) { newValue in
+                            checkAvailability()
+                        }
+                    if isUsernameAvailable {
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.checkMarkColor)
+                            .padding(.trailing, 8)
+                    } else {
+                        Image("exclamation-mark")
+                    }
                 }
                 Divider()
-                Text("username_has_to_be_unique")
+                Text(isUsernameAvailable ? "username_has_to_be_unique".localized : "this_username_is_already_taken".localized)
                     .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(.backgroundGrey)
+                    .foregroundColor(isUsernameAvailable ? .backgroundGrey : .customRed)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 
                 HStack(spacing: 16) {
@@ -41,7 +56,6 @@ struct EditUsernameView: View {
                     } label: {
                         CustomButton(title: "done".localized, foreground: .white, background: .mainColor)
                     }
-
                 }
                 .padding(.top, 24)
             }
@@ -56,6 +70,21 @@ struct EditUsernameView: View {
                         .foregroundColor(.customBlack)
                 }
             }
+    }
+    
+    func checkAvailability() {
+        ServiceAPI.shared.checkUsernameAvailability(username: usernameValue) { response, error in
+            if let response = response {
+                print("Response: ", response)
+                withAnimation {
+                    isUsernameAvailable = response
+                }
+            } else {
+                withAnimation {
+                    isUsernameAvailable = false
+                }
+            }
+        }
     }
 }
 
