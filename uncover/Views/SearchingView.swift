@@ -134,7 +134,7 @@ struct SearchingView: View {
                                 GridItem(.flexible())
                             ], spacing: 10) {
                                 ForEach(1...20, id: \.self) { index in
-                                    BookCard(title: "Pet Semata", imgUrl: "https://shorturl.at/kxKLT")
+                                    BookCard(title: "Pet Sematary", imgUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSq5Y1xYI2e_Ww5z3Z0BN0dSQxKRSbiETs-rRrJKTzZ3WWFSHl7")
                                 }
                             }
                             .padding(.bottom, 106)
@@ -164,9 +164,9 @@ struct SearchingView: View {
                 
                 LazyVStack(spacing: 20) {
                     ForEach(1...10, id: \.self) { index in
-                        CollectionDeckView(title: "Juicy Books", username: "thisisparadise", collectionUrl: "https://shorturl.at/cBMU1", userAvatarUrl: "https://shorturl.at/euEST", rating: 99)
+                        CollectionDeckView(title: "Halloween reads", username: "Marry Shelley", collectionUrl: "https://hips.hearstapps.com/hmg-prod/images/halloween-books-1629065133.jpg", userAvatarUrl: "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcTbcDv4UIW6U5xvbQUGTiLjTObwcOu1siRgj8QmLr51RiDdqslShaBp6jvdwSS1qXdu4wvCHwZiS7GNfAs", rating: 99)
                         
-                        CollectionDeckView(title: "Halloween reads", username: "thisisbekzod", collectionUrl: "https://shorturl.at/ejqGM", userAvatarUrl: "https://shorturl.at/euEST", rating: 12934)
+                        CollectionDeckView(title: "Juicy Books", username: "Charles Dickens", collectionUrl: "https://www.realsimple.com/thmb/KrGb42aamhHKaMzWt1Om7U42QsY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/great-books-for-anytime-2000-4ff4221eb1e54b659689fef7d5e265d5.jpg", userAvatarUrl: "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcRg91sZUpmg92kMgbJyTzNiXuN7bK4HMgs68QiZifK5WUozc65W1VrnxmuXL8YaRHR-R8eBoeJv3VflDjw", rating: 12934)
                     }
                 }
                 .padding(.bottom, 106)
@@ -226,13 +226,13 @@ struct SearchingView: View {
                 
                 LazyVStack(spacing: 20) {
                     ForEach(1...10, id: \.self) { index in
-                        UserProfileView(profileImg: "https://shorturl.at/ouC28", userName: "bekzodrakhmatoff", fullName: "Bekzod Rakhmatov", isFollowing: false)
+                        UserProfileView(profileImg: "https://i1.rgstatic.net/ii/profile.image/818545696972801-1572167910559_Q512/Bekzod-Rakhmatov.jpg", userName: "bekzodrakhmatoff", fullName: "Bekzod Rakhmatov", isFollowing: false)
                         
                     }
                     
-                    UserProfileView(profileImg: "https://shorturl.at/dqxW5", userName: "reader0567", fullName: "", isFollowing: true)
+                    UserProfileView(profileImg: "https://static.thenounproject.com/png/574704-200.png", userName: "reader0567", fullName: "", isFollowing: true)
                     
-                    UserProfileView(profileImg: "https://shorturl.at/hju23", userName: "spicybooks", fullName: "Rue 👄", isFollowing: false)
+                    UserProfileView(profileImg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRed3Mp4juMXqsLDUBgVpdLW8EjnjRmtAetGg&usqp=CAU", userName: "spicybooks", fullName: "Rue 👄", isFollowing: false)
 
                 }
                 .padding(.bottom, 106)
