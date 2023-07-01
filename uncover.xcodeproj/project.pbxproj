@@ -115,8 +115,6 @@
 		354677F92A368B2A00E3511C /* ChangeEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354677F82A368B2A00E3511C /* ChangeEmailView.swift */; };
 		354677FB2A368DC700E3511C /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354677FA2A368DC700E3511C /* ChangePasswordView.swift */; };
 		356210EB2A4FFF5E00D08E87 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356210E92A4FFF5E00D08E87 /* ViewController.swift */; };
-		356210EC2A4FFF5E00D08E87 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 356210EA2A4FFF5E00D08E87 /* ViewController.xib */; };
-		356210EE2A4FFFF800D08E87 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356210ED2A4FFFF800D08E87 /* TestView.swift */; };
 		35794B972A4CC39D005DC45B /* AddMissingBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35794B962A4CC39D005DC45B /* AddMissingBookView.swift */; };
 		35794B992A4FF0DA005DC45B /* MyCurrentReadsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35794B982A4FF0DA005DC45B /* MyCurrentReadsView.swift */; };
 /* End PBXBuildFile section */
@@ -224,8 +222,6 @@
 		354677F82A368B2A00E3511C /* ChangeEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailView.swift; sourceTree = "<group>"; };
 		354677FA2A368DC700E3511C /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		356210E92A4FFF5E00D08E87 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		356210EA2A4FFF5E00D08E87 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
-		356210ED2A4FFFF800D08E87 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		35794B962A4CC39D005DC45B /* AddMissingBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissingBookView.swift; sourceTree = "<group>"; };
 		35794B982A4FF0DA005DC45B /* MyCurrentReadsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCurrentReadsView.swift; sourceTree = "<group>"; };
 		35794B9C2A4FF3BB005DC45B /* Amithen.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Amithen.ttf; sourceTree = "<group>"; };
@@ -423,8 +419,6 @@
 				1EED5CA12A35BD2700062794 /* PublishingCollectionsView.swift */,
 				1E9121E72A4AAD72001C3BF2 /* ConratulationsPupUpView.swift */,
 				356210E92A4FFF5E00D08E87 /* ViewController.swift */,
-				356210ED2A4FFFF800D08E87 /* TestView.swift */,
-				356210EA2A4FFF5E00D08E87 /* ViewController.xib */,
 				35794B9A2A4FF0DF005DC45B /* Wrap ups */,
 				1EED5CA92A36025D00062794 /* Settings */,
 				1E2EA10B2A138BCD00BF21E3 /* Error Views */,
@@ -605,7 +599,6 @@
 				1E25EDF82A129EA8006E44A5 /* Roboto-Light.ttf in Resources */,
 				1E2FEF672A0EBB42004D9E9D /* Assets.xcassets in Resources */,
 				1E25EDDB2A129257006E44A5 /* Poppins-BlackItalic.ttf in Resources */,
-				356210EC2A4FFF5E00D08E87 /* ViewController.xib in Resources */,
 				1E6855DF2A4614180039712E /* GoogleService-Info-debug.plist in Resources */,
 				1E6855EA2A461D3C0039712E /* no_internet_animation.json in Resources */,
 				1E6855EB2A461D3C0039712E /* progress_animation.json in Resources */,
@@ -665,7 +658,6 @@
 				1E2EA10D2A138C1600BF21E3 /* UnderConstructionView.swift in Sources */,
 				1EED5CB52A36757D00062794 /* AccountView.swift in Sources */,
 				1E6EC0BC2A15EE0B00DE6BFF /* ServiceAPI.swift in Sources */,
-				356210EE2A4FFFF800D08E87 /* TestView.swift in Sources */,
 				1E23EB6F2A0F528B004FADBF /* SearchView.swift in Sources */,
 				1E25EDE62A129634006E44A5 /* Font+.swift in Sources */,
 				1EED5CAD2A36132C00062794 /* EditProfileView.swift in Sources */,
