@@ -31,7 +31,7 @@ struct HomeView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 106)
         }
-        .navigationTitle("")
+        .navigationTitle("Home")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -45,6 +45,8 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        NavigationView {
+            HomeView()
+        }
     }
 }

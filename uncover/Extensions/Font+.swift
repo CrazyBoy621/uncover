@@ -32,4 +32,7 @@ extension Font {
     static func robotoRegular(size: CGFloat) -> Font {
         return Font.custom("Roboto-Regular", size: size)
     }
+    static func amithenRegular(size: CGFloat) -> Font {
+        return Font.custom("Amithen", size: size)
+    }
 }
