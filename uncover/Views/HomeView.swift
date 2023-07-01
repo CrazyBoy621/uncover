@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @StateObject private var viewModel = HomeViewModel()
+    
     var body: some View {
         ScrollView{
             VStack(spacing: 24){
@@ -30,6 +32,15 @@ struct HomeView: View {
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 106)
+        }
+        .onAppear{
+            viewModel.fetchCollectionFeed { response, error in
+                if let response = response {
+                    print("RESPONSE: ", response)
+                } else {
+                    print(error)
+                }
+            }
         }
         .navigationTitle("Home")
         .navigationBarTitleDisplayMode(.inline)
