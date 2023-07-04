@@ -2,7 +2,7 @@
 //  HomeViewModel.swift
 //  uncover
 //
-//  Created by Shohjahon Rakhmatov on 01/07/23.
+//  Created by Bekzod Rakhmatov on 01/07/23.
 //
 
 import Foundation

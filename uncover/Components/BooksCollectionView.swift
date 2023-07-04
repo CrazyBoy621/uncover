@@ -10,8 +10,8 @@ import SwiftUI
 struct BooksCollectionView: View {
     var body: some View {
         VStack(spacing: 16) {
-            Button {
-                
+            NavigationLink {
+                UserBooksView()
             } label: {
                 CollectionTitle(title: "books".localized)
             }

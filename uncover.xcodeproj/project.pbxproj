@@ -119,6 +119,8 @@
 		356210EB2A4FFF5E00D08E87 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356210E92A4FFF5E00D08E87 /* ViewController.swift */; };
 		35794B972A4CC39D005DC45B /* AddMissingBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35794B962A4CC39D005DC45B /* AddMissingBookView.swift */; };
 		35794B992A4FF0DA005DC45B /* MyCurrentReadsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35794B982A4FF0DA005DC45B /* MyCurrentReadsView.swift */; };
+		35F51EC32A54A8750072973D /* UserBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F51EC22A54A8750072973D /* UserBooksView.swift */; };
+		35F51EC52A54B0300072973D /* UserCollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F51EC42A54B0300072973D /* UserCollectionsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -228,7 +230,9 @@
 		356210E92A4FFF5E00D08E87 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		35794B962A4CC39D005DC45B /* AddMissingBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissingBookView.swift; sourceTree = "<group>"; };
 		35794B982A4FF0DA005DC45B /* MyCurrentReadsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCurrentReadsView.swift; sourceTree = "<group>"; };
-		35794B9C2A4FF3BB005DC45B /* Amithen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Amithen-Regular.ttf"; sourceTree = "<group>"; };
+		35F51EC22A54A8750072973D /* UserBooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBooksView.swift; sourceTree = "<group>"; };
+		35F51EC42A54B0300072973D /* UserCollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionsView.swift; sourceTree = "<group>"; };
+		35F51EC62A54B6450072973D /* amithen.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = amithen.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -411,6 +415,8 @@
 				1E2FEF7B2A0ECF24004D9E9D /* HomeView.swift */,
 				1E23EB6E2A0F528B004FADBF /* SearchView.swift */,
 				1E73FBAB2A1B83570079B45A /* SearchingView.swift */,
+				35F51EC22A54A8750072973D /* UserBooksView.swift */,
+				35F51EC42A54B0300072973D /* UserCollectionsView.swift */,
 				1E23EB732A0F662B004FADBF /* CollectionWithDescriptionView.swift */,
 				1E25EDA42A1103F0006E44A5 /* ProfileView.swift */,
 				1E25EE062A12B938006E44A5 /* NotificationView.swift */,
@@ -495,7 +501,7 @@
 		35794B9B2A4FF3AA005DC45B /* Amithen */ = {
 			isa = PBXGroup;
 			children = (
-				35794B9C2A4FF3BB005DC45B /* Amithen-Regular.ttf */,
+				35F51EC62A54B6450072973D /* amithen.ttf */,
 			);
 			path = Amithen;
 			sourceTree = "<group>";
@@ -661,6 +667,7 @@
 				1E73FBAC2A1B83570079B45A /* SearchingView.swift in Sources */,
 				1EBA683C2A2B53FE0086F406 /* CreateCollectionView.swift in Sources */,
 				1E73FBA62A1A1ADC0079B45A /* WelcomeView.swift in Sources */,
+				35F51EC32A54A8750072973D /* UserBooksView.swift in Sources */,
 				354677F92A368B2A00E3511C /* ChangeEmailView.swift in Sources */,
 				1E2EA10D2A138C1600BF21E3 /* UnderConstructionView.swift in Sources */,
 				1EED5CB52A36757D00062794 /* AccountView.swift in Sources */,
@@ -672,6 +679,7 @@
 				1E25EE052A12AE5D006E44A5 /* CustomSmallButton.swift in Sources */,
 				1EED5CA22A35BD2700062794 /* PublishingCollectionsView.swift in Sources */,
 				1E3A059D2A52E18B00A828E6 /* MonthReadsView.swift in Sources */,
+				35F51EC52A54B0300072973D /* UserCollectionsView.swift in Sources */,
 				1E15E67E2A2E0FCF00DDA179 /* RegistrationViewModel.swift in Sources */,
 				35794B972A4CC39D005DC45B /* AddMissingBookView.swift in Sources */,
 				1E2EA1112A140EE000BF21E3 /* BookDetailsView.swift in Sources */,

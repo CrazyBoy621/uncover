@@ -33,6 +33,6 @@ extension Font {
         return Font.custom("Roboto-Regular", size: size)
     }
     static func amithenRegular(size: CGFloat) -> Font {
-        return Font.custom("Amithen-Regular", size: size)
+        return Font.custom("amithen", size: size)
     }
 }
