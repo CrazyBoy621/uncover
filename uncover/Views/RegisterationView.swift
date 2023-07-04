@@ -333,30 +333,46 @@ struct RegisterationView: View {
     }
     
     func signIn(email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+        Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
             if let error = error {
-                print("Sign-in error: \(error.localizedDescription)")
+                // Handle error
+                print("Error logging in: \(error)")
             } else {
-                guard let user = authResult?.user else {
-                    print("User not found after sign-in")
-                    return
-                }
+                // Successfully logged in.
                 
-                // Retrieve the user's authentication tokens
-                user.getIDToken { token, error in
-                    if let error = error {
-                        print("Error retrieving user ID token: \(error.localizedDescription)")
-                    } else if let token = token {
-                        let userIDToken = token // User ID token
-                        print("User ID token: \(userIDToken)")
-                        UserDefaults.standard.set(userIDToken, forKey: "userIDToken")
-                        
+                // Step 3: Disregarding authResult.
+                
+                // Step 4: Setup interceptor for backend calls.
+                
+                // a: Get the instance of Firebase SDK
+                let auth = Auth.auth()
+                
+                // b: Retrieve current user
+                if let currentUser = auth.currentUser {
+                    
+                    // c: Get user token
+                    currentUser.getIDTokenForcingRefresh(false) { idToken, error in
+                        if let error = error {
+                            // Handle error
+                            print("Error getting ID Token: \(error)")
+                        } else {
+                            // You have your idToken here. Use it as you need to.
+                            let firebaseToken = idToken ?? ""
+                            print("Token: ", idToken)
+                            UserDefaults.standard.set(idToken, forKey: "userIDToken")
+                            
+                            // d: Add token as header to your backend call. This is pseudo code, adjust to your actual backend call.
+                            var request = URLRequest(url: URL(string: "https://yourbackend.com/endpoint")!)
+                            request.addValue("FirebaseToken \(firebaseToken)", forHTTPHeaderField: "Authorization")
+                            
+                            // Send the request ...
+                            
+                            // e: Store firebase user id
+                            let firebaseUid = currentUser.uid
+                            // Store firebaseUid as per your requirement
+                        }
                     }
                 }
-                
-                // Additional code after successful sign-in
-                
-                print("Sign-in successful")
             }
         }
     }

@@ -21,6 +21,8 @@ struct MyCurrentReadsView: View {
                         Text("My current read")
                             .font(.amithenRegular(size: 40))
                     )
+                    .padding(.top, 56)
+                
                 Spacer()
                 
                 ZStack {
@@ -31,17 +33,68 @@ struct MyCurrentReadsView: View {
                         .cornerRadius(10)
                         .shadow(color: .black.opacity(0.25), radius: 4, x: 4, y: 4)
                     
-                    VStack {
-                        Text("romanfce")
-                            .frame(width: 200)
-                            .font(.amithenRegular(size: 30))
-                            .minimumScaleFactor(0.1)
-                            .lineLimit(1)
-                            .foregroundColor(.customBlack)
-                        Image("arrow")
-                    }
-                    .offset(x: -120, y: -150)
+                    Image("arrow")
+                        .overlay(
+                            Text("romance")
+                                .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
+                                .font(.amithenRegular(size: 30))
+                                .minimumScaleFactor(0.1)
+                                .lineLimit(1)
+                                .foregroundColor(.customBlack)
+                                .padding(.leading, -20)
+                                .padding(.top, -30)
+                            , alignment: .topLeading
+                        )
+                        .offset(x: -120, y: -150)
+                    
+                    Image("arrow")
+                        .scaleEffect(x: -1, y: 1)
+                        .overlay(
+                            Text("spicy")
+                                .frame(width: UIScreen.main.bounds.width - 50, alignment: .trailing)
+                                .font(.amithenRegular(size: 30))
+                                .minimumScaleFactor(0.1)
+                                .lineLimit(1)
+                                .foregroundColor(.customBlack)
+                                .padding(.trailing, -20)
+                                .padding(.top, -30)
+                            , alignment: .topTrailing
+                        )
+                        .offset(x: 110, y: -100)
+                    
+                    Image("arrow")
+                        .scaleEffect(x: -1, y: 1)
+                        .rotationEffect(Angle(degrees: 180))
+                        .overlay(
+                            Text("grumpyandsunsinetrope")
+                                .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
+                                .font(.amithenRegular(size: 30))
+                                .minimumScaleFactor(0.1)
+                                .lineLimit(1)
+                                .foregroundColor(.customBlack)
+                                .padding(.leading, -20)
+                                .padding(.bottom, -30)
+                            , alignment: .bottomLeading
+                        )
+                        .offset(x: -120, y: 150)
+                    
+                    Image("arrow")
+                        .rotationEffect(Angle(degrees: 173))
+                        .overlay(
+                            Text("fakedating")
+                                .frame(width: UIScreen.main.bounds.width - 50, alignment: .trailing)
+                                .font(.amithenRegular(size: 30))
+                                .minimumScaleFactor(0.1)
+                                .lineLimit(1)
+                                .foregroundColor(.customBlack)
+                                .padding(.trailing, -20)
+                                .padding(.bottom, -30)
+                            , alignment: .bottomTrailing
+                        )
+                        .offset(x: 110, y: 100)
                 }
+                .padding(.top, -56)
+                
                 Spacer()
             }
         }

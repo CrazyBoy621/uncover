@@ -68,8 +68,8 @@
 		<string>Roboto-MediumItalic.ttf</string>
 		<string>Roboto-Regular.ttf</string>
 		<string>Roboto-Thin.ttf</string>
-        <string>Roboto-ThinItalic.ttf</string>
-		<string>Amithen.ttf</string>
+		<string>Roboto-ThinItalic.ttf</string>
+		<string>Amithen-Regular.ttf</string>
 	</array>
 	<key>uncover</key>
 	<string>uncover</string>
