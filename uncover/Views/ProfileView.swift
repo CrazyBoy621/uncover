@@ -18,7 +18,7 @@ struct ProfileView: View {
     @State var isTextExpanded = false
     
     var body: some View {
-        ScrollView{
+        ScrollView(showsIndicators: false) {
             TopProfileView()
             Divider()
             BottomProfileView()
@@ -80,11 +80,56 @@ struct ProfileView: View {
     @ViewBuilder func BottomProfileView() -> some View{
         VStack(spacing: 24){
             InfoTextView()
-            BooksCollectionView()
-            CollectionsView()
+            Group {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        NavigationLink {
+                            MyCurrentReadsView()
+                        } label: {
+                            WrapupCard("Currently reading", "currently-reading")
+                        }
+                        
+                        NavigationLink {
+                            AtoZChallengeView()
+                        } label: {
+                            WrapupCard("2023 A-Z Challenge", "a-to-z")
+                        }
+
+                        NavigationLink {
+                            MonthReadsView()
+                        } label: {
+                            WrapupCard("March Wrap up", "march-reads")
+                        }
+                        
+                    }
+                    .padding(.horizontal)
+                }
+                BooksCollectionView()
+                CollectionsView()
+            }
+                .padding(.horizontal, -16)
         }
-        .padding(12)
+        .padding(16)
         .frame(maxWidth: .infinity)
+    }
+    
+    @ViewBuilder func WrapupCard(_ title: String, _ imageUrl: String) -> some View {
+        VStack(spacing: 8) {
+//            WebImageView(url: URL(string: imageUrl))
+            Image(imageUrl)
+                .resizable()
+                .frame(width: 80, height: 80)
+                .aspectRatio(contentMode: .fill)
+                .shadow(color: .black.opacity(0.1), radius: 2, x: 2, y: 2)
+            
+            Text(title)
+                .foregroundColor(.customBlack)
+                .font(.system(size: 14))
+                .fixedSize(horizontal: false, vertical: true)
+                .lineLimit(nil)
+                .multilineTextAlignment(.center)
+                .frame(width: 80)
+        }
     }
     
     @ViewBuilder func InfoTextView() -> some View {

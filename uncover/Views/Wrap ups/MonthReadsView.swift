@@ -31,7 +31,7 @@ struct MonthReadsView: View {
             VStack {
                 ZStack {
                     Image("monthly-reads-title-bg")
-                    Text("March Reads")
+                    Text("march_reads".localized)
                         .font(.amithenRegular(size: 42))
                         .foregroundColor(.customBlack)
                 }

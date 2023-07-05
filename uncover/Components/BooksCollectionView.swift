@@ -15,6 +15,7 @@ struct BooksCollectionView: View {
             } label: {
                 CollectionTitle(title: "books".localized)
             }
+            .padding(.horizontal, 16)
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack{
                     ForEach(0..<20) { Index in
@@ -25,7 +26,8 @@ struct BooksCollectionView: View {
                             .cornerRadius(8)
                     }
                 }
-            .frame(height: 166)
+                .padding(.horizontal, 16)
+                .frame(height: 166)
             }
         }
     }

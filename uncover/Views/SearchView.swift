@@ -73,6 +73,7 @@ struct SearchView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     @ViewBuilder func SearchView() -> some View{

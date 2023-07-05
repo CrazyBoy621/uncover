@@ -55,7 +55,7 @@ struct AtoZChallengeView: View {
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 32) {
-                    Text("2023\nA-Z challenge")
+                    Text("a_to_z_challenge".localized)
                         .font(.amithenRegular(size: 34))
                         .multilineTextAlignment(.center)
                     LazyVGrid(columns: columns, spacing: 10) {

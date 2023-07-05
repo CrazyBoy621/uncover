@@ -15,6 +15,7 @@ struct CollectionsView: View {
             } label: {
                 CollectionTitle(title: "collections".localized)
             }
+            .padding(.horizontal, 16)
            
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 8) {
@@ -22,6 +23,7 @@ struct CollectionsView: View {
                         CollectionCard()
                     })
                 }
+                .padding(.horizontal, 16)
                 .padding(.bottom, 18)
             }
         }

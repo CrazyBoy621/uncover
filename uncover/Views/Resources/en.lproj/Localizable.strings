@@ -171,3 +171,6 @@
 "isbn10_input_placeholder" = "Add book ISBN10 code";
 "isbn13_input" = "ISBN13 (Optional)";
 "isbn13_input_placeholder" = "Add book ISBN13 code";
+"my_current_read" = "My current read";
+"a_to_z_challenge" = "2023\nA-Z challenge";
+"march_reads" = "March Reads";

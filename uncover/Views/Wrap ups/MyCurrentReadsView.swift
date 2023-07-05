@@ -18,7 +18,7 @@ struct MyCurrentReadsView: View {
             VStack(spacing: 56) {
                 Image("text-background")
                     .overlay(
-                        Text("My current read")
+                        Text("my_current_read".localized)
                             .font(.amithenRegular(size: 40))
                     )
                     .padding(.top, 56)

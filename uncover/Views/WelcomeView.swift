@@ -201,7 +201,7 @@ struct WelcomeView: View {
                     Button { } label: {
                         ContinueWith(imgName: "facebook", continueWith: "Facebook")
                     }
-                    NavigationLink(destination: RegisterationView()) {
+                    NavigationLink(destination: EmailRegistrationView()) {
                         CustomLargeButton(title: "continue_with_email".localized, foreground: .white, background: .mainColor)
                     }
                     Button {
